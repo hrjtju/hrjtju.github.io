@@ -12,6 +12,8 @@ Follows the Coursera Specialization
 
 ## Introduction to Reinforcement Learning
 
+Follows the book *easyRL* as well as Coursera RL specialization by Alberta Univ.
+
 * [Intro to RL](./deepreinforcementlearning/drl.md)
 * 
 
