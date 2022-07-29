@@ -19,6 +19,8 @@ Follows the book *easyRL* as well as Coursera RL specialization by Alberta Univ.
 
 ## Linear Algebra Insight
 
+Follows the MIT course
+
 * 
 
 
