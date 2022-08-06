@@ -48,21 +48,32 @@ As shown above, we successfully break large numbers into small ones. When faces 
 
 
 
+In general, consider multiplication done on two integers $d_1d_2...d_{2^n}$ and $f_1f_2...f_{2^n}$ with length $2^n$, we can recursively compute 
+$$
+\begin{align}
+
+&d_1d_2...d_{2^n} \times f_1f_2...f_{2^n}\\
+= &(d_1..d_{2^{n-1}} \times f_1..f_{2^{n-1}}) \cdot 10^{2^n} + \\
+& (d_1..d_{2^{n-1}} \times f_{2^{n-1}+1}..f_{2^{n}} + d_1..d_{2^{n-1}} \times f_{2^{n-1}+1}..f_{2^{n}})\cdot 10^{2^{n-1}} + \\
+& (d_1..d_{2^{n-1}} \times f_{2^{n-1}+1}..f_{2^{n}})
+
+\end{align}
+$$
+
+
+## 3 Gauss’ Trick
 
 
 
+When doing muptiplication
+$$
+x\cdot y = (ac)\times10^{2^n} + (ad + bc) \times 10^{2^{n-1}} + (bd)
+$$
 
 
-
-
-
-
-
-
-
-3 
-
-
+* Recursively compute $ac$
+* Recursively compute $bd$
+* Recursively compute $(a + b)(c + d)$
 
 
 
