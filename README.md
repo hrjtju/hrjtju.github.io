@@ -4,7 +4,7 @@ Follows the Coursera Specialization
 
 
 
-* [1_Intro](./algorithms/1_Intro.md)
+* [1_Intro](./algorithms/1_Intro.html)
 * [2_Asymptotic_Analysis](./algorithms/2_Asymptotic_Analysis.md)
 * [3__Matrix_Multiplication](./algorithms/3__Matrix_Multiplication.md)
 * [3_Basic_sorting_algorithms](./algorithms/3_Basic_sorting_algorithms.md)

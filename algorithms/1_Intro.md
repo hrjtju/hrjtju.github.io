@@ -44,7 +44,9 @@ Then we can rewrite the term on the right of the equation as
 $$
 1234\times 5678 = (12\times56)\cdot 10^4 + (12\times 78 + 34\times56)\cdot 10^2 + (34\times78)\cdot 10^0.
 $$
-As shown
+As shown above, we successfully break large numbers into small ones. When faces with long numbers, we can break them into four pieces. when they need to multiplicate, we have the same problem to solve, but much smaller. So we just carry out the same process. This is called **recursive calls**.
+
+
 
 
 
