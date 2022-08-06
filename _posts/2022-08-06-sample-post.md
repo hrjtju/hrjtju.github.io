@@ -52,6 +52,8 @@ Let’s take four digits as example: $1234\times5678$. We know that
 $$
 1234 \times 5678 = (12 \cdot 10^2 + 34\cdot 10^0) \times (56 \cdot 10^2 + 78\cdot 10^0).
 $$
+
+
 Then we can rewrite the term on the right of the equation as
 
 
@@ -65,6 +67,8 @@ As shown above, we successfully break large numbers into small ones. When faces 
 
 
 In general, consider multiplication done on two integers $d_1d_2...d_{2^n}$ and $f_1f_2...f_{2^n}$ with length $2^n$, we can recursively compute 
+
+
 $$
 \begin{align}
 
@@ -77,14 +81,19 @@ $$
 $$
 
 
+
 ## 3 Gauss’ Trick
 
 
 
 When doing muptiplication
+
+
 $$
 x\cdot y = (ac)\times10^{2^n} + (ad + bc) \times 10^{2^{n-1}} + (bd)
 $$
+
+
 
 
 * Recursively compute $ac$
