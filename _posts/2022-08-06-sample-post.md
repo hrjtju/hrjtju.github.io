@@ -20,7 +20,7 @@ We have learned traditional way to **multiplicate two integers** as follows:
 
 
 
-Now let us consider the times of multiplications when inputs are integers with equal length $n$. As each step we take a digit below and multiplicate with a digit above, until we are done with all the digits above, then we take a digit that is adjacent to the digit below that we just took for multiplication. It is apparent that **we will do $n^2$ times of multiplications**.
+Now let us consider the times of multiplications when inputs are integers with equal length $n$. As each step we take a digit below and multiplicate with a digit above, until we are done with all the digits above, then we take a digit that is adjacent to the digit below that we just took for multiplication. It is apparent that **we will do $$n^2$$ times of multiplications**.
 
 
 
@@ -44,9 +44,9 @@ Now let us consider the times of multiplications when inputs are integers with e
 
 
 
-We know that handling multiplications with long digits is quite hard not to make mistakes during the process above, but we can do simple multiplications like $21 \times 67$ well. Can we just ‘break’ the long digits into smaller ones that we can easily handle and get she same result as the school method but with less amount of work?
+We know that handling multiplications with long digits is quite hard not to make mistakes during the process above, but we can do simple multiplications like $$21 \times 67$$ well. Can we just ‘break’ the long digits into smaller ones that we can easily handle and get she same result as the school method but with less amount of work?
 
-Let’s take four digits as example: $1234\times5678$. We know that
+Let’s take four digits as example: $$1234\times5678$$. We know that
 
 
 $$
@@ -66,7 +66,9 @@ As shown above, we successfully break large numbers into small ones. When faces 
 
 
 
-In general, consider multiplication done on two integers $d_1d_2...d_{2^n}$ and $f_1f_2...f_{2^n}$ with length $2^n$, we can recursively compute 
+In general, consider multiplication done on two integers $$d_1d_2...d_{2^n}$$ and $$f_1f_2...f_{2^n}$$ with length $$2^n$$, we can recursively compute 
+
+
 
 
 $$
@@ -79,6 +81,8 @@ $$
 
 \end{align}
 $$
+
+
 
 
 
@@ -96,9 +100,9 @@ $$
 
 
 
-* Recursively compute $ac$
-* Recursively compute $bd$
-* Recursively compute $(a + b)(c + d)$
+* Recursively compute $$ac$$
+* Recursively compute $$bd$$
+* Recursively compute $$(a + b)(c + d)$$
 
 
 
