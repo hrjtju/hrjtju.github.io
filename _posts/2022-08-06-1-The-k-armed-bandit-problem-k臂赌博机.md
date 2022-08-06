@@ -1,8 +1,8 @@
 ---
 layout: post
 categories: posts
-title: 1-The-k\-armed-bandit-problem-k臂赌博机
-subtitle: Intro to the "Big-Oh" notation
+title: 1 The k-armed bandit problem, k臂赌博机
+subtitle: Intro to RL and k-armed bandit problem
 featured-image: /images/2022-08-06/books.jpg
 tags: [Reinforcement Learning]
 date-string: AUGUST 06, 2022
