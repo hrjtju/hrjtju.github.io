@@ -1,6 +1,6 @@
 title:            拟身怪的技术栈
 description:      Your site description...
-copyright:        Your Name
+copyright:        RJ He
 url: https://hrjtju.github.io # add your custom site url (format: https://example.com)
 
 
@@ -20,7 +20,7 @@ sass:
 permalink: /:categories/:year-:month-:day/:title.html
 
 # Amount of post to show on home page
-paginate: 5
+paginate: 10
 
 #kramdown:
 #  input: GFM
