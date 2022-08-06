@@ -84,6 +84,33 @@ $$
 
 
 
+**Code in Python**
+
+```python
+def multiply(a:str, b:str):
+    
+    if int(a) < 10 and int(b) < 10:
+        
+        return str(int(a) * int(b))
+    
+    else:
+        # print(len(str(a)), len(str(b)))
+        taga = len(a) // 2
+        tagb = len(b) // 2
+        a1, a2 = a[:taga], a[tagb:]
+        b1, b2 = b[:taga], b[tagb:]
+        
+        ka = 10 ** (taga)
+        kb = 10 ** (tagb)
+        
+        a1b1 = multiply(a1, b1)
+        a2b2 = multiply(a2, b2)
+        a1b2 = multiply(a1, b2)
+        a2b1 = multiply(a2, b1)
+        
+        return str(ka * kb * int(a1b1) + int(a2b2) + ka * int(a1b2) + kb * int(a2b1))
+```
+
 
 
 ## 3 Gauss’ Trick
