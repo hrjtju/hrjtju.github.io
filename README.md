@@ -4,9 +4,11 @@ Follows the Coursera Specialization
 
 
 
-* Basic Sorting Algorithms
-* Introduction to Asymptotic Analysis
-* Master Method
+* [1_Intro](./algorithms/1_Intro.md)
+* [2_Asymptotic_Analysis](./algorithms/2_Asymptotic_Analysis.md)
+* [3__Matrix_Multiplication](./algorithms/3__Matrix_Multiplication.md)
+* [3_Basic_sorting_algorithms](./algorithms/3_Basic_sorting_algorithms.md)
+* [4_Master_Method](./algorithms/4_Master_Method.md)
 
 
 
