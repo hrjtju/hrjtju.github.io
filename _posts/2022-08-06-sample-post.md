@@ -16,7 +16,7 @@ We have learned traditional way to **multiplicate two integers** as follows:
 
 
 
-<img src="2016-11-20-sample-post.assets/image-20220806184639081.png" alt="image-20220806184639081" style="zoom:25%;" />
+<img src="../images/2022-08-06-sample-post/image-20220806192109803-16597895074151.png" zoom="70%">
 
 
 
