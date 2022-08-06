@@ -15,7 +15,7 @@ date-string: AUGUST 06, 2022
 
 
 
-> Reinforcement Learning is to choose **a series of actions** to maximize the **total expected reward**, By **trial and error**, under **uncertainty**.
+> Reinforcement Learning is to choose **a series of actions** to maximize the **total expected reward**, by **trial and error**, under **uncertainty**.
 
 
 
