@@ -1,11 +1,11 @@
 ---
 layout: post
 categories: posts
-title: Sample Post
-subtitle: This is a test post.
+title: 1 Intro
+subtitle: Intro to algorithms and Karatsuba Multiplication.
 featured-image: /images/2016-11-19/abstract-1.jpg
 tags: [sample post]
-date-string: NOVEMBER 20, 2016
+date-string: AUGUST 06, 2022
 ---
 
 Below is just about everything you'll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
