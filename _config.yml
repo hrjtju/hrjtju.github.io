@@ -1,7 +1,7 @@
-title:            Slate+Simple Jekyll Theme
+title:            拟身怪的技术栈
 description:      Your site description...
 copyright:        Your Name
-url: # add your custom site url (format: https://example.com)
+url: https://hrjtju.github.io # add your custom site url (format: https://example.com)
 
 
 future:      false  # publish future dated posts --  true, false (default)
