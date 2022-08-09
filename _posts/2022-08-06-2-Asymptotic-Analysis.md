@@ -4,7 +4,7 @@ categories: posts
 title: 2 Asymptotic Analysis
 subtitle: Intro to the "Big-Oh" notation
 featured-image: /images/2022-08-06/books.jpg
-tags: [algorithms]
+tags: [Algorithms]
 date-string: AUGUST 06, 2022
 ---
 
