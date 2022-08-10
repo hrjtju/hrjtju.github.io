@@ -11,6 +11,8 @@ date-string: AUGUST 10, 2022
 
 # SimpleRL: Simple Reinforcement Learning with Tensorflow Part 1.5: Contextual Bandits
 
+source: https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c
+
 <img src="../images/2022-08-10/image-20220810092249860.png" alt="image-20220810092249860" style="zoom:50%;" />
 
 
