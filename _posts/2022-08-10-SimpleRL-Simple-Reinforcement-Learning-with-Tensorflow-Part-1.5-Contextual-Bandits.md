@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: posts
-title: Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits
+title: 【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits
 featured-image: /images/2022-08-10/image-20220810092416819.png
 tags: [Reinforcement Learning]
 date-string: AUGUST 10, 2022
@@ -10,7 +10,7 @@ date-string: AUGUST 10, 2022
 
 
 
-# SimpleRL: Simple Reinforcement Learning with Tensorflow Part 1.5: Contextual Bandits
+
 
 source: https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c
 
