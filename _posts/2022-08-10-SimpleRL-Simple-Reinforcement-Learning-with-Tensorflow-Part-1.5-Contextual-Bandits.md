@@ -6,7 +6,6 @@ featured-image: /images/2022-08-10/image-20220810092416819.png
 tags: [Reinforcement Learning]
 date-string: AUGUST 10, 2022
 
-
 ---
 
 
@@ -15,11 +14,11 @@ date-string: AUGUST 10, 2022
 
 source: https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c
 
-<img src="../../../images/2022-08-10/image-20220810092249860.png" alt="image-20220810092249860" style="zoom:50%;" />
+<img src="/images/2022-08-10/image-20220810092249860.png" alt="image-20220810092249860" style="zoom:50%;" />
 
 
 
-<img src="../../../images/2022-08-10/image-20220810092416819.png" alt="image-20220810092416819" style="zoom:50%;" />
+<img src="/images/2022-08-10/image-20220810092416819.png" alt="image-20220810092416819" style="zoom:50%;" />
 
 
 
@@ -31,7 +30,7 @@ There is actually a set of problems in-between the stateless situation and the f
 
 
 
-<img src="../images/2022-08-10/image-20220810094849088.png" alt="image-20220810094849088" style="zoom:50%;" />
+<img src="/images/2022-08-10/image-20220810094849088.png" alt="image-20220810094849088" style="zoom:50%;" />
 
 
 
