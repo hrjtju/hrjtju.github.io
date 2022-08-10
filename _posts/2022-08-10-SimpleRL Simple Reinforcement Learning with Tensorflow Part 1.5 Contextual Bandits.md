@@ -5,6 +5,7 @@ title: Simple Reinforcement Learning with Tensorflow Part 1.5: Contextual Bandit
 featured-image: /images/2022-08-10/image-20220810092416819.png
 tags: [Reinforcement Learning]
 date-string: AUGUST 10, 2022
+
 ---
 
 
@@ -188,6 +189,4 @@ If this post has been valuable to you, please consider [*donating*](https://www.
 
 If you’d like to follow my work on Deep Learning, AI, and Cognitive Science, follow me on Medium @
 
-[Arthur Juliani](https://medium.com/u/18dfe63fa7f0?source=post_page-----bff01d1aad9c--------------------------------)
-
-, or on twitter [@awjliani](https://twitter.com/awjuliani).
+[Arthur Juliani](https://medium.com/u/18dfe63fa7f0?source=post_page-----bff01d1aad9c--------------------------------) , or on twitter [@awjliani](https://twitter.com/awjuliani).
