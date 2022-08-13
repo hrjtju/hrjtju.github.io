@@ -142,54 +142,59 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def get_rewards(prob: float) -> float:
-    reward = 10 * np.random.randn(mean = prob * 10, std=1)
-    return reward
+def get_reward(prob: float) -> float:
+	reward = prob * 10 + 1 * np.random.randn()  # get reward from normal siatribution
+	return reward if 1 <= reward <= 10 else 0 if reward < 0 else 10
 
 
-def update_rewards(areward: float) -> None:
-    
-    return
+def update_record(record: np.array, action: int, reward: float) -> np.array:
+	new_r = (record[action, 0] * record[action, 1] + reward) / (record[action, 0] + 1)
+	record[action, 0] += 1
+	record[action, 1] = new_r
+	return record
 
 
-def softmax(array: np.array) -> np.array:
-	
-    return
+def softmax(array: np.array, tau: float = 1.15) -> np.array:
+	res = np.exp(array / tau) / np.sum(np.exp(array / tau))
+	return res
 
 
-def main():
-	# Initialization
-	n = 10
-	probs = np.random.rand(n)
-	records = np.zeros((n, 2))
-	fig, ax = plt.subplots(1, 1)
-	ax.set_xlabel("Plays")
-	ax.set_ylabel("Avg_Reward")
-	fig.set_size_inches(9, 5)
-	rewards = [0]
+def main()
+    # Initialization
+    n = 10
+    probs = np.random.rand(n)
+    record = np.zeros((n, 2))
+    fig, ax = plt.subplots(1, 1)
+    ax.set_xlabel("Plays")
+    ax.set_ylabel("Avg_Reward")
+    fig.set_size_inches(9, 5)
+    rewards = [0]
 
-	# Begin Iteriation
-	for i in range(500):
-    	p = softmax(record[:, 1])
-    	#! Choose action accroding to the probability distribution
-    	choice = np.random.choice(np.arange(n), p=p)
-    	r = get_reward(probs[choice])
-    	mean_reward = ((i + 1) * rewards[-1] + r) / (i + 2)
-    	rewards.append(mean_reward)
-   
-	# Plot the results
-	ax.scatter(np.arange(len(rewards), rewards))
+    # Begin Iteriation
+    for i in range(500):
+        p = softmax(record[:, 1])
+
+        #! Choose action accroding to the probability distribution
+        choice = np.random.choice(np.arange(n), p=p)
+        r = get_reward(probs[choice])
+
+        record = update_record(record, choice, r)
+        mean_reward = ((i + 1) * rewards[-1] + r) / (i + 2)
+        rewards.append(mean_reward)
+
+    # Plot the results
+    ax.scatter(np.arange(len(rewards)), rewards)
+    plt.show()
     
     return 0
 
-
 if __name__ == "__main__":
-    main()
+	main()
 ```
 
 
 
-
+![image-20220813125950173](../images/2022-08-13/image-20220813125950173.png)
 
 
 
