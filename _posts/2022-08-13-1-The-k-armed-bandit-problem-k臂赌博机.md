@@ -5,7 +5,7 @@ title: 1 The k-armed bandit problem, k臂赌博机
 subtitle: Intro to RL and k-armed bandit problem
 featured-image: /images/2016-11-19/abstract-5.jpg
 tags: [Reinforcement Learning]
-date-string: AUGUST 06, 2022
+date-string: AUGUST 13, 2022
 
 ---
 
@@ -67,8 +67,6 @@ $$
 
 
 
-
-
 ## 3 10-臂赌博机实验台
 
 
@@ -108,9 +106,94 @@ $$
 
 
 
+我们在计算价值函数的近似时需要用到平均数，而我们在迭代过程中需要不断更新这一个平均数。显然我们如果每次都去重新计算这一个平均数的话显得很麻烦。于是我们可以采取如下的方法：
+
+
+$$
+\mu_{n+1} = \frac 1{n+1}\sum_{i = 1}^{n+1} x_i = \frac 1{n+1}\left( x_{n+1} + \sum_{i=1}^nx_i \right) = \frac 1{n+1}x_{n+1} + \frac n{n+1}\mu_n = \mu_n + \frac{x_{n+1 - \mu_n}}{n+1}
+$$
+
+
+于是$$Q_t(a)$$的更新过程可以表示为
+
+
+$$
+Q_{n+1}(a) = Q_n(a) + \mathbb 1_{A_n=a} \left(\frac{R_{n} - Q_{n+1}(a)}{n+1}\right)
+$$
 
 
 
+## 5 Softmax 选择策略
+
+
+
+假设我们获取了所有状态对应的$$Q$$函数的集合（注意是估计值而不是真实值）我们可以这样定义决策时选择动作：
+
+
+$$
+\mathrm {Pr}[A_t = a] = \frac{e^{Q_{t} (a) / \tau}}{\sum\limits_{a}e^{Q_t(a) / \tau}}
+$$
+这样我们就构造了一个在动作空间 $$\mathscr A$$ 上的概率分布。只要在选取时按照这样的概率分布来选择动作即可。我们采用Python的`numpy`库可以对此进行方便的实现，从而使得上述的k臂赌博机问题有更快的收敛速度
+
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def get_rewards(prob: float) -> float:
+    reward = 10 * np.random.randn(mean = prob * 10, std=1)
+    return reward
+
+
+def update_rewards(areward: float) -> None:
+    
+    return
+
+
+def softmax(array: np.array) -> np.array:
+	
+    return
+
+
+def main():
+	# Initialization
+	n = 10
+	probs = np.random.rand(n)
+	records = np.zeros((n, 2))
+	fig, ax = plt.subplots(1, 1)
+	ax.set_xlabel("Plays")
+	ax.set_ylabel("Avg_Reward")
+	fig.set_size_inches(9, 5)
+	rewards = [0]
+
+	# Begin Iteriation
+	for i in range(500):
+    	p = softmax(record[:, 1])
+    	#! Choose action accroding to the probability distribution
+    	choice = np.random.choice(np.arange(n), p=p)
+    	r = get_reward(probs[choice])
+    	mean_reward = ((i + 1) * rewards[-1] + r) / (i + 2)
+    	rewards.append(mean_reward)
+   
+	# Plot the results
+	ax.scatter(np.arange(len(rewards), rewards))
+    
+    return 0
+
+
+if __name__ == "__main__":
+    main()
+```
+
+
+
+
+
+
+
+## 6 上下文赌博机
 
 
 
