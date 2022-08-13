@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: posts
-title: DatawhaleML 1 机器学习引入
+title: 【DatawhaleML】 1 机器学习引入
 featured-image: /images/2016-11-19/abstract-1.jpg
 tags: [Machine Learning]
 date-string: AUGUST 13, 2022
