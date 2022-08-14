@@ -39,14 +39,24 @@ date-string: AUGUST 13, 2022
 
 
 假设样本空间$$\mathcal X$$和假设空间$$\mathcal H$$均离散，$$\mathfrak{L_a}$$和$$\mathfrak{L_b}$$为任意两个算法，$$f$$为学习的目标函数（即我们的函数要尽量往目标函数 “靠近” ）
+
+
 $$
 \sum_f\mathbb E_{ote}[\mathfrak{L_a}|X, f] = \sum_f \mathbb E_{ote}[\mathfrak{L_b}|X, f]
 $$
+
+
 其中
+
+
 $$
 \mathbb E_{ote}[\mathfrak{L_a}|X, f] := \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h|X, \mathfrak L_a)
 $$
+
+
 和书上一样，我们如果考虑二分类问题，因为算法是任取的，所以会等可能地出现下面几种情形
+
+
 
 | $$h(x)$$ | $$f(x)$$ |
 | -------- | -------- |
@@ -55,7 +65,11 @@ $$
 | 1        | 0        |
 | 1        | 1        |
 
+
+
 所以示性函数这一项可以直接将其变成期望提出来：
+
+
 $$
 \begin{align}
 
@@ -67,6 +81,8 @@ $$
 
 \end{align}
 $$
+
+
 那么问题来了，这样的$$f$$到底有多少？我们引入一些定义和不加证明的断言：
 
 
