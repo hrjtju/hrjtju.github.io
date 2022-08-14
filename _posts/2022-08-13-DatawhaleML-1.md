@@ -94,8 +94,16 @@ $$
 
 
 
-这样上面的式子除了中间一项之外其他都是常数，而这显然与算法的选取无关。
+这样上面的式子除了中间一项之外其他都是常数，而这显然与算法的选取无关:
 
+
+$$
+\begin{align}
+
+\sum_f\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] =& \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h \mid X, \mathfrak L_a)\\
+=& 2^{|\mathcal X| - 1} \sum_{x \in \mathcal X - X} P(x)\\
+\end{align}
+$$
 
 
 **脱离具体问题谈论算法好坏没有意义，就像脱离具体问题谈数据结构的好坏一样。（例如堆和二叉搜索树）**
