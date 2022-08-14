@@ -159,7 +159,53 @@ $$
 
 
 
+* **留出法**——做训练集的一个划分，得到两个互斥的集合，一个作为训练集，一个作为测试集
+* **交叉验证法**——做训练集的一个划分，得到若干互斥的集合，轮流地将一个作为测试集，其他作为训练集
+* **自助法**——以每次从数据集中随机抽取一个的方式采样多次形成训练集，其余的形成测试集
+
+
+
 ### 2.2 模型性能度量
+
+
+
+**均方误差（<font color="red">M</font>ean <font color="red">S</font>quared <font color="red">E</font>rror）**
+
+
+$$
+\begin{align}
+\mathrm{MSE} [f, D] &:= \frac 1m \sum_{i=1}^m (f(x_i) - y_i)^2\\
+\mathrm{MSE} [f, \mathcal D] &:= \int_{x \sim \mathcal D} (f(x_i) - y_i)^2p(x) \,\mathrm dx
+\end{align}
+$$
+
+
+这可以理解为，两个高维空间中以原点为起点的两个向量之间距离的**度量**，那么很自然的，这个距离越小，模型的表现越好。
+
+
+
+**精度（<font color="red">Acc</font>uracy）**
+
+
+
+精度的定义更加自然，就是模型在样例集中分类正确的比例
+
+
+$$
+\begin{align}
+\mathrm{acc} [f, D] &:= \frac 1m \sum_{i=1}^m \mathbb I(f(x_i) = y_i)\\
+\mathrm{acc} [f, \mathcal D] &:= \int_{x \sim \mathcal D} \mathbb I(f(x_i) = y_i)p(x) \,\mathrm dx
+\end{align}
+$$
+
+
+**混淆矩阵和P-R曲线**
+
+
+
+
+
+
 
 
 
@@ -169,3 +215,8 @@ $$
 
 $$P$$指多项式时间内，计算机可以花有多项式时间解决并验证的问题（easy to find），$$NP$$指不一定能在多项式时间内解决，但可以在多项式时间内验证的问题（easy to check）
 
+
+
+
+
+### 2.4 调参（~~炼丹~~）
