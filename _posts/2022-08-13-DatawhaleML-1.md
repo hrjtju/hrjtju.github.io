@@ -77,8 +77,6 @@ $$
 =&  \frac 12 \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x)  \cdot P(h|X, \mathfrak L_a)\\
 =& \frac 12 \sum_f \sum_{x \in \mathcal X - X} P(x) \sum_h   \cdot P(h|X, \mathfrak L_a)\\
 =& \frac 12 \sum_{x \in \mathcal X - X} P(x) \sum_f \cdot 1\\
-
-
 \end{align}
 $$
 
