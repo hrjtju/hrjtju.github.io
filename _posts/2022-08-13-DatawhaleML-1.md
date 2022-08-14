@@ -41,7 +41,7 @@ date-string: AUGUST 13, 2022
 
 
 $$
-\sum_f\mathbb E_{ote}[\mathfrak{L_a}|X, f] = \sum_f \mathbb E_{ote}[\mathfrak{L_b}|X, f]
+\sum_f\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] = \sum_f \mathbb E_{ote}[\mathfrak{L_b} \mid X, f]
 $$
 
 
@@ -49,7 +49,7 @@ $$
 
 
 $$
-\mathbb E_{ote}[\mathfrak{L_a}|X, f] := \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h|X, \mathfrak L_a)
+\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] := \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h \mid X, \mathfrak L_a)
 $$
 
 
@@ -62,9 +62,9 @@ $$
 $$
 \begin{align}
 
-\sum_f\mathbb E_{ote}[\mathfrak{L_a}|X, f] =& \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h|X, \mathfrak L_a)\\
-=&  \frac 12 \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x)  \cdot P(h|X, \mathfrak L_a)\\
-=& \frac 12 \sum_f \sum_{x \in \mathcal X - X} P(x) \sum_h   \cdot P(h|X, \mathfrak L_a)\\
+\sum_f\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] =& \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h \mid X, \mathfrak L_a)\\
+=&  \frac 12 \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x)  \cdot P(h \mid X, \mathfrak L_a)\\
+=& \frac 12 \sum_f \sum_{x \in \mathcal X - X} P(x) \sum_h   \cdot P(h \mid X, \mathfrak L_a)\\
 =& \frac 12 \sum_{x \in \mathcal X - X} P(x) \sum_f \cdot 1\\
 \end{align}
 $$
@@ -76,7 +76,7 @@ $$
 
 > **集合的势**
 >
-> 如果集合$$A$$为有限集，则集合$$A$$的势为其所含元素的个数，记作$$|A|$$
+> 如果集合$$A$$为有限集，则集合$$A$$的势为其所含元素的个数，记作$$ \mid A \mid $$
 >
 > 如果集合$$A$$ 可以与自然数集 $$\mathbb N$$ 建立双射，它的势记作 $$\aleph_0$$ 。
 >
@@ -90,7 +90,7 @@ $$
 >
 > **映射的个数**
 >
-> 假设存在一个映射$$f: A\rightarrow B$$，那么这样的映射的个数为$$|B|^{|A|}$$
+> 假设存在一个映射$$f: A\rightarrow B$$，那么这样的映射的个数为$$ \mid B \mid ^{ \mid A \mid }$$
 
 
 
