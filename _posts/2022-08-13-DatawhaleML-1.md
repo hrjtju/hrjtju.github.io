@@ -149,6 +149,8 @@ $$
 
 
 
+[更多信息: The Curse of Dimensionality in classification](The Curse of Dimensionality in classification)
+
 
 
 ## 2 模型选择评估
@@ -203,7 +205,51 @@ $$
 
 
 
+这主要针对二分类问题进行分析。很显然，二分类问题的结果如果将其表示为二元组$$(model\_output, ground\_truth)$$的形式，那么只有四种情况（考虑核酸检测这一实际情况）：
 
+* $$(T,T)$$——真正例（<font color="red">T</font>rue <font color="red">P</font>ositive）
+
+* $$(T,F)$$——假正例（<font color="red">F</font>alse <font color="red">P</font>ositive）
+* $$(F, T)$$——假反例（<font color="red">F</font>alse <font color="red">N</font>egative）
+* $$(F,F)$$——真反例（<font color="red">T</font>rue <font color="red">N</font>egative）
+
+
+
+于是我们引入以下两个指标：
+
+
+
+第一个是将所有事实上是正例的数据中判断正确的比例，称为**精度（precision）或PPV**：
+
+
+$$
+\mathrm{PPV} := \mathrm {\frac{TP}{TP + FN}}
+$$
+
+
+第二个是将所有模型输出为真的数据中分类正确的比例，称为**召回率（recall）或TPR**
+
+
+$$
+\mathrm{ TPR := \frac{TP}{TP + FP}}
+$$
+
+
+但是我们实践中会遇到的一个问题，就是正例和反例的数量严重不等。比如在医学影像处理中，患有某罕见病的病例极少，而正常极多。**如果按照我们之前定义的正确率来比较的话，即使模型 “摆烂” ，把全部的样本全部划为正常，它仍然可以得到很高的正确率，但这显然不是我们想看到的。**如果使用上面的两个指标来刻画模型性能的话，其中某一项会很低，这取决于你将患有某疾病的影像设置为正例还是反例。所以我们寻求一种折中的方法，可以用一个指标来反映两个指标的情况，这就是**F1-score**
+
+
+$$
+\text{F1-score} = \mathrm{\frac{2 \cdot PPV \cdot TPR}{PPV + TPR}}
+$$
+
+
+可以分析，如果亮相中有一项很低，那么就可以使得F1-score很低。这就符合了我们的要求。
+
+
+
+我们可以将以上数据画成一个表，并计算各个特征数据（图片来源于[维基百科](https://en.wikipedia.org/wiki/Confusion_matrix)）：
+
+<img src="D:/github/hrjtju.github.io/images/2022-08-13/image-20220815111449691.png" alt="image-20220815111449691" style="zoom:50%;" />
 
 
 
