@@ -533,17 +533,71 @@ $$
 
 
 
-==TODO==： **假设检验**
+**==TODO==： 假设检验**
+
+**==TODO==： McNemar检验**
 
 
 
+**偏差与方差**
 
 
 
+<u>定性讨论</u>：偏差刻画模型期望输出与真实输出之间的 “距离” ，方差刻画模型在接受同一问题的不同数据集时输出情况受影响的程度。
 
-**McNemar检验**
 
 
+<u>定量分析</u>：
+
+对于测试样本$$\mathbf x$$，令$$y_D$$为在数据集$$D$$上的标注（可能与真实情况有区别，比如在标注时出现的标注错误），$$f(\mathbf x; D)$$为数据在模型中的预测输出，$$\bar f(\mathbf x)$$为模型在不同数据集上的期望输出。我们此时可以将期望泛化误差进行拆分：
+
+
+$$
+\begin{align}
+E(f; D) &= \mathbb E_D[(f(\mathbf x; D) - y_D)^2\\
+		&= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x) + \bar f(\mathbf x)- y_D)^2]\\
+		&= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y_D)^2] + 2\mathbb E_D[(f(\mathbf x; D) - \bar f(\mathbf x))(\bar f(\mathbf x)- y_D)]\\
+\end{align}
+$$
+
+
+注意第三项，将其展开：
+
+
+$$
+\begin{align}
+\mathbb E_D[(f(\mathbf x; D) - \bar f(\mathbf x))(\bar f(\mathbf x)- y_D)] &= \bar f(\mathbf x) \mathbb E_D[f(\mathbf x; D)]  - (\bar f(\mathbf x))^2 + \mathbb E_D[y_Df(\mathbf x; D)] - \bar f(\mathbf x) \mathbb{E}[y_D]
+
+\end{align}
+$$
+
+* 由$$\bar f$$的定义，前两项相互抵消。又因为数据标注噪声和$$f$$无关，因此第三项可以变成期望之积。所以整个式子为$$0$$.
+
+
+
+这样我们可以继续向下化简：
+
+
+$$
+\begin{align}
+E(f; D) &= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y_D)^2]\\
+		&= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y + y - y_D)^2]\\
+		&= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y)] + \mathbb E_D[(y - y_D)^2] + \mathbb E_D[(\bar f(\mathbf x)- y)(y - y_D)]\\
+\end{align}
+$$
+
+
+* 在此我们假定$$\mathbb E_D[(y - y_D)] = 0$$，因为$$\bar f(\mathbf x)- y$$并非随机变量，可以直接从期望中提出，于是最后一项也为$$0$$
+
+于是我们得到最终的化简结果：
+
+
+$$
+E(f; D) = \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y)] + \mathbb E_D[(y - y_D)^2]
+$$
+
+
+其中第一项刻画**偏差**，第二项刻画**方差**，最后一项刻画数据集标注**噪声**。
 
 
 
