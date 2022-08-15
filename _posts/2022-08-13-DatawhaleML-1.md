@@ -249,7 +249,9 @@ $$
 
 我们可以将以上数据画成一个表，并计算各个特征数据（图片来源于[维基百科](https://en.wikipedia.org/wiki/Confusion_matrix)）：
 
-<img src="D:/github/hrjtju.github.io/images/2022-08-13/image-20220815111449691.png" alt="image-20220815111449691" style="zoom:50%;" />
+
+
+<img src="/images/2022-08-13/image-20220815111449691.png" alt="image-20220815111449691" style="zoom:50%;" />
 
 
 
