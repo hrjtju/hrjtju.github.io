@@ -251,7 +251,7 @@ $$
 
 
 
-<img src="D:/github/hrjtju.github.io/images/2022-08-13/image-20220815120157255.png" alt="image-20220815120157255" style="zoom:33%;" />
+<img src="/images/2022-08-13/image-20220815120157255.png" alt="image-20220815120157255" style="zoom:33%;" />
 
 
 
@@ -291,8 +291,7 @@ $$
 >
 > （c）（d）分别是十倍反例一倍正例的ROC曲线和PR曲线
 >
->
-> <img src="D:/github/hrjtju.github.io/images/2022-08-13/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1cxOTk1Uw==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" style="zoom:75%;" />
+> <img src="/images/2022-08-13/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1cxOTk1Uw==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" style="zoom:75%;" />
 >
 > 
 >
@@ -368,7 +367,7 @@ $$
 >
 > 将 $$P(+) \in [0,1]$$ 整体看作参数（[自变量](https://www.zhihu.com/search?q=自变量&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})），这是一个线性的参数方程。左端在 $$(0,\text{FPR})$$ ，右端在 $$(1,\text{FNR})$$ 的一条线段。这种参数方程的表述在凸函数的定义中也可以看到，如不熟悉可参阅[凸函数_百度百科](https://link.zhihu.com/?target=https%3A//baike.baidu.com/item/%E5%87%B8%E5%87%BD%E6%95%B0)。
 >
-> 另，上面的式子中，$$cost_{0|1}$$ 表示：实际为 1 类，而错判成 0 类的代价，即 FN 的代价。下标中间的分割线“|”借用了条件概率的表述方式。
+> 另，上面的式子中，$$cost_{0\mid 1}$$ 表示：实际为 1 类，而错判成 0 类的代价，即 FN 的代价。下标中间的分割线“\mid ”借用了条件概率的表述方式。
 >
 > **问题 2：[单根线段](https://www.zhihu.com/search?q=单根线段&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})与横轴之间的（梯形）面积 = 模型对于某一阈值的期望总体代价？**
 >
@@ -428,7 +427,7 @@ $$
 >
 > ## **无/等代价的 CC 空间**
 >
-> <img src="D:/github/hrjtju.github.io/images/2022-08-13/v2-58ad8483ce264fd77097a3b419631779_1440w.jpg" alt="img" style="zoom:50%;" />
+> <img src="/images/2022-08-13/v2-58ad8483ce264fd77097a3b419631779_1440w.jpg" alt="img" style="zoom:50%;" />
 >
 > (图一)无/等代价的退化版 CC 空间。纵轴为模型错误率，横轴为正例概率。
 >
@@ -436,16 +435,16 @@ $$
 >
 > 
 >
-> 作者虽然在原论文中空降了 CC 的定义，但是易于理解的思路应该是：ROC 空间 $$\Rightarrow$$ 无/等代价 CC 空间 $$\Rightarrow$$ 不等代价 CC 空间。这里，无/等代价 CC 空间指得是：不引入代价，或者 $$\text{cost}_{0|1} = \text{cost}_{1|0}$$ 的情况。如图一，无/等代价 CC 空间的[纵横轴](https://www.zhihu.com/search?q=纵横轴&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})分别退化为错误率 $$p \cdot \text{FNR} + (1-p) \cdot \text{FPR}$$ 和正例概率 ppp。
+> 作者虽然在原论文中空降了 CC 的定义，但是易于理解的思路应该是：ROC 空间 $$\Rightarrow$$ 无/等代价 CC 空间 $$\Rightarrow$$ 不等代价 CC 空间。这里，无/等代价 CC 空间指得是：不引入代价，或者 $$\text{cost}_{0\mid 1} = \text{cost}_{1\mid 0}$$ 的情况。如图一，无/等代价 CC 空间的[纵横轴](https://www.zhihu.com/search?q=纵横轴&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})分别退化为错误率 $$p \cdot \text{FNR} + (1-p) \cdot \text{FPR}$$ 和正例概率 ppp。
 >
-> <img src="D:/github/hrjtju.github.io/images/2022-08-13/v2-94a687dd3f191139d5b05cd944bbc5ef_1440w.jpg" alt="img" style="zoom:50%;" />(图二)一个实例。
+> <img src="/images/2022-08-13/v2-94a687dd3f191139d5b05cd944bbc5ef_1440w.jpg" alt="img" style="zoom:50%;" />(图二)一个实例。
 >
 > 在图二中，我做了以下几件事情：
 >
 > 1. 根据两个不同的正态分布（分别代表 0 类和 1 类），随机各取 50 个样本点以模拟它们的模型打分。
 > 2. 依据这总共 100 个点绘制 ROC（图二 a）。
 > 3. 不引入代价，依据 ROC 绘制退化版 CC（图二 b）。
-> 4. 加入代价并令 $$\text{cost}_{0|1}=0.2, \text{cost}_{1|0}=0.4$$，绘制图二 c。此时，虽然纵轴已经依照 CC 空间定义改成[归一化代价](https://www.zhihu.com/search?q=归一化代价&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})，但横轴依旧是正例概率。可以明显看到直线变弯了。
+> 4. 加入代价并令 $$\text{cost}_{0\mid 1}=0.2, \text{cost}_{1\mid 0}=0.4$$，绘制图二 c。此时，虽然纵轴已经依照 CC 空间定义改成[归一化代价](https://www.zhihu.com/search?q=归一化代价&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})，但横轴依旧是正例概率。可以明显看到直线变弯了。
 > 5.  在之前的基础上，依照 CC 空间定义再将横轴改成 probability cost（图二 d）。
 >
 > 实验的结论很明显，图二 b 和图二 d 是一模一样的。事实上，**无论有无代价，还是任意变化代价，对同一个模型来说，其 CC 都是一样的。**既然一样，且看图二 b 和图一，这便是我为何更倾向于命名包络线下面积为“总体错误率”的原因。
@@ -454,7 +453,9 @@ $$
 >
 > #### **CC [空间纵轴](https://www.zhihu.com/search?q=空间纵轴&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})定义的动机**
 >
-> <img src="D:/github/hrjtju.github.io/images/2022-08-13/v2-52bd5eacd259ea984cace939bdd2abf9_1440w.jpg" alt="img" style="zoom:30%;" />
+> 
+>
+> <img src="/images/2022-08-13/v2-52bd5eacd259ea984cace939bdd2abf9_1440w.jpg" alt="img" style="zoom:30%;" />
 >
 > （图三)蓝色为 0 类的分数分布，橙色为 1 类的分数分布。为了简便，故选取正态分布。
 >
@@ -468,13 +469,13 @@ $$
 >
 > 至于为什么最小，左右滑动阈值，想象下灰色区域的变化。不过，这一结论对于一般分布并不一定显然，只有遍历所有阈值才能确保最优。这里，我们把 FNR 和 FPR 写作关于 ppp 的函数，因为它们决定于最优阈值，而最优阈值又决定于 ppp ，详见图四。
 >
-> <img src="D:/github/hrjtju.github.io/images/2022-08-13/v2-718de50c87e58dbaa6ac09686cffc29e_720w.jpg" alt="img" style="zoom:50%;" />
+> <img src="/images/2022-08-13/v2-718de50c87e58dbaa6ac09686cffc29e_720w.jpg" alt="img" style="zoom:50%;" />
 >
 > （图四)分布、重叠区域、最优阈值随 p 的变化。
 >
 > 接下来引入代价 cost。
 >
-> <img src="D:/github/hrjtju.github.io/images/2022-08-13/v2-96bd3014b5b869f8477f77089ba87bfa_1440w.jpg" alt="img" style="zoom:30%;" />
+> <img src="/images/2022-08-13/v2-96bd3014b5b869f8477f77089ba87bfa_1440w.jpg" alt="img" style="zoom:30%;" />
 >
 > (图五)在原有分布上引入了 cost。
 >
@@ -486,7 +487,7 @@ $$
 > $$
 > 
 >
-> 现在到了[归一化](https://www.zhihu.com/search?q=归一化&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})。图五中，虚线部分已经不能成为分布了，因为各自乘以 cost 后，积分明显小于原来，不再是 1。可以想象，**灰色区域可以随着 cost 的[绝对值](https://www.zhihu.com/search?q=绝对值&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})任意变化，从而丧失了可比性。归一化的一个目的就是为了消除 cost0|1\text{cost}_{0|1}\text{cost}_{0|1} 和 cost1|0\text{cost}_{1|0}\text{cost}_{1|0} 的绝对值对模型评价的影响。一种很自然的归一化思路就是把积分再次拉回 1**。纵向拉伸的[倍率](https://www.zhihu.com/search?q=倍率&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})如下：
+> 现在到了[归一化](https://www.zhihu.com/search?q=归一化&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})。图五中，虚线部分已经不能成为分布了，因为各自乘以 cost 后，积分明显小于原来，不再是 1。可以想象，**灰色区域可以随着 cost 的[绝对值](https://www.zhihu.com/search?q=绝对值&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})任意变化，从而丧失了可比性。归一化的一个目的就是为了消除 cost0\mid 1\text{cost}_{0\mid 1}\text{cost}_{0\mid 1} 和 cost1\mid 0\text{cost}_{1\mid 0}\text{cost}_{1\mid 0} 的绝对值对模型评价的影响。一种很自然的归一化思路就是把积分再次拉回 1**。纵向拉伸的[倍率](https://www.zhihu.com/search?q=倍率&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})如下：
 >
 > 
 > $$
