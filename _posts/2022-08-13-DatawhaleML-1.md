@@ -487,7 +487,7 @@ $$
 > $$
 > 
 >
-> 现在到了[归一化](https://www.zhihu.com/search?q=归一化&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})。图五中，虚线部分已经不能成为分布了，因为各自乘以 cost 后，积分明显小于原来，不再是 1。可以想象，**灰色区域可以随着 cost 的[绝对值](https://www.zhihu.com/search?q=绝对值&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})任意变化，从而丧失了可比性。归一化的一个目的就是为了消除 cost0\mid 1\text{cost}_{0\mid 1}\text{cost}_{0\mid 1} 和 cost1\mid 0\text{cost}_{1\mid 0}\text{cost}_{1\mid 0} 的绝对值对模型评价的影响。一种很自然的归一化思路就是把积分再次拉回 1**。纵向拉伸的[倍率](https://www.zhihu.com/search?q=倍率&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})如下：
+> 现在到了[归一化](https://www.zhihu.com/search?q=归一化&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})。图五中，虚线部分已经不能成为分布了，因为各自乘以 cost 后，积分明显小于原来，不再是 1。可以想象，**灰色区域可以随着 cost 的[绝对值](https://www.zhihu.com/search?q=绝对值&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})任意变化，从而丧失了可比性。归一化的一个目的就是为了消除 $$\text{cost}_{0\mid 1}$$ 和 $$\text{cost}_{1\mid 0}$$的绝对值对模型评价的影响。一种很自然的归一化思路就是把积分再次拉回 1**。纵向拉伸的[倍率](https://www.zhihu.com/search?q=倍率&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A247885093})如下：
 >
 > 
 > $$
@@ -530,6 +530,18 @@ $$
 > 3. CC 的纵轴与先验 ppp 直接相关。通常情况下，先验与样本中的频率并不相同。CC 可以展示模型在各个 ppp 情况下的表现，也是 ROC 所不及的。
 >
 > 最后想说的是，CC 的应用远不及 ROC。鉴于本人有限的阅读量，我觉得至少在机器学习的论文中鲜有用 CC 或 CC AUC 做模型指标的。就目前来说，和 CC 有关的文献大多是原作者 C. Drummond 和 R. C. Holte 自己写的。教材、参考书如西瓜书囊括入代价曲线主要是为了内容完整性。总之，哪怕是 CC 的定义目前也没有金科玉律，在使我最早接触代价曲线的教材上，CC 的定义里甚至都没有引入归一化。不论是怎样的回答只要是自洽，就够令人满意了。
+
+
+
+==TODO==： **假设检验**
+
+
+
+
+
+
+
+**McNemar检验**
 
 
 
