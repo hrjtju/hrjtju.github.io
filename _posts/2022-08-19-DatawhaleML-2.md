@@ -171,27 +171,47 @@ $$
 >
 > 
 >
-> 
+> 我们采用展开到二阶的Taylor公式：
 >
 > 
 >
-> 
+> $$
+> \mathcal L(\boldsymbol \beta) = \mathcal L(\boldsymbol \beta_k) + \frac{\partial \mathcal L}{\partial \boldsymbol\beta} (\boldsymbol\beta-\boldsymbol\beta_k) + \frac 12 \frac{\partial^2 \mathcal L}{\partial\boldsymbol \beta\partial\boldsymbol\beta^\mathrm T}(\boldsymbol\beta-\boldsymbol\beta_k)^\mathrm T(\boldsymbol\beta-\boldsymbol\beta_k)
+> $$
 >
 > 
 >
-> 
+> 令上式二阶导为零，得到如下的更新公式：
 >
 > 
 >
-> 
+> $$
+> \boldsymbol \beta_{k+1}= \boldsymbol \beta_{k} - \left( \frac{\partial^2 \mathcal L}{\partial\boldsymbol \beta\partial\boldsymbol\beta^\mathrm T} \right)^{-1}\frac{\partial \mathcal L}{\partial \boldsymbol\beta}
+> $$
 >
 > 
+>
+> 它的原理是利用一阶和二阶导数对函数做二次函数的近似，从而快速迭代至局部最小值
 
 
 
 
 
 ## 3 线性判别分析（<font color="red">L</font>inear <font color="red">D</font>iscriminant <font color="red">A</font>nalysis）
+
+
+
+在二分类问题中，线性判别分析寻求一条投影直线，使得同类型的数据在直线上的投影尽可能的近，不同类型的数据之间隔得尽可能的远。任意选取一个向量$$\boldsymbol w$$，则同类数据的均值向量$$\boldsymbol\mu_k$$在其方向上的投影长度为$$\boldsymbol w^\mathrm T \boldsymbol\mu_k$$（回忆$$\mathbb R^2$$上的向量内积为$$\boldsymbol x^\mathrm T \boldsymbol y = \mid \boldsymbol x\mid \mid \boldsymbol y\mid \cos(<\boldsymbol x, \boldsymbol y>)$$），相当于每个分量做了适当的变换。其协方差矩阵$$\Sigma_k$$在投影后变成了$$\boldsymbol w^\mathrm T \Sigma_k \boldsymbol w$$。（回忆协方差矩阵的每个分量对应着数据中两个分量之间的协方差，由协方差定义知这样做也是之前将每个分量做适当的变换后得到的结果，考虑将$$\boldsymbol w$$分解为线性空间内标准正交基的和. ）
+
+回到我们的目标，我们要使得组间尽量分散，组内尽量聚拢，于是我们定义下式：
+
+
+$$
+J := \frac{\| \boldsymbol w^\mathrm T \boldsymbol\mu_0 - \boldsymbol w^\mathrm T \boldsymbol\mu_1 \|_2^2}{\boldsymbol w^\mathrm T(\Sigma_0 + \Sigma_1)\boldsymbol w}
+$$
+
+
+式中分子刻画组间距离，分母刻画组内的 “分散程度”，这就是我们的最大化目标。
 
 
 
