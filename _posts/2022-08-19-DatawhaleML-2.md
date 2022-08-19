@@ -58,7 +58,7 @@ $$
 
 
 $$
-\frac{\part E_\hat w}{\part \hat w}  = 2 \boldsymbol{X}^\mathrm T (\boldsymbol{X}\boldsymbol{\hat w} - \boldsymbol{y})
+\frac{\partial E_\hat w}{\partial \hat w}  = 2 \boldsymbol{X}^\mathrm T (\boldsymbol{X}\boldsymbol{\hat w} - \boldsymbol{y})
 $$
 
 
