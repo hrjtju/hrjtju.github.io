@@ -54,7 +54,7 @@ $$
 $$
 
 
-其中$$\boldsymbol {\hat w} = (\boldsymbol {w}; b) $，$\boldsymbol {X} = \begin{align} \left[\boldsymbol {x_1^\mathrm T}, 1; \boldsymbol {x_2^\mathrm T}, 1;...  \boldsymbol {x_n^\mathrm T}, 1; \right] \end{align}$$。我们对需要优化的式子进行求导：
+其中$$\boldsymbol {\hat w} = (\boldsymbol {w}; b) $$，$$\boldsymbol {X} = \begin{align} \left[\boldsymbol {x_1^\mathrm T}, 1; \boldsymbol {x_2^\mathrm T}, 1;...  \boldsymbol {x_n^\mathrm T}, 1; \right] \end{align}$$。我们对需要优化的式子进行求导：
 
 
 $$
