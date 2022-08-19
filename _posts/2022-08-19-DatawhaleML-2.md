@@ -161,6 +161,8 @@ $$
 $$
 \mathcal L(\boldsymbol w, b) = \sum_i \ln \mathrm{Pr}[~y_i~|~ \boldsymbol x_i; \boldsymbol w,b~]
 $$
+
+
 接下来使用梯度下降或者其他方法均可。
 
 
