@@ -103,12 +103,16 @@ $$
 $$
 \mathrm{Gini}(D) := \sum_k\sum_{k' \ne k} p_kp_{k'} = 1-\sum_{k} p_k^2
 $$
+
+
 Gini值指征随机从数据集中抽取两个数据，标注不同的概率。自然这样的概率越小，说明集合的 “纯度” 越高。与信息增益类似，我们也可以对划分后的Gini值的加权和，也即**Gini指数**做定义：
 
 
 $$
 \mathrm{Gini\_index}(D, a) := \sum_v \frac{\mid D^v\mid}{\mid D\mid} \mathrm{Gini}(D^v)
 $$
+
+
 **CART算法**就是采用这一个指标选择划分依据的
 
 
@@ -138,9 +142,11 @@ $$
 * 将没有缺失属性的集合中属于第$$k$$类的数据组成的集合记为$$\tilde D_k$$
 * 并赋予每一个样本$$\boldsymbol{x}$$一个权重$$w_{\boldsymbol{x}}$$
 
+我们在定义下面几个参量：
 
 
 
+* 
 
 
 
