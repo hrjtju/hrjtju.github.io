@@ -138,7 +138,7 @@ $$
 缺失值的处理较为复杂。例如给定数据集$$D$$和属性$$a$$，我们知道数据集中的某些数据有这个属性的记录：
 
 * 将这些没有缺失属性$$a$$的数据构成的集合记为$$\tilde D$$
-* 假设$$a$$可以取得集合$$\{a^1,a^2,...,a^V\}$$中的任意值，我们记$$\tilde D^v$$为没有缺失属性$$a$$的数据中属性$$a$$取值为$$a_v$$的所有数据组成的集合
+* 假设$$a$$可以取得集合$$\{a^1,a^2,...,a^V\}$$中的任意值，我们记$$\tilde {D^v}$$为没有缺失属性$$a$$的数据中属性$$a$$取值为$$a_v$$的所有数据组成的集合
 * 将没有缺失属性的集合中属于第$$k$$类的数据组成的集合记为$$\tilde D_k$$
 * 并赋予每一个样本$$\boldsymbol{x}$$一个权重$$w_{\boldsymbol{x}}$$
 
@@ -154,8 +154,18 @@ $$
 
 
 
-* $$\displaystyle \displaystyle \tilde r_v := \frac{\sum_{x \in \tilde D^v} w_{\boldsymbol{x}}}{\sum_{x \in D} w_{\boldsymbol{x}}}$$，这个参数指征**属性值为$$v$$的未缺失指标**的加权占比
+* $$\displaystyle \displaystyle \tilde r_v := \frac{\sum_{x \in \tilde {D^v}} w_{\boldsymbol{x}}}{\sum_{x \in D} w_{\boldsymbol{x}}}$$，这个参数指征**属性值为$$v$$的未缺失指标**的加权占比
 
+
+
+这样我们可以定义广义下的的信息增益：
+
+
+$$
+\mathrm{Gain}(D, a):= \rho \cdot \mathrm{Gain}(\tilde D, a) = \rho \cdot \left( 
+\mathrm{Ent}(\tilde D) - \sum_v \tilde r_v \mathrm{Ent}(\tilde {D^v})
+\right)
+$$
 
 
 
