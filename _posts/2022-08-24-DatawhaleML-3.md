@@ -150,11 +150,11 @@ $$
 
 
 
-* $$\displaystyle \tilde p_k := \frac{\sum_{x \in \tilde D_k} w_{\boldsymbol{x}}}{\sum_{x \in D} w_{\boldsymbol{x}}}$$，这个参数指征**标签为$$k$$的未缺失指标**的加权占比
+* $$\displaystyle \tilde p_k := \frac{\sum_{x \in \tilde D_k} w_{\boldsymbol{x}}}{\sum_{x \in \tilde D} w_{\boldsymbol{x}}}$$，这个参数指征**标签为$$k$$的未缺失指标**的加权占比
 
 
 
-* $$\displaystyle \displaystyle \tilde r_v := \frac{\sum_{x \in \tilde {D^v}} w_{\boldsymbol{x}}}{\sum_{x \in D} w_{\boldsymbol{x}}}$$，这个参数指征**属性值为$$v$$的未缺失指标**的加权占比
+* $$\displaystyle \displaystyle \tilde r_v := \frac{\sum_{x \in \tilde {D^v}} w_{\boldsymbol{x}}}{\sum_{x \in \tilde D} w_{\boldsymbol{x}}}$$，这个参数指征**属性值为$$v$$的未缺失指标**的加权占比
 
 
 
@@ -186,11 +186,15 @@ $$
 
 **Gini指数的情况**
 
-书上将此作为一个习题。在此提出我的一个想法。若有不当之处敬请指正。首先将Gini指数中的$$p_k$$换为$$\tilde p_k$$
+书上将此作为一个习题。在此提出我的一个想法。若有不当之处敬请指正。首先将Gini指数中的$$p_k$$换为$$\tilde p_k$$，再将比值部分换为$$\tilde r_v$$
 
 
 $$
-\mathrm{Gini}(D) := \sum_k\sum_{k' \ne k} \tilde p_k\tilde p_{k'} = 1-\sum_{k} \tilde p_k^2
+\mathrm{Gini}(D) := \rho \cdot \mathrm{Gini}(\tilde D) = \sum_k\sum_{k' \ne k} \tilde p_k\tilde p_{k'} = 1-\sum_{k} \tilde p_k^2
+$$
+
+$$
+\mathrm{Gini\_index}(D, a) := \sum_v \tilde r_v \mathrm{Gini}(D^v)
 $$
 
 
