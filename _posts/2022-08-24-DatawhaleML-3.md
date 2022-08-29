@@ -146,7 +146,17 @@ $$
 
 
 
-* 
+* $$\displaystyle \rho := \frac{\sum_{x \in \tilde D} w_{\boldsymbol{x}}}{\sum_{x \in D} w_{\boldsymbol{x}}}$$，这个参数指征加权后的**未缺失指标数据**的 “占比”
+
+
+
+* $$\displaystyle \tilde p_k := \frac{\sum_{x \in \tilde D_k} w_{\boldsymbol{x}}}{\sum_{x \in D} w_{\boldsymbol{x}}}$$，这个参数指征**标签为$$k$$的未缺失指标**的加权占比
+
+
+
+* $$\displaystyle \displaystyle \tilde r_v := \frac{\sum_{x \in \tilde D^v} w_{\boldsymbol{x}}}{\sum_{x \in D} w_{\boldsymbol{x}}}$$，这个参数指征**属性值为$$v$$的未缺失指标**的加权占比
+
+
 
 
 
