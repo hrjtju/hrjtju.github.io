@@ -158,6 +158,10 @@ $$
 
 
 
+**信息增益的情况**
+
+
+
 这样我们可以定义广义下的的信息增益：
 
 
@@ -165,6 +169,28 @@ $$
 \mathrm{Gain}(D, a):= \rho \cdot \mathrm{Gain}(\tilde D, a) = \rho \cdot \left( 
 \mathrm{Ent}(\tilde D) - \sum_v \tilde r_v \mathrm{Ent}(\tilde {D^v})
 \right)
+$$
+
+
+其中
+
+
+$$
+\mathrm{Ent}(\tilde D) := -\sum_k \tilde p_k\log \tilde p_k
+$$
+
+
+这样的处理就像我们将那些缺失标签的数据当作是 “占位符”，虽然没有标签，但要参与最终信息增益的计算。最后这些没有标签的数据被原封不动的移到每一个划分后的集合中。
+
+
+
+**Gini指数的情况**
+
+书上将此作为一个习题。在此提出我的一个想法。若有不当之处敬请指正。首先将Gini指数中的$$p_k$$换为$$\ti$$
+
+
+$$
+\mathrm{Gini}(D) := \sum_k\sum_{k' \ne k} \tilde p_k\tilde p_{k'} = 1-\sum_{k} \tilde p_k^2
 $$
 
 
