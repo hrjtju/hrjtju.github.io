@@ -367,14 +367,14 @@ $$
 
 $$
 \begin{aligned}
-            &\overline{\kern{25em}}                                                                \\
+            &\overline{\kern{35em}}                                                                \\
             &\textbf{input}      : \gamma \text{ (lr)}, \beta_1, \beta_2
                 \text{ (betas)},\theta_0 \text{ (params)},f(\theta) \text{ (objective)}          \\
             &\hspace{13mm}      \lambda \text{ (weight decay)},  \: \textit{amsgrad},
                 \:\textit{maximize}                                                              \\
             &\textbf{initialize} :  m_0 \leftarrow 0 \text{ ( first moment)},
                 v_0\leftarrow 0 \text{ (second moment)},\: \widehat{v_0}^{max}\leftarrow 0\\[-1.ex]
-            &\overline{\kern{25em}}                                                                \\
+            &\overline{\kern{35em}}                                                                \\
             &\textbf{for} \: t=1 \: \textbf{to} \: \ldots \: \textbf{do}                         \\
 
             &\hspace{5mm}\textbf{if} \: \textit{maximize}:                                       \\
@@ -395,9 +395,9 @@ $$
             &\hspace{5mm}\textbf{else}                                                           \\
             &\hspace{10mm}\theta_t \leftarrow \theta_{t-1} - \gamma \widehat{m_t}/
                 \big(\sqrt{\widehat{v_t}} + \epsilon \big)                                       \\
-            &\overline{\kern{25em}}                                                         \\[-1.ex]
+            &\overline{\kern{35em}}                                                         \\[-1.ex]
             &\bf{return} \:  \theta_t                                                     \\[-1.ex]
-            &\overline{\kern{25em}}                                                         \\[-1.ex]
+            &\overline{\kern{35em}}                                                         \\[-1.ex]
        \end{aligned}
 $$
 
