@@ -121,7 +121,7 @@ $$
 
 
 
-
+TODO
 
 
 
@@ -129,7 +129,7 @@ $$
 
 
 
-
+TODO
 
 
 
@@ -288,7 +288,121 @@ $$
 
 
 
+回忆之前学过的神经元模型，在超过阈电位时的神经元会产生兴奋。感知机就是仿照神经元这样的特性来设计的。我们称为 **M-P神经元模型**。从数学上讲，就是感知机对输入进行加权和，最后再让某一个激活函数$$f$$作用于这个和上，得到感知机的输出：
+
+
+$$
+y = f\left( \sum_i w_ix_i - \theta \right)
+$$
+
+
+这和之前提到的广义线性模型有些相似，但注意到神经元的一个特点：大脑是由很多个神经元组成在一起的。上述的感知机也可以进行相互连接，组成一个巨大的网络，我们称之为**神经网络**。一个事实是，例如异或这样的问题是没有办法线性可分的（除非把他加一维），因为我们不能在二维平面上画一条直线，将正例和负例完全分开。但是我们可以用多个感知机来完成这一点。（详见西瓜书，这里就不再赘述了）更一般的是将感知机或神经元层叠起来，形成一层一层的结构，这就构成了神经网络的层。每一层可以规定不同来源输入的权值。将视角放大到这一整层，就可以看作是一个$$1 \times m$$维向量与形状为$$m \times n$$的矩阵相乘，得到一个新的$$n$$维向量。
+
+
+
 ### 7 误差反向传播
+
+
+
+我们将每层的输出仅决定于当层的输入的神经网络叫做**前馈神经网络**，可以看出，这样的神经网络是一个巨大的复合函数。我们进行梯度下降法时，需要求损失函数对参数矩阵的偏导数，这样使用**链式法则**就可以办到。但是有时求某些激活函数的偏导数较为复杂，这需要我们找到一个易于求偏导数的激活函数。回忆我们在Logistic回归时提到的sigmoid函数，它的偏导数具有一些有趣的性质：
+
+
+$$
+\sigma'(x) = \sigma(x)(1 - \sigma(x))
+$$
+
+
+这样我们就可以不用其他繁琐的方式进行求导，可以直接通过函数值来推出导数值，使得计算得到简化。
+
+
+
+#### **学习率的问题**
+
+
+
+在训练过程中，有一些需要人为指定的参数，叫做**超参数**。比如神经网络有多少层、每层的输入和输出是多少、模型训练的迭代次数、神经元是否有偏置、选择什么样的激活函数、学习率的确定等等。
+
+可能一些超参数的改变会对模型的最终训练结果产生显著的影响。在此我们以学习率做例子。
+
+我们知道在进行梯度下降算法的时候会遇到几个问题：一是学习率太大会导致模型发散（梯度爆炸），学习率太小又训练缓慢（梯度消失）的问题；二是即使设定了一个合适的学习率，却很容易卡在某些特殊点上：比如鞍点、局部最小值。
+
+
+
+> 不过值得注意的是，梯度消失和梯度爆炸也不仅是由于学习率设置的问题。例如采用sigmoid函数时会出现这样的问题，在RNN中，后面输入的数据对模型参数变化的影响要比前面输入的数据对模型变化的影响要大（一般来说）（因为在计算前面的参数的时候需要更多的链式法则中的乘积项），这也是后来出现的GRU以至LSTM致力于解决的问题
+
+
+
+为了解决这些问题，人们想出了多种优化算法，下面列举其中较为有名的两种。
+
+
+
+**Adagrad**
+
+
+$$
+\begin{aligned}
+            &\rule{110mm}{0.4pt}                                                                 \\
+            &\textbf{input}      : \gamma \text{ (lr)}, \: \theta_0 \text{ (params)}, \: f(\theta)
+                \text{ (objective)}, \: \lambda \text{ (weight decay)},                          \\
+            &\hspace{12mm}    \tau \text{ (initial accumulator value)}, \: \eta\text{ (lr decay)}\\
+            &\textbf{initialize} :  state\_sum_0 \leftarrow 0                             \\[-1.ex]
+            &\rule{110mm}{0.4pt}                                                                 \\
+            &\textbf{for} \: t=1 \: \textbf{to} \: \ldots \: \textbf{do}                         \\
+            &\hspace{5mm}g_t           \leftarrow   \nabla_{\theta} f_t (\theta_{t-1})           \\
+            &\hspace{5mm} \tilde{\gamma}    \leftarrow \gamma / (1 +(t-1) \eta)                  \\
+            &\hspace{5mm} \textbf{if} \: \lambda \neq 0                                          \\
+            &\hspace{10mm} g_t \leftarrow g_t + \lambda \theta_{t-1}                             \\
+            &\hspace{5mm}state\_sum_t  \leftarrow  state\_sum_{t-1} + g^2_t                      \\
+            &\hspace{5mm}\theta_t \leftarrow
+                \theta_{t-1}- \tilde{\gamma} \frac{g_t}{\sqrt{state\_sum_t}+\epsilon}            \\
+            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+            &\bf{return} \:  \theta_t                                                     \\[-1.ex]
+            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+       \end{aligned}
+$$
+
+
+**Adam**
+
+
+$$
+\begin{aligned}
+            &\rule{110mm}{0.4pt}                                                                 \\
+            &\textbf{input}      : \gamma \text{ (lr)}, \beta_1, \beta_2
+                \text{ (betas)},\theta_0 \text{ (params)},f(\theta) \text{ (objective)}          \\
+            &\hspace{13mm}      \lambda \text{ (weight decay)},  \: \textit{amsgrad},
+                \:\textit{maximize}                                                              \\
+            &\textbf{initialize} :  m_0 \leftarrow 0 \text{ ( first moment)},
+                v_0\leftarrow 0 \text{ (second moment)},\: \widehat{v_0}^{max}\leftarrow 0\\[-1.ex]
+            &\rule{110mm}{0.4pt}                                                                 \\
+            &\textbf{for} \: t=1 \: \textbf{to} \: \ldots \: \textbf{do}                         \\
+
+            &\hspace{5mm}\textbf{if} \: \textit{maximize}:                                       \\
+            &\hspace{10mm}g_t           \leftarrow   -\nabla_{\theta} f_t (\theta_{t-1})         \\
+            &\hspace{5mm}\textbf{else}                                                           \\
+            &\hspace{10mm}g_t           \leftarrow   \nabla_{\theta} f_t (\theta_{t-1})          \\
+            &\hspace{5mm}\textbf{if} \: \lambda \neq 0                                           \\
+            &\hspace{10mm} g_t \leftarrow g_t + \lambda  \theta_{t-1}                            \\
+            &\hspace{5mm}m_t           \leftarrow   \beta_1 m_{t-1} + (1 - \beta_1) g_t          \\
+            &\hspace{5mm}v_t           \leftarrow   \beta_2 v_{t-1} + (1-\beta_2) g^2_t          \\
+            &\hspace{5mm}\widehat{m_t} \leftarrow   m_t/\big(1-\beta_1^t \big)                   \\
+            &\hspace{5mm}\widehat{v_t} \leftarrow   v_t/\big(1-\beta_2^t \big)                   \\
+            &\hspace{5mm}\textbf{if} \: amsgrad                                                  \\
+            &\hspace{10mm}\widehat{v_t}^{max} \leftarrow \mathrm{max}(\widehat{v_t}^{max},
+                \widehat{v_t})                                                                   \\
+            &\hspace{10mm}\theta_t \leftarrow \theta_{t-1} - \gamma \widehat{m_t}/
+                \big(\sqrt{\widehat{v_t}^{max}} + \epsilon \big)                                 \\
+            &\hspace{5mm}\textbf{else}                                                           \\
+            &\hspace{10mm}\theta_t \leftarrow \theta_{t-1} - \gamma \widehat{m_t}/
+                \big(\sqrt{\widehat{v_t}} + \epsilon \big)                                       \\
+            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+            &\bf{return} \:  \theta_t                                                     \\[-1.ex]
+            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+       \end{aligned}
+$$
+
+
+可以看到，前者采用的是让学习率越来越小的方法，而后者则加入了所谓的**动量（momentum）**，使得优化器可以直接跳出一些局部极小值。这样就一定程度上减轻了训练后期的梯度消失问题。
 
 
 
