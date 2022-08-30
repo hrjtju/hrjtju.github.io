@@ -367,14 +367,14 @@ $$
 
 $$
 \begin{aligned}
-            &\rule{110mm}{0.4pt}                                                                 \\
+            &\overline{\kern{25em}}                                                                \\
             &\textbf{input}      : \gamma \text{ (lr)}, \beta_1, \beta_2
                 \text{ (betas)},\theta_0 \text{ (params)},f(\theta) \text{ (objective)}          \\
             &\hspace{13mm}      \lambda \text{ (weight decay)},  \: \textit{amsgrad},
                 \:\textit{maximize}                                                              \\
             &\textbf{initialize} :  m_0 \leftarrow 0 \text{ ( first moment)},
                 v_0\leftarrow 0 \text{ (second moment)},\: \widehat{v_0}^{max}\leftarrow 0\\[-1.ex]
-            &\rule{110mm}{0.4pt}                                                                 \\
+            &\overline{\kern{25em}}                                                                \\
             &\textbf{for} \: t=1 \: \textbf{to} \: \ldots \: \textbf{do}                         \\
 
             &\hspace{5mm}\textbf{if} \: \textit{maximize}:                                       \\
@@ -395,9 +395,9 @@ $$
             &\hspace{5mm}\textbf{else}                                                           \\
             &\hspace{10mm}\theta_t \leftarrow \theta_{t-1} - \gamma \widehat{m_t}/
                 \big(\sqrt{\widehat{v_t}} + \epsilon \big)                                       \\
-            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+            &\overline{\kern{25em}}                                                         \\[-1.ex]
             &\bf{return} \:  \theta_t                                                     \\[-1.ex]
-            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+            &\overline{\kern{25em}}                                                         \\[-1.ex]
        \end{aligned}
 $$
 
@@ -451,7 +451,7 @@ $$
 
 
 
-### 8 RBF网络
+### 8 RBF 网络
 
 
 
@@ -477,8 +477,12 @@ $$
 
 
 $$
-a_0 + \sum_i a_i \varphi_{\mu_i, \sigma_i}(x)
+g(x) = a_0 + \sum_i a_i \varphi_{\mu_i, \sigma_i}(x)
 $$
+
+
+#### 8.2 RBF运用于神经网络
+
 注意到正态分布的性质，如果令径向基函数就是Gauss函数，容易知道
 
 
@@ -487,19 +491,29 @@ $$
 $$
 
 
-这其实就是感知机的计算公式。只不过把激活函数变成了Gauss函数罢了。
-
-
-
-### 9 ART网络
+这与感知机的计算公式相类似。即为一个拥有单隐藏层的神经网络
 
 
 
 
 
+### 9 竞争神经网络
 
 
-### 10 SOM网络
+
+我们也可以换种思路考虑神经网络的问题。我们让神经元之间产生竞争，从而总是让预测某一类数据效果最好的那一个神经元去预测那一类数据。这就是**竞争神经网络**。我们以度量二维向量之间的夹角为例。首先将每一个神经元的权向量归一化，这样所有权向量都落在了单位圆上。
+
+我们再将输入归一化，然后检查与输入向量夹角最小的那一个权向量。如果两个向量的夹角小于某一个阈值，那么取这个向量的更新结果，单独更新这一个神经元的参数。这就是**胜者通吃（winner-take-all）原则**。如果距离输入向量最近的那一个权向量都不够接近（也就是没有超过阈值）那么就增加一个神经元，使得这个神经元的权向量就等于输入向量。
+
+在多分类任务中，训练这样的网络会使得权向量发生**逐步的 “分化”**，即不同的向量分别担任不同类的预测任务。在阈值的设置上，较大的相似度阈值会将数据集更加细分。而较小的阈值可能会将距离较近的两类误认为是一类。
+
+
+
+### 10 SOM 网络
+
+
+
+
 
 
 
@@ -515,13 +529,17 @@ $$
 
 
 
-### 13* 图神经网络（GNN）
+### 14 图神经网络（GNN）
 
 TODO
 
 
 
-### 14 深度学习
+### 15 脉冲神经网络
+
+
+
+### 16 深度学习
 
 
 
