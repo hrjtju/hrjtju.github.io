@@ -93,7 +93,7 @@ date-string: SEPTEMBER 10, 2022
 >
 > ### IO tools (text, CSV, HDF5, …)
 >
-> The pandas I/O API is a set of top level `reader` functions accessed like [`pandas.read_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv) that generally return a pandas object. The corresponding `writer` functions are object methods that are accessed like [`DataFrame.to_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv). Below is a table containing available `readers` and `writers`.
+> The pandas I/O API is a set of top level `reader` functions accessed like [`pandas.read_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv) that generally return a pandas object. The corresponding `writer` functions are object methods that are accessed like [`DataFrame.to_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv). Below is a table containing available `readers` and `writers`.（来源于Pandas文档）
 >
 > | Format Type | Data Description                                             | Reader                                                       | Writer                                                       |
 > | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
