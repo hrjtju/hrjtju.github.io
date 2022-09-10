@@ -45,7 +45,7 @@ date-string: SEPTEMBER 10, 2022
 
 答：`tsv`文件与`csv`类似，其全称为制表符分隔值（Tab Separated Values）。查`pandas`文档知道函数`read_csv`中有一个参数为`sep=','`。我们只需要将它设置为`‘\t’`即可。当然对于长度超过1的字符串，函数将认为他们是正则表达式，从而以正则表达式所匹配的字符串进行分割。对于采用两种或以上分隔符的数据文件，正则表达式恰好可以大显身手：（在读入的文件中我特意将几处逗号改成了制表符，可以看见依然可以正常读入）
 
-<img src="/images/2022-08-13/image-20220910224216619.png" alt="image-20220910224216619" style="zoom:30%;" />
+<img src="/images/2022-08-13/image-20220910224216619.png" alt="image-20220910224216619" style="zoom:40%;" />
 
 
 
@@ -53,7 +53,7 @@ date-string: SEPTEMBER 10, 2022
 
 答：先说官方文档里是这么讲的。官方文档里面说 “By specifying a `chunksize` to `read_csv`, the return value will be **an iterable object** of type `TextFileReader`: ”这样可以产生一个可迭代对象，可以放在`for i in <###>`里面来用，十分方便。至于这样做的另一个原因，我猜是因为可能有一些文件实在是太大了，所以我们希望将其分成若干小块来分别处理。
 
-<img src="/images/2022-08-13/image-20220910230204363.png" alt="image-20220910230204363" style="zoom:50%;" />
+<img src="/images/2022-08-13/image-20220910230204363.png" alt="image-20220910230204363" style="zoom:40%;" />
 
 问：除了采用将英文列名表头换成中文，还有什么办法？
 
@@ -71,9 +71,9 @@ date-string: SEPTEMBER 10, 2022
 
 * 使用`df.tail(num)`获取列表结束的几行
 
-* 使用`df.isnull()`检查空值，也可以采用一般的方法搜索空值的位置：
+* 使用`df.isnull()`检查空值，也可以采用`numpy.where()`或者一般的方法搜索空值的位置：
 
-  <img src="/images/2022-08-13/image-20220910232805057.png" alt="image-20220910232805057" style="zoom:50%;" />
+  <img src="/images/2022-08-13/image-20220910232805057.png" alt="image-20220910232805057" style="zoom:40%;" />
 
 
 
