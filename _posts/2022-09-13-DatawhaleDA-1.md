@@ -252,3 +252,8 @@ text.sort_values(by=['姓名'], ascending=True, key=lambda x:x.str.lower())
 ```
 
 <img src="/images/2022-09/image-20220913180731669.png" alt="image-20220913180731669" style="zoom:50%;" />
+
+
+
+* 形状相同的`DataFrame`可以直接进行基本运算
+* 可以调用`df.describe()`获取各列的统计信息：例如最大最小值、平均数、分位数等
