@@ -119,6 +119,112 @@ df.drop_duplicates()
 
 
 
+* `pandas.cut()`
+
+* `pandas.qcut()`
+
+Remark. `qcut()`中的q就是分位数的意思。所以我们可以不必通过排序后索引的方法来进行基于分位数的分箱。
+
+```python
+# 这样的方法略显笨重
+
+a, b, c, d, e = int(891 * 0.1 - 1), int(891 * 0.3 - 1), int(891 * 0.5 - 1),\
+                int(891 * 0.7 - 1), int(891 * 0.9 - 1)
+df_sorted = df_.sort_values(by="Age", ascending=True)
+df_sorted = df_sorted.reset_index(drop=True)
+
+df_sorted.loc[:a], df_sorted.loc[a:b], df_sorted.loc[b:c]\
+df_sorted.loc[c:d], df_sorted.loc[d:e], df_sorted.loc[e:]
+
+
+# 直接使用函数更为方便
+
+df_2["Age2"] = pd.qcut(df["Age"], q=[0, 0.1, 0.3, 0.5, 0.7, 0.9],\
+                      labels = [1, 2, 3, 4, 5])
+```
+
+
+
+**非数值数据转换为数值数据**
+
+一种方法是使用函数
+
+* `Series.replace()`
+
+将一个列表的值对应换成另一个列表的值：
+
+```python
+df['Sex'].replace(['male','female'],[1,2])
+```
+
+
+
+也可以调用`sklearn`中的函数：
+
+```python
+from sklearn.preprocessing import LabelEncoder
+
+for feat in ['Cabin', 'Ticket']:       # 选择要处理的列
+    lbl = LabelEncoder()
+    label_dict = dict(zip(df[feat].unique(), range(df[feat].nunique())))
+    df[feat + "_labelEncode"] = df[feat].map(label_dict)
+    df[feat + "_labelEncode"] = lbl.fit_transform(df[feat].astype(str))
+    
+    # 下次一定补学 sklearn......
+```
+
+
+
+* `Series.map(<map>)`
+
+`<map>`中的东西表示一个**映射关系**，所以字典自然的可以，我们当然也可以往里面写`lambda`函数，或者传一个自己写好的函数
+
+```python
+# 1 使用字典
+df_2["Sex"].map({"female" : 0, "male" : 1})
+
+# 2 使用函数
+def hash(s: str):
+    code = 0
+    for i in s:
+        code += ord(i)
+    return code
+
+df_2["Cabin"].map(hash)
+
+# 3 使用lambda函数，这个函数和上面的hash()函数作用相同，实现思路也相同
+df_2["Cabin"].map(lambda x:sum([ord(i) for i in x]))
+```
+
+
+
+由于有了这样的功能支持，我们也可以对任何一列做某种变换，使得我们可以借此得到我们想要的数据。例如问题中给出的筛选`Miss`等这样的字串，我们很自然的想到了正则表达式。所提取的规则是：两个字符以上（实际上测试过一个字符及以上的，结果发现和两个字符及以上结果一样），以大写字母开头，以点结束。因此我们可以写出正则表达式字符串：
+
+```regex
+r"\W[\w]+\."
+```
+
+我们拿它去干和上面相同的事情：
+
+```python
+df_2["Name"].map(lambda x:(re.findall(r"\W[\w]+\.", x)[0][:-1]))
+
+# [0]是取第一个，因为在这种情形中这种提取结果有且仅有一个
+# [:-1]是要把最后的 ‘.’ 去掉
+```
+
+这样就可以提取出需要的字串了。
+
+
+
+Remark. 因为自己对`re`这个库不是很熟悉，试了两次发现`re.findall`返回的是匹配到的字符串组成的数组，于是就采用了这种看起来比较笨拙的方式
+
+
+
+教程参考答案中使用的方法是`df["Name"].str.extract()`的方法。其本质也是通过正则表达式来进行字符串搜索。
+
+
+
 ### 2.2 数据重构
 
 
