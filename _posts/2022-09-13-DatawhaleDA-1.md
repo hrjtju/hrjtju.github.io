@@ -3,7 +3,7 @@ layout: post
 categories: posts
 title: 【DatawhaleDA】 1 Pandas入门
 subtitle: Datawhale开源学习社区数据分析项目笔记
-featured-image: /images/2016-11-19/chino_2.jpg
+featured-image: /images/2016-11-19/V-1_bg.png
 tags: [Data Analysis]
 date-string: SEPTEMBER 13, 2022
 
