@@ -32,7 +32,7 @@ dfna = df.notna().to_numpy()
 np.sum(1 - dfna, axis=0)
 ```
 
-<img src="/images/2022-09/image-20220914082711202.png" alt="image-20220914082711202" style="zoom:50%;" />
+
 
 ```python
 # 方法2, 返回值类型为 pandas.core.series.Series
@@ -40,7 +40,7 @@ np.sum(1 - dfna, axis=0)
 df.isna().sum(axis=0)
 ```
 
-<img src="/images/2022-09/image-20220914082721734.png" alt="image-20220914082721734" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220914082711202.png" alt="image-20220914082711202" style="zoom:50%;" />
 
 ```python
 # 方法3，直接调用之前的函数
@@ -48,7 +48,7 @@ df.isna().sum(axis=0)
 df.info()
 ```
 
-
+<img src="/images/2022-09/image-20220914082721734.png" alt="image-20220914082721734" style="zoom:50%;" />
 
 > Remark. 大家可能还会注意到另一个函数`df.notnull()`，其实他们两个是一样的（`df.isna`和`df.isnull`也一样）在文档里说它是`df.notna()`的别称（alias）：
 >
