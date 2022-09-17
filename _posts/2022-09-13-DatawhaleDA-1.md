@@ -3,7 +3,7 @@ layout: post
 categories: posts
 title: 【DatawhaleDA】 1 Pandas入门
 subtitle: Datawhale开源学习社区数据分析项目笔记
-featured-image: /images/2016-11-19/V-1_bg.png
+featured-image: ../images/2016-11-19/V-1_bg.png
 tags: [Data Analysis]
 date-string: SEPTEMBER 13, 2022
 
@@ -62,7 +62,7 @@ date-string: SEPTEMBER 13, 2022
 
 答：`tsv`文件与`csv`类似，其全称为制表符分隔值（Tab Separated Values）。查`pandas`文档知道函数`read_csv`中有一个参数为`sep=','`。我们只需要将它设置为`‘\t’`即可。当然对于长度超过1的字符串，函数将认为他们是正则表达式，从而以正则表达式所匹配的字符串进行分割。对于采用两种或以上分隔符的数据文件，正则表达式恰好可以大显身手：（在读入的文件中我特意将几处逗号改成了制表符，可以看见依然可以正常读入）
 
-<img src="/images/2022-09/image-20220910224216619.png" alt="image-20220910224216619" style="zoom:30%;" />
+<img src="../images/2022-09/image-20220910224216619.png" alt="image-20220910224216619" style="zoom:30%;" />
 
 
 
@@ -70,7 +70,7 @@ date-string: SEPTEMBER 13, 2022
 
 答：先说官方文档里是这么讲的。官方文档里面说 “By specifying a `chunksize` to `read_csv`, the return value will be **an iterable object** of type `TextFileReader`: ”这样可以产生一个可迭代对象，可以放在`for i in <###>`里面来用，十分方便。至于这样做的另一个原因，我猜是因为可能有一些文件实在是太大了，所以我们希望将其分成若干小块来分别处理。
 
-<img src="/images/2022-09/image-20220910230204363.png" alt="image-20220910230204363" style="zoom:50%;" />
+<img src="../images/2022-09/image-20220910230204363.png" alt="image-20220910230204363" style="zoom:50%;" />
 
 问：除了采用将英文列名表头换成中文，还有什么办法？
 
@@ -90,7 +90,7 @@ date-string: SEPTEMBER 13, 2022
 
 * 使用`df.isnull()`检查空值，也可以采用一般的方法搜索空值的位置：
 
-  <img src="/images/2022-09/image-20220910232805057.png" alt="image-20220910232805057" style="zoom:50%;" />
+  <img src="../images/2022-09/image-20220910232805057.png" alt="image-20220910232805057" style="zoom:50%;" />
 
 
 
@@ -165,7 +165,7 @@ date-string: SEPTEMBER 13, 2022
 >
 >   Operations between Series (`+`, `-`, `/`, `*`, `**`) align values based on their associated index values-- they need not be the same length. **The result  index will be the sorted union of the two indexes.**
 >
-> <img src="/images/2022-09/image-20220913163813344.png" alt="image-20220913163813344" style="zoom:50%;" />
+> <img src="../images/2022-09/image-20220913163813344.png" alt="image-20220913163813344" style="zoom:50%;" />
 >
 > 
 >
@@ -198,11 +198,11 @@ midage = midage.reset_index(drop=True)
 
 列表在抽掉一些行数据以后，那些数据所在的行索引会消失。如果不做处理，后续接触到这些已不存在的行索引，会报错`KeyError`也就是找不到这些键了（因为它们被我们在上一步删掉了）:
 
-<img src="/images/2022-09/image-20220913170303984.png" alt="image-20220913170303984" style="zoom:50%;" />
+<img src="../images/2022-09/image-20220913170303984.png" alt="image-20220913170303984" style="zoom:50%;" />
 
 因此我们需要对表的行重新编号。这样就可以正常定位了
 
-<img src="/images/2022-09/image-20220913170347976.png" alt="image-20220913170347976" style="zoom:33%;" />
+<img src="../images/2022-09/image-20220913170347976.png" alt="image-20220913170347976" style="zoom:33%;" />
 
 
 
@@ -217,11 +217,11 @@ midage.iloc[[100,105,108],[2,3,4]]
 
 当然，我们也可以写入逻辑式进行查询：
 
-<img src="/images/2022-09/image-20220913171052225.png" alt="image-20220913171052225" style="zoom:50%;" />
+<img src="../images/2022-09/image-20220913171052225.png" alt="image-20220913171052225" style="zoom:50%;" />
 
 也可以像通常的列表一样索引：
 
-<img src="/images/2022-09/image-20220913171156184.png" alt="image-20220913171156184" style="zoom:50%;" />
+<img src="../images/2022-09/image-20220913171156184.png" alt="image-20220913171156184" style="zoom:50%;" />
 
 
 
@@ -247,7 +247,7 @@ midage.iloc[[100,105,108],[2,3,4]]
 text.sort_values(by=['姓名'], ascending=True, key=lambda x:x.str.lower())
 ```
 
-<img src="/images/2022-09/image-20220913180731669.png" alt="image-20220913180731669" style="zoom:50%;" />
+<img src="../images/2022-09/image-20220913180731669.png" alt="image-20220913180731669" style="zoom:50%;" />
 
 
 
