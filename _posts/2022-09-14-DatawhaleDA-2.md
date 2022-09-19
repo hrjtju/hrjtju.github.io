@@ -475,6 +475,10 @@ result = pd.concat(frames, keys=["df1", "df2", "df3"])
 
 在此默认读者已经会通过`matplotlib`进行基本图像绘制，在此展示一些较为高级的用法。Matplotlib部分中的大部分例子来源于[《scientific-visualization-python-matplotlib》](https://hal.inria.fr/hal-03427242)
 
+> Nicolas Rougier. Scientific Visualization: Python + Matplotlib. Nicolas P. Rougier. 2021, 978-2-
+>
+> 9579901-0-8. ffhal-03427242f
+
 
 
 #### 2.3.1 折线图、柱状图、直方图、散点图
