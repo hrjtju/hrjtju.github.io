@@ -307,7 +307,7 @@ pd.concat(frames)
 
 因为上述三个`DataFrame`的行索引并没有相交，于是很自然的可以得出结果。`axis`默认为`0`，于是三个表进行纵向连接。如果每个表的纵向索引都是`[1, 2, 3, 4]`，`pandas`将不会做什么额外的工作，它将直接将这三张表串起来：
 
-<img src="../images/2022-09/image-20220915104958638.png" alt="image-20220915104958638" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220915104958638.png" alt="image-20220915104958638" style="zoom:50%;" />
 
 ```python
 pd.concat(frames, ignore_index=True)
@@ -315,7 +315,7 @@ pd.concat(frames, ignore_index=True)
 
 如果将`ignore_index`改为`True`，`pandas`将会重新编号
 
-<img src="../images/2022-09/image-20220915105238498.png" alt="image-20220915105238498" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220915105238498.png" alt="image-20220915105238498" style="zoom:50%;" />
 
 *列索引不同*
 
@@ -338,7 +338,7 @@ frames = [df1, df2, df3]
 pd.concat(frames, ignore_index=True, join="inner")
 ```
 
-<img src="../images/2022-09/image-20220915105521626.png" alt="image-20220915105521626" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220915105521626.png" alt="image-20220915105521626" style="zoom:50%;" />
 
 *横向连接*
 
@@ -367,7 +367,7 @@ frames = [df1, df2]
 pd.concat(frames, axis=1, join="outer")
 ```
 
-<img src="../images/2022-09/image-20220915110014369.png" alt="image-20220915110014369" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220915110014369.png" alt="image-20220915110014369" style="zoom:50%;" />
 
 *标注合并源*
 
@@ -410,7 +410,7 @@ frames = [df1, df2, df3]
 result = pd.concat(frames, keys=["df1", "df2", "df3"])
 ```
 
-<img src="../images/2022-09/image-20220915110330922.png" alt="image-20220915110330922" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220915110330922.png" alt="image-20220915110330922" style="zoom:50%;" />
 
 在这样的输出中，可以通过`df.loc[<tag>]`定位之前合并进去的那一部分。在此官方文档在下面做了一个注解
 
@@ -494,7 +494,7 @@ ax.legend()
 plt.show()
 ```
 
-<img src="../images/2022-09/image-20220919235839097.png" alt="image-20220919235839097" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220919235839097.png" alt="image-20220919235839097" style="zoom:50%;" />
 
 
 
@@ -537,7 +537,7 @@ ax.legend()
 plt.show()
 ```
 
-<img src="../images/2022-09/image-20220920002424441.png" alt="image-20220920002424441" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220920002424441.png" alt="image-20220920002424441" style="zoom:50%;" />
 
 
 
@@ -635,7 +635,7 @@ plt.scatter([1.3] * len(X), Y, marker="_", color=cmap(C), linewidth=0.5, alpha=0
 plt.show()
 ```
 
-<img src="../images/2022-09/image-20220920003910418.png" alt="image-20220920003910418" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220920003910418.png" alt="image-20220920003910418" style="zoom:50%;" />
 
 
 
@@ -757,7 +757,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-<img src="../images/2022-09/image-20220920004339662.png" alt="image-20220920004339662" style="zoom:80%;" />
+<img src="/images/2022-09/image-20220920004339662.png" alt="image-20220920004339662" style="zoom:80%;" />
 
 Remark 这段代码在我自己的机器上面跑报错了：
 
