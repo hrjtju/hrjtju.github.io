@@ -463,9 +463,7 @@ result = pd.concat(frames, keys=["df1", "df2", "df3"])
 
 
 
-**`pandas.merge`**
-
-TODO
+**`pandas.merge(left, right, how='inner', on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=('_x', '_y'), copy=True, indicator=False, validate=None)`**
 
 
 
@@ -475,13 +473,315 @@ TODO
 
 ### 2.3 数据可视化
 
+在此默认读者已经会通过`matplotlib`进行基本图像绘制，在此展示一些较为高级的用法。Matplotlib部分中的大部分例子来源于[《scientific-visualization-python-matplotlib》](https://hal.inria.fr/hal-03427242)
+
 
 
 #### 2.3.1 折线图、柱状图、直方图、散点图
 
+`plt.plot()`
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig = plt.figure(figsize=(6,2.5))
+ax = plt.subplot()
+X = np.linspace(-np.pi, np.pi, 256, endpoint=True)
+ax.plot(X, np.cos(X), label="cosine")
+ax.plot(X, np.sin(X), label="sine")
+ax.legend()
+plt.show()
+```
+
+<img src="../images/2022-09/image-20220919235839097.png" alt="image-20220919235839097" style="zoom:50%;" />
 
 
-#### 2.3.2 等高线图、热力图、三维曲面
+
+`plt.bar()`
+
+```python
+fig = plt.figure(figsize=(6,2.5), dpi=200)
+ax = plt.subplot()
+X = np.arange(-20, 20)
+ax.bar(X, np.cos(X), label="cosine", zorder=1)
+ax.bar(X, np.sin(X), label="sine", zorder=0)
+ax.legend()
+plt.show()
+```
+
+
+
+`plt.hist()`
+
+
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig = plt.figure(figsize=(8, 3), dpi=200)
+ax = plt.subplot()
+X = np.array([np.random.randn() for i in range(50000)])
+Y = np.array([(np.random.randn() + 1) / .5 for i in range(50000)])
+
+countsX, binsX = np.histogram(X, bins=200, normed=True)
+countsY, binsY = np.histogram(Y, bins=200, normed=True)
+
+ax.set_xlim((-5, 5))
+
+plt.hist(binsX[:-1], binsX, weights=countsX, zorder=0)
+plt.hist(binsY[:-1], binsY, weights=countsY, zorder=1)
+
+ax.legend()
+plt.show()
+```
+
+<img src="../images/2022-09/image-20220920002424441.png" alt="image-20220920002424441" style="zoom:50%;" />
+
+
+
+`plt.scatter()`
+
+
+
+```python
+# 字体设置
+plt.rcParams["font.size"] = 10.0
+plt.rcParams["font.serif"] = ["Source Serif Pro"]
+plt.rcParams["font.sans-serif"] = ["Source Sans Pro"]
+plt.rcParams["font.monospace"] = ["Source Code Pro"]
+
+
+fig = plt.figure(figsize=(5, 5))
+ax = plt.axes()
+
+ax.set_xlabel("Height (m)", weight="medium")
+ax.set_ylabel("Weight (kg)", weight="medium")
+ax.set_title(
+    """Distribution of height & weight\n""" """according to sex & age (fake data)""",
+    family="serif",
+)
+
+n = 250
+np.random.seed(1)
+X, Y = np.zeros(2 * n), np.zeros(2 * n)
+S, C = np.zeros(2 * n), np.zeros(2 * n)
+
+# 按正态分布生成数据
+X[:n] = np.random.normal(1.60, 0.1, n)
+Y[:n] = np.random.normal(50, 10, n)
+S[:n] = np.random.uniform(25, 50, n)
+C[:n] = 0
+
+X[n:] = np.random.normal(1.75, 0.1, n)
+Y[n:] = np.random.normal(75, 10, n)
+S[n:] = np.random.uniform(25, 50, n)
+C[n:] = 1
+
+# 调用色谱映射
+cmap = plt.get_cmap("RdYlBu")
+# 绘制散点
+scatter = plt.scatter(X, Y, s=S, edgecolor="black", linewidth=.50, zorder=-20)
+scatter = plt.scatter(X, Y, s=S, edgecolor="None", facecolor="white", zorder=-10)
+scatter = plt.scatter(X, Y, c=C, s=S, cmap=cmap, edgecolor="None", alpha=0.25)
+
+# 图例总设置
+handles, labels = scatter.legend_elements(
+    num=3,
+    prop="sizes",
+    alpha=1,
+    markeredgewidth=0.5,
+    markeredgecolor="black",
+    markerfacecolor="None",
+)
+
+# 设置年龄图例
+legend = plt.legend(
+    handles,
+    labels,
+    title=" Age",
+    loc=(0.6, 0.05),
+    handletextpad=0.1,
+    labelspacing=0.25,
+    facecolor="None",
+    edgecolor="None",
+)
+
+legend.get_children()[0].align = "left"
+legend.get_title().set_fontweight("medium")
+ax.add_artist(legend)
+
+# 设置性别图例
+handles, labels = scatter.legend_elements(markeredgewidth=0.0, markeredgecolor="black")
+labels = ["Female", "Male"]
+legend = plt.legend(
+    handles,
+    labels,
+    title=" Sex",
+    loc=(0.75, 0.05),
+    handletextpad=0.1,
+    labelspacing=0.25,
+    facecolor="None",
+    edgecolor="None",
+)
+legend.get_children()[0].align = "left"
+legend.get_title().set_fontweight("medium")
+
+# 绘制散点在坐标轴上的投影
+plt.scatter(X, [19] * len(X), marker="|", color=cmap(C), linewidth=0.5, alpha=0.25)
+plt.scatter([1.3] * len(X), Y, marker="_", color=cmap(C), linewidth=0.5, alpha=0.25)
+
+plt.show()
+```
+
+<img src="../images/2022-09/image-20220920003910418.png" alt="image-20220920003910418" style="zoom:50%;" />
+
+
+
+#### 2.3.2 热力图
+
+
+
+`plt.contour`
+
+
+
+```python
+import scipy
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.textpath import TextPath
+from matplotlib.patches import PathPatch
+from matplotlib.font_manager import FontProperties
+
+
+def interpolate(X, Y, T):
+    dR = (np.diff(X) ** 2 + np.diff(Y) ** 2) ** 0.5
+    R = np.zeros_like(X)
+    R[1:] = np.cumsum(dR)
+    return np.interp(T, R, X), np.interp(T, R, Y), R[-1]
+
+
+def contour(X, Y, text, offset=0):
+
+    # Interpolate text along curve
+    # X0,Y0 for position  + X1,Y1 for normal vectors
+    path = TextPath(
+        (0, -0.75), text, prop=FontProperties(size=2, family="Roboto", weight="bold")
+    )
+    V = path.vertices
+    X0, Y0, D = interpolate(X, Y, offset + V[:, 0])
+    X1, Y1, _ = interpolate(X, Y, offset + V[:, 0] + 0.1)
+
+    # Here we interpolate the original path to get the "remainder"
+    #  (path minus text)
+    X, Y, _ = interpolate(X, Y, np.linspace(V[:, 0].max() + 1, D - 1, 200))
+    plt.plot(
+        X, Y, color="black", linewidth=0.5, markersize=1, marker="o", markevery=[0, -1]
+    )
+
+    # Transform text vertices
+    dX, dY = X1 - X0, Y1 - Y0
+    norm = np.sqrt(dX ** 2 + dY ** 2)
+    dX, dY = dX / norm, dY / norm
+    X0 += -V[:, 1] * dY
+    Y0 += +V[:, 1] * dX
+    V[:, 0], V[:, 1] = X0, Y0
+
+    # Faint outline
+    patch = PathPatch(
+        path,
+        facecolor="white",
+        zorder=10,
+        alpha=0.25,
+        edgecolor="white",
+        linewidth=1.25,
+    )
+    ax.add_artist(patch)
+
+    # Actual text
+    patch = PathPatch(
+        path, facecolor="black", zorder=30, edgecolor="black", linewidth=0.0
+    )
+    ax.add_artist(patch)
+
+
+# Some data
+n = 64
+X, Z = np.meshgrid(
+    np.linspace(-0.5 + 0.5 / n, +0.5 - 0.5 / n, n),
+    np.linspace(-0.5 + 0.5 / n, +0.5 - 0.5 / n, n),
+)
+Y = 0.75 * np.exp(-10 * (X ** 2 + Z ** 2))
+
+
+def f(x, y):
+    return (1 - x / 2 + x ** 5 + y ** 3) * np.exp(-(x ** 2) - y ** 2)
+
+
+n = 100
+x = np.linspace(-3, 3, n)
+y = np.linspace(-3, 3, n)
+X, Y = np.meshgrid(x, y)
+Z = 0.5 * f(X, Y)
+
+
+fig = plt.figure(figsize=(10, 5), dpi=100)
+levels = 10
+
+# Regular contour with straight labels
+ax = fig.add_subplot(1, 2, 1, aspect=1, xticks=[], yticks=[])
+CF = plt.contourf(Z, origin="lower", levels=levels)
+CS = plt.contour(Z, origin="lower", levels=levels, colors="black", linewidths=0.5)
+ax.clabel(CS, CS.levels)
+
+# Regular contour with curved labels
+# ! aspect=1 is critical here, else text path would be deformed
+ax = fig.add_subplot(1, 2, 2, aspect=1, xticks=[], yticks=[])
+CF = plt.contourf(Z, origin="lower", levels=levels)
+CS = plt.contour(
+    Z, origin="lower", levels=levels, alpha=0, colors="black", linewidths=0.5
+)
+
+for level, collection in zip(CS.levels[:], CS.collections[:]):
+    for path in collection.get_paths():
+        V = np.array(path.vertices)
+        text = "%.3f" % level
+        if level == 0.0:
+            text = "  DO NOT CROSS  •••" * 8
+        contour(V[:, 0], V[:, 1], text)
+
+plt.tight_layout()
+
+plt.show()
+```
+
+<img src="../images/2022-09/image-20220920004339662.png" alt="image-20220920004339662" style="zoom:80%;" />
+
+Remark 这段代码在我自己的机器上面跑报错了：
+
+```
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+~\AppData\Local\Temp\ipykernel_11276\1665412525.py in <module>
+    101         if level == 0.0:
+    102             text = "  DO NOT CROSS  •••" * 8
+--> 103         contour(V[:, 0], V[:, 1], text)
+    104 
+    105 plt.tight_layout()
+
+~\AppData\Local\Temp\ipykernel_11276\1665412525.py in contour(X, Y, text, offset)
+     38     X0 += -V[:, 1] * dY
+     39     Y0 += +V[:, 1] * dX
+---> 40     V[:, 0], V[:, 1] = X0, Y0
+     41 
+     42     # Faint outline
+
+ValueError: assignment destination is read-only
+```
+
+原因未知
 
 
 
