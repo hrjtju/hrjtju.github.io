@@ -41,7 +41,7 @@ date-string: SEPTEMBER 23, 2022
 
 **模型选择决策树**
 
-<img src="../images/2022-09/image-20220923003156006.png" alt="image-20220923003156006" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220923003156006.png" alt="image-20220923003156006" style="zoom:50%;" />
 
 
 
@@ -93,7 +93,7 @@ rfc2 = RandomForestClassifier(n_estimators=100, max_depth=5)
 rfc2.fit(X_train, y_train)
 ```
 
-<img src="../images/2022-09/image-20220923004432084.png" alt="image-20220923004432084" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220923004432084.png" alt="image-20220923004432084" style="zoom:50%;" />
 
 可以看到在设置大值以后明显出现了过拟合现象
 
@@ -117,7 +117,7 @@ print(model.pridict_proba(X_train)[:10])  # 输出概率值
 
 **k-折交叉验证**
 
-<img src="../images/2022-09/image-20220923004845617.png" alt="image-20220923004845617" style="zoom:50%;" />
+<img src="/images/2022-09/image-20220923004845617.png" alt="image-20220923004845617" style="zoom:50%;" />
 
 ```python
 from sklearn.model_selection import cross_val_score
