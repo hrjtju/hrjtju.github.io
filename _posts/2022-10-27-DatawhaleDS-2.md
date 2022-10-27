@@ -106,7 +106,7 @@ int main()
 
 
 $$
-\lim_{n \to \infty} \frac{T(n)}{f(n)} = C,~~ C \in \R_{++}
+\lim_{n \to \infty} \frac{T(n)}{f(n)} = C,~~ C \in \mathbb R_{++}
 $$
 
 
