@@ -340,7 +340,7 @@ typedef struct
 } Component, StaticLinkList
 ```
 
-<img src="../images/2022-10/image-20221030202058316.png" alt="image-20221030202058316" style="zoom:50%;" />
+<img src="/images/2022-10/image-20221030202058316.png" alt="image-20221030202058316" style="zoom:50%;" />
 
 
 
@@ -348,13 +348,13 @@ typedef struct
 
 ### 3.5 循环链表
 
-<img src="../images/2022-10/image-20221030202415547.png" alt="image-20221030202415547" style="zoom:50%;" />
+<img src="/images/2022-10/image-20221030202415547.png" alt="image-20221030202415547" style="zoom:50%;" />
 
 
 
 ### 3.6 双向链表
 
-<img src="../images/2022-10/image-20221030202436991.png" alt="image-20221030202436991" style="zoom:50%;" />
+<img src="/images/2022-10/image-20221030202436991.png" alt="image-20221030202436991" style="zoom:50%;" />
 
 
 
