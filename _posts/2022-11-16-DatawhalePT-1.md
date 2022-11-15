@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: posts
-title: 【DatawhaleDS】 Pytorch Basics
+title: 【DatawhalePT】 Pytorch Basics
 subtitle: Datawhale开源学习社区深入浅出Pytorch项目笔记
 featured-image: /images/2016-11-19/bg.png
 tags: [Pytorch]
