@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【数理逻辑：证明及其限度】 1 预备知识 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="复旦大学逻辑与形而上学教科书系列《数理逻辑：证明及其限度》学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数理逻辑：证明及其限度】 1 预备知识">
+<meta property="og:url" content="https://hrjtju.github.io/2023/08/08/2023/08/2023-08-09-logic_1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="复旦大学逻辑与形而上学教科书系列《数理逻辑：证明及其限度》学习笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/2023/headers/logic.jpeg">
+<meta property="article:published_time" content="2023-08-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-10T16:00:00.000Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Logic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/2023/headers/logic.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/08/08/2023/08/2023-08-09-logic_1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【数理逻辑：证明及其限度】 1 预备知识',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-11 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2023/headers/logic.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【数理逻辑：证明及其限度】 1 预备知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-07T16:00:00.000Z" title="Created 2023-08-08 00:00:00">2023-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-10T16:00:00.000Z" title="Updated 2023-08-11 00:00:00">2023-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>18min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【数理逻辑：证明及其限度】 1 预备知识"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-证明的必要性"><a href="#1-证明的必要性" class="headerlink" title="1 证明的必要性"></a>1 证明的必要性</h2><p>数学与物理、化学等实验科学不同，不需要进行动手实验，但需要进行严格的论证并不允许有例外。</p>
+<h3 id="1-1-经验归纳的结果不一定正确"><a href="#1-1-经验归纳的结果不一定正确" class="headerlink" title="1.1 经验归纳的结果不一定正确"></a>1.1 经验归纳的结果不一定正确</h3><p><strong>例 1.1.1</strong>    观察，<script type="math/tex">31, 331, 3331, 33331, 333331</script>都是素数，但<script type="math/tex">333333331</script>不是素数</p>
+<p><strong>例 1.1.2</strong>    Fermat注意到，对于任意整数<script type="math/tex">n \geqslant 3</script>，方程<script type="math/tex">x^n+y^n=z^n</script>没有整数解。现考虑方程<script type="math/tex">x^4+y^4+z^4=w^4</script>，可以验证</p>
+<script type="math/tex; mode=display">
+95800^4 +217519^4 +414560^4 = 422481^4</script><p>要验证数学猜想（如Riemann猜想），必须给出数学证明。数学证明是由<strong>公理</strong>出发，一步步根据<strong>逻辑规则</strong>列出命题，最后达到需要证明的猜想或命题的终点的过程。若猜想被成功证明，他就被称为<strong>定理</strong>。以下两个证明为<strong>反证法</strong>典型例子。</p>
+<h3 id="1-2-反证法"><a href="#1-2-反证法" class="headerlink" title="1.2 反证法"></a>1.2 反证法</h3><p><strong>例 1.1.3</strong>    <script type="math/tex">\sqrt{2}</script>不是有理数。</p>
+<p><strong>证明</strong> 假设<script type="math/tex">\sqrt{2}</script>是有理数，那么它可以写成<script type="math/tex">a/b</script>的形式，其中<script type="math/tex">a</script>和<script type="math/tex">b</script>不全为偶数。因为<script type="math/tex">a/b=\sqrt{2}</script>，那么<script type="math/tex">a^2=2b^2</script>，于是<script type="math/tex">a</script>为偶数。又因为<script type="math/tex">a</script>为偶数，进而存在某个整数<script type="math/tex">p</script>使得<script type="math/tex">a=2p</script>，于是<script type="math/tex">a^2=4p^2</script>，所以<script type="math/tex">b</script>也为偶数。这是一个矛盾，于是<script type="math/tex">\sqrt{2}</script>不是有理数。</p>
+<p><strong>例 1.1.4</strong>    存在无穷多个素数。</p>
+<p><strong>证明</strong> 不妨假设只有<script type="math/tex">n</script>个素数：<script type="math/tex">p_1, …, p_n</script>。考虑整数<script type="math/tex">q=p_1\cdots p_n +1</script>，它不属于先前假定的任何一个素数，且不能被其中的任何一个素数整除。这是一个矛盾，于是素数有无穷多个。</p>
+<h3 id="习题1-1"><a href="#习题1-1" class="headerlink" title="习题1.1"></a>习题1.1</h3><p><strong>1.1.1</strong>    是否对于所有正整数<script type="math/tex">n</script>，都有<script type="math/tex">q=p_1\cdots p_n +1</script>是素数？这里<script type="math/tex">p_i</script>代表第<script type="math/tex">i</script>个素数，特殊地，有<script type="math/tex">p_1=2</script>。</p>
+<p>注意到<script type="math/tex">2\cdot 3\cdot 5\cdot 7\cdot 11\cdot 13 +1 = 59 \cdot 509</script>，因此这个猜想不正确。</p>
+<p>使用Python语言编写的检查程序：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">primes</span>(<span class="params">n:<span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;find all primes less than n&quot;&quot;&quot;</span></span><br><span class="line">    ls = [<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, n):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> [j <span class="keyword">for</span> j <span class="keyword">in</span> ls <span class="keyword">if</span> i%j==<span class="number">0</span>]:</span><br><span class="line">            ls.append(i)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ls</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">prod</span>(<span class="params">ls:<span class="built_in">list</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;compute product of all entries of a list&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(ls) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> ls[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> ls[<span class="number">0</span>] * prod(ls[<span class="number">1</span>:])</span><br><span class="line"></span><br><span class="line">ls_bk = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">if</span> primes(i) == ls_bk:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        ls_bk = primes(i)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># check if prod(primes) + 1 can be divided by smaller primes</span></span><br><span class="line">    ls_ = [j <span class="keyword">for</span> j <span class="keyword">in</span> primes(<span class="number">100</span> * i) <span class="keyword">if</span> (prod(ls_bk) + <span class="number">1</span>) % j == <span class="number">0</span> <span class="keyword">and</span> (prod(ls_bk) + <span class="number">1</span>) / j &gt; <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span> ls_:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Prod(<span class="subst">&#123;ls_bk[<span class="number">0</span>]&#125;</span> ... <span class="subst">&#123;ls_bk[-<span class="number">1</span>]&#125;</span>) can be divided by <span class="subst">&#123;ls_&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>输出结果为</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Prod(2 ... 13) can be divided by [59, 509]</span><br><span class="line">Prod(2 ... 17) can be divided by [19, 97, 277]</span><br><span class="line">Prod(2 ... 19) can be divided by [347]</span><br><span class="line">Prod(2 ... 23) can be divided by [317]</span><br><span class="line">Prod(2 ... 29) can be divided by [331, 571]</span><br><span class="line">Prod(2 ... 37) can be divided by [181]</span><br><span class="line">Prod(2 ... 41) can be divided by [61]</span><br><span class="line">Prod(2 ... 43) can be divided by [167]</span><br><span class="line">Prod(2 ... 47) can be divided by [953]</span><br></pre></td></tr></table></figure>
+<p>那么在例1.1.4中看似正确的推断为什么在这个习题中变成了不正确的？注意到在例1.1.4中我们仅假设有有限个素数<script type="math/tex">p_1,…,p_n</script>，而在本习题中我们接受了素数是无限多个的事实。我们知道随着素数的增大，其分布是越来越稀疏的（考虑素数分布函数），于是本题中的乘积随着<script type="math/tex">n</script>的增大会以很快速度增长：</p>
+<script type="math/tex; mode=display">
+\prod_{i=1}^n p_i \gg n! \sim \sqrt{n}e^n</script><p>其中<script type="math/tex">n!</script>表示<script type="math/tex">n</script>的阶乘，<script type="math/tex">\sim</script>表示两函数在<script type="math/tex">n</script>不断增大时比值近似为常数。于是从定性角度来看很难保证在<script type="math/tex">p_n</script>和<script type="math/tex">q</script>之间不存在一个素数<script type="math/tex">p'</script>使得<script type="math/tex">p’|q</script>。</p>
+<h2 id="2-集合"><a href="#2-集合" class="headerlink" title="2 集合"></a>2 集合</h2><h3 id="2-1-集合及其上的运算"><a href="#2-1-集合及其上的运算" class="headerlink" title="2.1 集合及其上的运算"></a>2.1 集合及其上的运算</h3><p>注意到<strong>集合并不能被定义</strong>这一事实（Russell悖论），我们以描述性语言来表述集合：<strong>在一定范围内拥有某种性质的对象全体</strong>，记作<script type="math/tex">A=\{a_1, a_2, ..., a_n\}</script>，自然地，也有无限集合，例如自然数集<script type="math/tex">\mathbb{N}=\{0, 1, 2, …\}</script>。为简便，我们通常将集合以如下形式记：</p>
+<script type="math/tex; mode=display">
+A = \{x:P(x)\}</script><p>其中<script type="math/tex">P(x)</script>表示对象<script type="math/tex">x</script>满足性质<script type="math/tex">P</script>。也可记为<script type="math/tex">A=\{x|P(x)\}</script>，为了保持与书中记号的一致性，在此一律采用冒号的记法。接下来引入集合的一些基本公理和概念。若对象<script type="math/tex">x</script>是集合<script type="math/tex">A</script>中的元素，我们称<strong><script type="math/tex">x</script>属于<script type="math/tex">A</script></strong>，记为<script type="math/tex">x\in A</script>；反之，若<script type="math/tex">x</script>不是<script type="math/tex">A</script>中的元素，我们称<strong><script type="math/tex">x</script>不属于<script type="math/tex">A</script></strong>，记为<script type="math/tex">x\notin A</script></p>
+<p><strong>外延公理</strong>    两个集合相等当且仅当（if and only if，常常简记为 iff ）它们拥有相同的元素</p>
+<p><strong>集合的交、并、差</strong>    给定两集合<script type="math/tex">A</script>和<script type="math/tex">B</script>，定义它们的交集<script type="math/tex">A\cap B</script>、并集<script type="math/tex">A\cup B</script>和差集<script type="math/tex">A - B</script>如下</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+A\cap B &:= \{x:x\in A~并且~x\in B\}\\
+A\cup B &:= \{x:x\in A~或者~x \in B\} \\
+A- B    &:= \{x:x\in A~但是~x\notin B\} \\
+\end{align*}</script><p>处于于自然语言的模糊性，在此对以上三个定义中出现的自然语言进行规定：<script type="math/tex">A</script>并且<script type="math/tex">B</script>表示<script type="math/tex">AB</script>同时为真；<script type="math/tex">A</script>或者<script type="math/tex">B</script>表示<script type="math/tex">AB</script>中至少一个为真。</p>
+<p><strong>子集、幂集和空集</strong>    若<script type="math/tex">A</script>是一个集合，其中的一部分元素可以构成新的集合<script type="math/tex">B</script>，称<script type="math/tex">B</script>是<script type="math/tex">A</script>的一个<strong>子集</strong>，记作<script type="math/tex">B \subset A</script>，显然有<script type="math/tex">A\subset A</script>；当存在一个<script type="math/tex">A</script>中的对象<script type="math/tex">x</script>不在子集<script type="math/tex">B</script>中时，称<script type="math/tex">B</script>是<script type="math/tex">A</script>的<strong>真子集</strong>，记为<script type="math/tex">B \subsetneq A</script>。对于一个集合<script type="math/tex">A</script>，可以定义其所有子集构成的集合，称为<script type="math/tex">A</script>的<strong>幂集</strong>，记作<script type="math/tex">\mathcal P(A)</script>。存在一个特殊的集合称为<strong>空集</strong>，记作<script type="math/tex">\emptyset</script>，它不包含任何一个元素。</p>
+<p><strong>注意</strong>    在证明两个集合<script type="math/tex">A</script>和<script type="math/tex">B</script>相等时，我们通常不直接采用外延公理，而是选择证明<script type="math/tex">A\subset B</script>并且<script type="math/tex">B\subset A</script>，从而得出<script type="math/tex">A=B</script>的结论</p>
+<p><strong>练习</strong>    证明：空集<script type="math/tex">\emptyset</script>是任意集合<script type="math/tex">A</script>的子集。</p>
+<p><strong>证明</strong>    注意到某集合<script type="math/tex">B</script>是集合<script type="math/tex">A</script>的子集的判定标准：</p>
+<script type="math/tex; mode=display">
+对任意的~x\in B，都有~x\in A</script><p>但空集中不含有任何元素，即上述推断的前提永不成立。根据 “不成立的论断可以推出一切” 的原则，我们称上述推断是<strong>虚真（Vacuously True）</strong>的。</p>
+<p>事实上，若定义有一个从<script type="math/tex">A</script>到<script type="math/tex">B</script>的箭头<script type="math/tex">A \rightarrow B</script>意为<script type="math/tex">A\subset B</script>，空集可以是这样一个集合作为对象的<strong>范畴（Category）</strong>上的一个<strong>始对象（Initial Object）</strong>。</p>
+<h3 id="2-2-集族"><a href="#2-2-集族" class="headerlink" title="2.2 集族"></a>2.2 集族</h3><p><strong>集族</strong>    若某集合<script type="math/tex">\mathcal{F}</script>的元素也是集合，则称这是一个集合族，简称<strong>集族</strong></p>
+<p><strong>集族的一般并和一般交</strong>    对于集族<script type="math/tex">\mathcal{F}</script>，定义其上的一般交<script type="math/tex">\bigcap\mathcal{F}</script>（非空集）和一般并<script type="math/tex">\bigcup\mathcal{F}</script>如下</p>
+<script type="math/tex; mode=display">
+\begin{align*}\\
+\bigcap\mathcal{F} &:= \{x:至少存在一个~F \in \mathcal{F}，x \in F\}\\ \\
+\bigcup\mathcal{F} &:= \{x:对所有~F\in \mathcal{F}，x\in F\} \\
+\end{align*}</script><p><strong>注意</strong>    空集的一般并还是空集，因为空集的一般并中的元素满足：对所有<script type="math/tex">F\in \emptyset</script>，有<script type="math/tex">x \in F</script>，而空集中没有元素（不存在<script type="math/tex">F\in \emptyset</script>），因此这是虚真的。然而空集的一般交不可定义，这是因为如果定义了空集的一般交，这意味着命题 “对所有<script type="math/tex">F\in \mathcal{F}</script>，<script type="math/tex">x\in F</script>” 永远为真，而这是不允许的，因为<strong>包含所有对象的集合是一个矛盾的概念（那么这样的集合是否包含它自己呢）</strong>。</p>
+<p>对于某一些无限集族（事实上，是<em>可数的</em>集族）我们需要定义一个指标映射<script type="math/tex">f: \mathbb{N} \rightarrow F\in \mathcal{F}</script>，并将<script type="math/tex">f(i)</script>简记为<script type="math/tex">F_i</script>。这样一来，<em>子集可以像自然数一样被排序的集族</em> 可以表示为<script type="math/tex">\mathcal{F} = \{F_i:i\in \mathbb{N}\}</script>。当然，有限集族也可以像这样标注，如<script type="math/tex">\mathcal{F}=\{F_1,…, F_n\}</script>。像这样的有限集族中的一般并和一般交也可以表示为</p>
+<script type="math/tex; mode=display">
+\bigcap_{i=1}^n F_i, ~\bigcup_{i=1}^n F_i</script><p>类似地，上面提到的无限集族的一般并和一般交也可以写为</p>
+<script type="math/tex; mode=display">
+\bigcap_{i\in\mathbb{N}} F_i, ~\bigcup_{i\in\mathbb{N}} F_i</script><h3 id="习题-1-2"><a href="#习题-1-2" class="headerlink" title="习题 1.2"></a>习题 1.2</h3><p><strong>1.2.3</strong>    找出至少<script type="math/tex">3</script>个性质<script type="math/tex">P</script>，使得<script type="math/tex">\{x\in \mathbb{R}:P(x)\}=\{1\}</script>；找出三个性质<script type="math/tex">P</script>，使得<script type="math/tex">\{x\in \mathbb{Z}:P(x)\}=\emptyset</script>。这里<script type="math/tex">\mathbb{R}</script>表示实数集，<script type="math/tex">\mathbb{Z}</script>表示整数集</p>
+<p>对于第一个问题，考虑如下的<script type="math/tex">P</script>：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+P_1 &: x^2=-1.\\
+P_2 &: 对所有~r\in \mathbb{R}，有rx = xr = x.\\
+P_3 &: x~是所有正整数的因子集合的一般交的元素. 
+\end{align*}</script><p>对于第二个问题，考虑如下的<script type="math/tex">P</script>：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+P_1 &: 2x=1.\\
+P_2 &: x^2=2.\\
+P_3 &: x^2=-1. 
+\end{align*}</script><p><strong>1.2.4</strong>    尝试分别寻找满足下列条件的集合，若没有这样的集合，说明理由：</p>
+<ol>
+<li>两个无穷集合<script type="math/tex">A</script>和<script type="math/tex">B</script>，使得<script type="math/tex">A\cap B=\{1\}</script>且<script type="math/tex">A\cup B=\mathbb{Z}</script></li>
+<li>两个集合<script type="math/tex">C</script>和<script type="math/tex">D</script>，使得<script type="math/tex">C\cup D=\{t,h,i,c,k\}</script>且<script type="math/tex">C\cap D=\{t,h,i,n\}</script></li>
+</ol>
+<p>对于第一个问题，考虑<script type="math/tex">A = \mathbb{N}-\{0\}</script>和<script type="math/tex">B = \{-x:x\in \mathbb{N}\}</script>。</p>
+<p>对于第二个问题，根据并集和交集的定义，注意对所有的<script type="math/tex">C</script>和<script type="math/tex">D</script>，都有<script type="math/tex">C\cap D \subset C\cup D</script>；而在条件中存在<script type="math/tex">i\in C\cap D</script>但<script type="math/tex">i \notin C\cap D</script>，因此不存在满足条件的<script type="math/tex">C</script>和<script type="math/tex">D</script>。</p>
+<h2 id="3-关系"><a href="#3-关系" class="headerlink" title="3 关系"></a>3 关系</h2><h3 id="3-1-二元关系"><a href="#3-1-二元关系" class="headerlink" title="3.1 二元关系"></a>3.1 二元关系</h3><p><strong><script type="math/tex">n</script>-元组</strong>    给定集合<script type="math/tex">A</script>，定义函数<script type="math/tex">f:\{1,…,n\} \rightarrow A</script>，这样的<script type="math/tex">f</script>确定了<script type="math/tex">A</script>上的<script type="math/tex">n</script>个元素<script type="math/tex">f(1), f(2), …, f(n)</script>。将<script type="math/tex">f(i)</script>简记为<script type="math/tex">a_i</script>，这些由<script type="math/tex">f</script>确定的对象称之为集合<script type="math/tex">A</script>上的一个<strong><script type="math/tex">n</script>-元组</strong>，简记为<script type="math/tex">(a_1, ..., a_n)</script></p>
+<p><strong>两个集合的 Cartesian 积</strong>    给定两个集合<script type="math/tex">X</script>和<script type="math/tex">Y</script>，定义<script type="math/tex">X\times Y = \{(x, y):x\in X, y \in Y\}</script>。多数情况下，若<script type="math/tex">X = Y</script>，则可将<script type="math/tex">X\times Y</script>简记为<script type="math/tex">X^2</script>（需要注意的是，在一些特殊情况下，当形如<script type="math/tex">X^2</script>这样的集合已有其定义时，这样的简记法有时并不正确）</p>
+<p><strong>二元关系</strong>    集合<script type="math/tex">R</script>是集合<script type="math/tex">X</script>和<script type="math/tex">Y</script>的Cartesian积的子集，我们称<script type="math/tex">R</script>是集合<script type="math/tex">X</script>和<script type="math/tex">Y</script>之间的一个<strong>二元关系</strong>。若<script type="math/tex">(x, y)\in R</script>我们称元素<script type="math/tex">x</script>和<script type="math/tex">y</script>具有关系<script type="math/tex">R</script>，简记为<script type="math/tex">xRy</script></p>
+<p><strong>注</strong>    若<script type="math/tex">X=Y</script>，我们称<script type="math/tex">R</script>是<strong><script type="math/tex">X</script>上的一个二元关系</strong></p>
+<p><strong>例 1.3.1</strong>    定义整数集合<script type="math/tex">\mathbb{Z}</script>上的一个<strong>整除关系</strong><script type="math/tex">R = \{(m, n) \in \mathbb{Z} \times \mathbb{Z}: m|n\}</script></p>
+<h3 id="3-2-关系的相关定义"><a href="#3-2-关系的相关定义" class="headerlink" title="3.2 关系的相关定义"></a>3.2 关系的相关定义</h3><p><strong>定义域</strong>    一个关系<script type="math/tex">R</script>的<strong>定义域（Domain）</strong>定义为<script type="math/tex">\mathrm{dom}(R) = \{x:存在~y~使得~xRy\}</script></p>
+<p><strong>值域</strong>    一个关系<script type="math/tex">R</script>的<strong>值域（Range）</strong>定义为<script type="math/tex">\mathrm{ran}(R) = \{y:存在~x~使得~xRy\}</script></p>
+<p><strong>像</strong>    集合<script type="math/tex">X</script>在关系<script type="math/tex">R</script>下的<strong>像（Image）</strong>定义为<script type="math/tex">R[X] = \{y\in \mathrm{ran}(R): 存在~x\in X~使得~xRy\}</script></p>
+<p><strong>逆像</strong>    集合<script type="math/tex">Y</script>在关系<script type="math/tex">R</script>下的<strong>逆像（Pre-Image）</strong>定义为<script type="math/tex">R^{-1}[Y] = \{x\in \mathrm{dom}(R): 存在~y\in Y~使得~xRy\}</script></p>
+<p><strong>关系的复合</strong>    集合<script type="math/tex">X</script>和<script type="math/tex">Y</script>之间的关系<script type="math/tex">R</script>和集合<script type="math/tex">Y</script>和<script type="math/tex">Z</script>之间的关系<script type="math/tex">S</script>可以进行<strong>复合（Composition）</strong>，定义为</p>
+<script type="math/tex; mode=display">
+S\circ R:=\{(x, z)\in X\times Z:存在~y\in Y~使得~xRy~且~yRz\}</script><p><strong>例 1.3.2</strong>    考虑一下关系</p>
+<ol>
+<li><p><strong>相等关系</strong> <script type="math/tex">R=\{(x, y)\in \mathbb{R}^2:x=y\}</script> 有<script type="math/tex">R\circ R = R</script>，<script type="math/tex">R^{-1} = R</script></p>
+</li>
+<li><p>若<script type="math/tex">R=\{(x, y)\in \mathbb{R}^2:y = \sqrt x\}</script>，有<script type="math/tex">R^{-1} = \{(y, x)\in\mathbb{R}^2:y = x^2~并且~x\geqslant 0\}</script></p>
+</li>
+<li><p><strong>偏序关系</strong><script type="math/tex">\leqslant := \{(x, y)\in \mathbb{R}^2:x<y~或者~x=y\}</script>和<script type="math/tex">\leqslant := \{(x, y)\in \mathbb{R}^2:x>y~或者~x=y\}</script>，可以验证</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\leqslant \circ \geqslant &= \{(x, z)\in\mathbb{R}:存在~y\in\mathbb{R}~使得~x \geqslant y~且~y\leqslant z\}=\mathbb{R}^2\\
+\leqslant \circ \leqslant &= \{(x, z)\in\mathbb{R}:存在~y\in\mathbb{R}~使得~x \leqslant y~且~y\leqslant z\} = \leqslant
+\end{align*}</script></li>
+<li><p><strong>同余关系</strong>。对于整数<script type="math/tex">x</script>，<script type="math/tex">y</script>和正整数<script type="math/tex">n</script>，如果<script type="math/tex">n|(x-y)</script>，则称<script type="math/tex">x</script>与<script type="math/tex">y</script><strong>关于模<script type="math/tex">n</script>同余</strong>，记为<script type="math/tex">x\equiv y~(\mathrm{mod}~n)</script></p>
+</li>
+</ol>
+<h3 id="3-3-n元关系"><a href="#3-3-n元关系" class="headerlink" title="3.3 n元关系"></a>3.3 <script type="math/tex">n</script>元关系</h3><p><strong><script type="math/tex">n</script>个集合的Cartesian积</strong>    给定<script type="math/tex">n</script>个集合<script type="math/tex">X_1,…,X_n</script>，定义它们的Cartesian积</p>
+<script type="math/tex; mode=display">
+X_1\times\cdots\times X_n := \{(x_1, ..., x_n):x_i \in X_i, i=1,...,n\},</script><p>通常也将<script type="math/tex">\underbrace{X\times\cdots \times X}_{n次}</script>记为<script type="math/tex">X^n</script></p>
+<p><strong><script type="math/tex">n</script>元关系</strong>    若集合<script type="math/tex">R\subset  X_1\times\cdots\times X_n</script>，则称<script type="math/tex">R</script>是一个<strong><script type="math/tex">n</script>元关系</strong></p>
+<p><strong>限制和扩张</strong>    若<script type="math/tex">R</script>是<script type="math/tex">X</script>上的一个<script type="math/tex">n</script>元关系，集合<script type="math/tex">Y</script>是<script type="math/tex">X</script>的子集，称<script type="math/tex">R’=R\cap Y^n</script>是关系<script type="math/tex">R</script>在集合<script type="math/tex">Y</script>上的<strong>限制</strong>；相反地，称关系<script type="math/tex">R</script>是关系<script type="math/tex">R'</script>在集合<script type="math/tex">X</script>上的<strong>扩张</strong>。</p>
+<h3 id="习题-1-3"><a href="#习题-1-3" class="headerlink" title="习题 1.3"></a>习题 1.3</h3><p><strong>1.3.2</strong>    假定<script type="math/tex">a,b,c,n\in \mathbb{Z}</script>，且<script type="math/tex">n>0</script>，证明同余关系的下列性质</p>
+<ol>
+<li>（<strong>自反性</strong>）<script type="math/tex">a\equiv a~(\mathrm{mod}~n)</script></li>
+<li>（<strong>对称性</strong>）若<script type="math/tex">a\equiv b~(\mathrm{mod}~n)</script>，则<script type="math/tex">b\equiv a~(\mathrm{mod}~n)</script></li>
+<li>（<strong>传递性</strong>）若<script type="math/tex">a\equiv b~(\mathrm{mod}~n)</script>且<script type="math/tex">b\equiv c~(\mathrm{mod}~n)</script>，则<script type="math/tex">a\equiv c~(\mathrm{mod}~n)</script></li>
+</ol>
+<p>在第五节将会看到，这样的同余关系是正整数集<script type="math/tex">\mathbb{Z}</script>上的一个等价关系。</p>
+<p>对于1，显然有<script type="math/tex">n | (a - a)</script></p>
+<p>对于2，有<script type="math/tex">n | (a - b)</script>，所以<script type="math/tex">n | -(a-b) \Longleftrightarrow n | (b-a)</script></p>
+<p>对于3，有<script type="math/tex">n|(a-b)</script>，<script type="math/tex">n|(b-c)</script>，于是<script type="math/tex">n | (a-b) + (b-c) \Longleftrightarrow n| (a-c)</script></p>
+<p>其中<script type="math/tex">\Longleftrightarrow</script>是<strong>等价 (Equivalent)</strong>的意思。</p>
+<p><strong>1.3.3</strong>    判断下列命题是否对任意的集合<script type="math/tex">A,B,C,D</script>均成立。若成立，给出证明；若不成立，给出反例</p>
+<ol>
+<li><script type="math/tex; mode=display">A\times(B \cup C) = (A \times B) \cup (A \times C)</script></li>
+<li><script type="math/tex; mode=display">(A\times B) \cap (C\times D) = (A \cap C) \times (B \cap D)</script></li>
+<li><script type="math/tex; mode=display">(A\times B) \cup (C\times D) = (A \cup C) \times (B \cup D)</script></li>
+</ol>
+<p>对于1，左侧有<script type="math/tex">A\times (B \cup C) = \{(x, y) : x\in A~并且~y \in (B \cup C)\}</script>，而右侧<script type="math/tex">(A \times B) \cup (A \times C) = \{(x, y) | (x \in A~并且~y \in B)~或者~(x\in A~并且~y \in C)\}</script>容易看出这两个集合中元素所满足的性质<script type="math/tex">P</script>相同，因此这两个集合相等</p>
+<p>对于2，类似的方法也可以判定两个集合相同</p>
+<p>对于3，考虑<script type="math/tex">A =B =  \{0\}, C = D = \{1\}</script>，则有<script type="math/tex">(A\times B) \cup (C\times D) = \{(0, 0), (1, 1)\}</script>而<script type="math/tex">(A \cup C) \times (B \cup D) = \{(0, 0), (0, 1), (1, 0), (1, 1)\}</script>。从而两个集合并不相等。通过使用1的结论，我们也可以直接计算：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+(A \cup C) \times (B \cup D) &= \Big( (A \cup C) \times B\Big) \bigcup \Big((A \cup C) \times D\Big)\\
+&= (A\times B) \cup (C\times B) \cup (A\times D) \cup (C\times D)
+\end{align*}</script><p>可以看出右侧的结果相比于左侧多出了两项，类似的现象也出现在<strong>双线性函数 (Bi-linear Functions)</strong>中：</p>
+<script type="math/tex; mode=display">
+f(a+b, c+d) = f(a, c) + f(a, d) + f(b, c) + f(b, d)</script><p>而不是<script type="math/tex">f(a+b, c+d) = f(a, c) + f(b, d)</script>。</p>
+<h2 id="4-函数"><a href="#4-函数" class="headerlink" title="4 函数"></a>4 函数</h2><h3 id="4-1-函数的定义"><a href="#4-1-函数的定义" class="headerlink" title="4.1 函数的定义"></a>4.1 函数的定义</h3><p>考虑二元关系的一个特例<script type="math/tex">f</script>，它满足若<script type="math/tex">(x, y) \in f, (x, z)\in f</script>则<script type="math/tex">y = z</script>，也即一个<script type="math/tex">x</script>不能对应两个<script type="math/tex">y</script>。我们称这样的关系是一个<strong>函数 (Function)</strong>。对于关系中的<script type="math/tex">(x, y)</script>，我们常常将其写为<script type="math/tex">f(x) = y</script>或者<script type="math/tex">f: x\mapsto y</script>，并称<script type="math/tex">y</script>为<script type="math/tex">f</script>在<script type="math/tex">x</script>处的值。如果<script type="math/tex">\text{dom}(f) = X</script>，<script type="math/tex">\text{ran}(f) \subset Y</script>，称<script type="math/tex">f</script>是<script type="math/tex">X</script>到<script type="math/tex">Y</script>的函数，记为</p>
+<script type="math/tex; mode=display">
+f: X\rightarrow Y</script><p><strong>例 1.4.1</strong>    </p>
+<ol>
+<li><p>实数集上的不与<script type="math/tex">\mathrm{y}</script>轴垂直的直线表示一个函数，而实数集上的序关系<script type="math/tex">\leqslant</script>不是函数。</p>
+</li>
+<li><p>对于任意集合<script type="math/tex">X</script>，定义其上的<strong>恒同函数 (Identity Function)</strong></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathrm{id}_X : X &\rightarrow X\\
+x &\mapsto x
+\end{align*}</script></li>
+</ol>
+<p><strong>定理 1.4.2</strong>    两个函数<script type="math/tex">f</script>和<script type="math/tex">g</script>相等，当且仅当两函数的定义域相等，且对于定义域中的每一个元素，函数值都相等。</p>
+<p>我们当然可以将函数定义在有有限个集合的Cartesian积得到的集合之上，得到<strong>多元函数 (Multi-variable Functions)</strong>：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+f: X_1\times X_2 \times \cdots \times X_n &\rightarrow Y\\
+(x_1, x_2, ..., x_n) &\mapsto f(x_1, x_2, ..., x_n)
+\end{align*}</script><blockquote>
+<p>我们也可以将函数的像所在的集合写为多个集合的Cartesian积，从而定义更加复杂的函数。一个典型的例子就是<strong>复数域上的恒同函数</strong>：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathrm{id}_\mathbb{C}: \mathbb{C} &\rightarrow \mathbb{C}\\
+x + y\,\mathrm{i} & \mapsto x + y\,\mathrm{i}
+\end{align*}</script><p>在此复数域<script type="math/tex">\mathbb{C}</script>可以看作是在<script type="math/tex">\mathbb{R}^2</script>上赋予复数加法和乘法运算的结构。</p>
+</blockquote>
+<p><strong>定理 1.4.3</strong>    若<script type="math/tex">f</script>和<script type="math/tex">g</script>是函数，则他们的复合<script type="math/tex">g \circ f</script>也是函数，其定义域为<script type="math/tex">f^{-1}\big[\text{dom}(g)\big]</script>，且对于其定义域中所有的<script type="math/tex">x</script>，有<script type="math/tex">(g\circ f)(x) = g(f(x))</script></p>
+<p>这个定理显然成立。</p>
+<h3 id="4-2-函数的一般性质"><a href="#4-2-函数的一般性质" class="headerlink" title="4.2 函数的一般性质"></a>4.2 函数的一般性质</h3><p><strong>单射、满射和一一对应</strong></p>
+<ul>
+<li>若函数<script type="math/tex">f: X \rightarrow Y</script>满足对于不同的<script type="math/tex">x_1, x_2</script>，有<script type="math/tex">f(x_1) \ne f(x_2)</script>，或者<script type="math/tex">f(x_1) = f(x_2)</script>时只有<script type="math/tex">x_1=x_2</script>，则称函数<script type="math/tex">f</script>是<strong>单射 (Injective)</strong> 或<strong>一一的 (One-one)</strong></li>
+<li>若函数<script type="math/tex">f:X\rightarrow Y</script>满足对于所有的<script type="math/tex">y \in Y</script>，其逆像<script type="math/tex">f^{-1}[\{y\}] \ne \emptyset</script>，即每一个<script type="math/tex">Y</script>中的元素都有一个<script type="math/tex">X</script>中的元素与之对应，则称函数<script type="math/tex">f</script>是<strong>满射 (Surjective)</strong>的</li>
+<li>若函数<script type="math/tex">f</script>既是单射又是满射，则称函数<script type="math/tex">f</script>是一个<strong>双射 (Bijective)</strong>或<strong>一一对应 (One-one correspondence)</strong></li>
+</ul>
+<p><strong>拓展和限制</strong></p>
+<ul>
+<li><p>给定函数<script type="math/tex">f: X\rightarrow Y</script>，若<script type="math/tex">A\subset X</script>，我们定义<strong><script type="math/tex">f</script>在<script type="math/tex">A</script>上的限制</strong></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+f|_A: A &\rightarrow Y\\
+a &\mapsto f(a)
+\end{align*}</script></li>
+<li><p>若<script type="math/tex">g</script>为<script type="math/tex">f</script>的一个限制，我们称<script type="math/tex">f</script>是<script type="math/tex">g</script>的一个<strong>扩展</strong></p>
+</li>
+</ul>
+<h3 id="习题-1-4"><a href="#习题-1-4" class="headerlink" title="习题 1.4"></a>习题 1.4</h3><p><strong>1.4.1</strong>    若<script type="math/tex">A</script>的元素个数为<script type="math/tex">m</script>，<script type="math/tex">B</script>的元素个数为<script type="math/tex">n</script>，<script type="math/tex">A</script>到<script type="math/tex">B</script>的函数有多少个？</p>
+<p><strong>1.4.4</strong>    给定函数<script type="math/tex">f: X\rightarrow Y</script>，判断下列命题是否正确</p>
+<ol>
+<li><script type="math/tex">f</script>是满射当且仅当任何一个<script type="math/tex">Y</script>中的元素都是某个<script type="math/tex">X</script>中元素的像</li>
+<li><script type="math/tex">f</script>是满射当且仅当任何一个<script type="math/tex">X</script>中的元素都有某个<script type="math/tex">Y</script>中的元素是它的像</li>
+<li><script type="math/tex; mode=display">f$$是满射当且仅当对任何$$y \in Y$$都存在$$x \in X$$使得$$f(x)=y</script></li>
+<li><script type="math/tex; mode=display">f$$是满射当且仅当对任何$$x \in X$$都存在$$y \in Y$$使得$$f(x)=y</script></li>
+<li><script type="math/tex; mode=display">f$$是满射当且仅当存在$$y \in Y$$对任意$$x \in X$$都有$$f(x) = y</script></li>
+<li><script type="math/tex; mode=display">f$$是满射当且仅当$$\text{ran}(f) = Y</script></li>
+</ol>
+<p><strong>1.4.5</strong>    <script type="math/tex">f</script>和<script type="math/tex">g</script>是<script type="math/tex">\mathbb{R}</script>上的函数，判断下列命题是否正确</p>
+<ol>
+<li><script type="math/tex; mode=display">\{x|f(x)=0\} \cap \{x|g(x) = 0\} = \{x|f^2(x) +g^2(x) = 0\}</script></li>
+<li><script type="math/tex; mode=display">\{x|f(x)=0\} = \{x|f^2(x)=0\}</script></li>
+<li>若<script type="math/tex">f</script>和<script type="math/tex">g</script>都是双射，则<script type="math/tex">f+g: x \mapsto f(x)+g(x)</script>也是双射</li>
+</ol>
+<p><strong>1.4.6</strong>    </p>
+<ol>
+<li>证明对任意<script type="math/tex">\mathbb{R}</script>上的函数<script type="math/tex">f</script>和<script type="math/tex">g</script>，若<script type="math/tex">f\circ g</script>是单射，则<script type="math/tex">g</script>也是单射</li>
+<li>找出函数<script type="math/tex">f,g: \mathbb{R} \rightarrow \mathbb R</script>，使得<script type="math/tex">f\circ g</script>是单射，但<script type="math/tex">f</script>不是单射</li>
+</ol>
+<p><strong>1.4.7</strong>    给定函数<script type="math/tex">f: X\rightarrow Y</script>，定义函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+F: \mathcal{P}(X) &\rightarrow \mathcal{P}(Y)\\
+A\subset X &\mapsto f(A)\\\\
+
+G: \mathcal{P}(X) &\rightarrow \mathcal{P}(Y)\\
+B\subset Y &\mapsto f^{-1}(B)\\
+\end{align*}</script><p>判断下列说法是否正确：</p>
+<ol>
+<li>若<script type="math/tex">f</script>是单射，则<script type="math/tex">F</script>也是单射</li>
+<li>若<script type="math/tex">f</script>是满射，则<script type="math/tex">G</script>也是满射</li>
+</ol>
+<p><strong>1.4.11</strong>    </p>
+<ol>
+<li>找出实数域上的开区间<script type="math/tex">(0, 1) := \{x \in \mathbb{R}|0 <x <1\}</script>和<script type="math/tex">\mathbb{R}</script>之间的一个双射</li>
+<li>找出有理数域上的开区间<script type="math/tex">(0, 1)</script>到有理数域上的闭区间<script type="math/tex">[0,1] := \{x \in \mathbb{Q}|0 \leqslant x \leqslant 1\}</script>上的一个双射</li>
+<li>找出<script type="math/tex">\mathbb{N}</script>到<script type="math/tex">\mathbb{N}\times\mathbb{N}</script>上的一个双射</li>
+</ol>
+<h2 id="5-等价关系与划分"><a href="#5-等价关系与划分" class="headerlink" title="5 等价关系与划分"></a>5 等价关系与划分</h2><h3 id="5-1-等价关系"><a href="#5-1-等价关系" class="headerlink" title="5.1 等价关系"></a>5.1 等价关系</h3><h3 id="5-2-划分"><a href="#5-2-划分" class="headerlink" title="5.2 划分"></a>5.2 划分</h3><h2 id="6-序"><a href="#6-序" class="headerlink" title="6 序"></a>6 序</h2><h3 id="6-1-全序"><a href="#6-1-全序" class="headerlink" title="6.1 全序"></a>6.1 全序</h3><h3 id="6-2-偏序"><a href="#6-2-偏序" class="headerlink" title="6.2 偏序"></a>6.2 偏序</h3><h2 id="7-结构的例子"><a href="#7-结构的例子" class="headerlink" title="7 结构的例子"></a>7 结构的例子</h2><h3 id="7-1-域"><a href="#7-1-域" class="headerlink" title="7.1 域"></a>7.1 域</h3><h3 id="7-2-环"><a href="#7-2-环" class="headerlink" title="7.2 环"></a>7.2 环</h3><h3 id="7-3-Peano公理"><a href="#7-3-Peano公理" class="headerlink" title="7.3 Peano公理"></a>7.3 Peano公理</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/08/08/2023/08/2023-08-09-logic_1/">https://hrjtju.github.io/2023/08/08/2023/08/2023-08-09-logic_1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Logic/">Logic</a></div><div class="post_share"><div class="social-share" data-image="/img/2023/headers/logic.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/09/todo/9999-99-99-Pytorch-3/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2023/08/05/2023/08/2023-08-05-DWCVCamp_1/" title="【Datawhale CV夏令营】 1 Baseline的基本改进 (I)"><img class="cover" src="/img/2023/headers/CVCamp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【Datawhale CV夏令营】 1 Baseline的基本改进 (I)</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AF%81%E6%98%8E%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-text">1 证明的必要性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%BB%8F%E9%AA%8C%E5%BD%92%E7%BA%B3%E7%9A%84%E7%BB%93%E6%9E%9C%E4%B8%8D%E4%B8%80%E5%AE%9A%E6%AD%A3%E7%A1%AE"><span class="toc-text">1.1 经验归纳的结果不一定正确</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%8F%8D%E8%AF%81%E6%B3%95"><span class="toc-text">1.2 反证法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A0%E9%A2%981-1"><span class="toc-text">习题1.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%9B%86%E5%90%88"><span class="toc-text">2 集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%9B%86%E5%90%88%E5%8F%8A%E5%85%B6%E4%B8%8A%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-text">2.1 集合及其上的运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%9B%86%E6%97%8F"><span class="toc-text">2.2 集族</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98-1-2"><span class="toc-text">习题 1.2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%B3%E7%B3%BB"><span class="toc-text">3 关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%BA%8C%E5%85%83%E5%85%B3%E7%B3%BB"><span class="toc-text">3.1 二元关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%85%B3%E7%B3%BB%E7%9A%84%E7%9B%B8%E5%85%B3%E5%AE%9A%E4%B9%89"><span class="toc-text">3.2 关系的相关定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-n%E5%85%83%E5%85%B3%E7%B3%BB"><span class="toc-text">3.3 n元关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98-1-3"><span class="toc-text">习题 1.3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%87%BD%E6%95%B0"><span class="toc-text">4 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">4.1 函数的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%80%E8%88%AC%E6%80%A7%E8%B4%A8"><span class="toc-text">4.2 函数的一般性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98-1-4"><span class="toc-text">习题 1.4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%AD%89%E4%BB%B7%E5%85%B3%E7%B3%BB%E4%B8%8E%E5%88%92%E5%88%86"><span class="toc-text">5 等价关系与划分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E7%AD%89%E4%BB%B7%E5%85%B3%E7%B3%BB"><span class="toc-text">5.1 等价关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%88%92%E5%88%86"><span class="toc-text">5.2 划分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%BA%8F"><span class="toc-text">6 序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%85%A8%E5%BA%8F"><span class="toc-text">6.1 全序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E5%81%8F%E5%BA%8F"><span class="toc-text">6.2 偏序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%BB%93%E6%9E%84%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-text">7 结构的例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%9F%9F"><span class="toc-text">7.1 域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E7%8E%AF"><span class="toc-text">7.2 环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-Peano%E5%85%AC%E7%90%86"><span class="toc-text">7.3 Peano公理</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【DatawhaleML】 1 机器学习引入 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Datawhale开源学习社区机器学习项目笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【DatawhaleML】 1 机器学习引入">
+<meta property="og:url" content="https://hrjtju.github.io/2022/08/13/2022/2022-08-13-DatawhaleML-1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Datawhale开源学习社区机器学习项目笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/2016-11-19/abstract-1.jpg">
+<meta property="article:published_time" content="2022-08-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T17:02:13.427Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/2016-11-19/abstract-1.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2022/08/13/2022/2022-08-13-DatawhaleML-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【DatawhaleML】 1 机器学习引入',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 01:02:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2016-11-19/abstract-1.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【DatawhaleML】 1 机器学习引入</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-08-12T16:00:00.000Z" title="Created 2022-08-13 00:00:00">2022-08-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-09T17:02:13.427Z" title="Updated 2023-08-10 01:02:13">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">6.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>22min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【DatawhaleML】 1 机器学习引入"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-绪论"><a href="#1-绪论" class="headerlink" title="1 绪论"></a>1 绪论</h2><h3 id="1-0-何谓机器学习"><a href="#1-0-何谓机器学习" class="headerlink" title="1.0 何谓机器学习"></a>1.0 何谓机器学习</h3><p>假设用<script type="math/tex">P</script>（criterion）来<strong>评估</strong>计算机程序在某<strong>任务</strong><script type="math/tex">T</script>上的性能，如果一个程序（learning algorithm）通过<strong>经验</strong><script type="math/tex">E</script>（data set）在<script type="math/tex">T</script>中任务上取得了性能的改善，则我们说关于<script type="math/tex">T</script>和<script type="math/tex">P</script>，该程序进行了学习</p>
+<ul>
+<li><strong>监督学习</strong>——训练数据有标记信息，如同一个supervisor来<strong>指导</strong>你的行动</li>
+<li><strong>无监督学习</strong>——训练数据没有标记信息，但需要训练得到数据之中的 “隐式” 标记比如书中的<strong>聚类</strong></li>
+<li><strong>强化学习</strong>——没有标记信息，智能体（agent）通过<strong>试错（trial and error）</strong>与环境（environment）交互获得奖励（reward），从而完成特定的控制任务（control）</li>
+</ul>
+<p>我们希望我们的模型可以用于之前没见过的数据，因此我们要求模型具有不错的<strong>泛化（generalization）能力</strong>。但新的数据需要与喂给模型的样本数据取自同一分布且互不影响（试想如果有所影响问题将会变得复杂），即满足<strong>样本空间</strong><script type="math/tex">\mathcal D</script>中的每个样本<strong>独立同分布</strong>（<script type="math/tex">\mathrm{i.i.d.}</script>）</p>
+<h3 id="1-1-NFL定理"><a href="#1-1-NFL定理" class="headerlink" title="1.1 NFL定理"></a>1.1 NFL定理</h3><p>假设样本空间<script type="math/tex">\mathcal X</script>和假设空间<script type="math/tex">\mathcal H</script>均离散，<script type="math/tex">\mathfrak{L_a}</script>和<script type="math/tex">\mathfrak{L_b}</script>为任意两个算法，<script type="math/tex">f</script>为学习的目标函数（即我们的函数要尽量往目标函数 “靠近” ）</p>
+<script type="math/tex; mode=display">
+\sum_f\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] = \sum_f \mathbb E_{ote}[\mathfrak{L_b} \mid X, f]</script><p>其中</p>
+<script type="math/tex; mode=display">
+\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] := \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h \mid X, \mathfrak L_a)</script><p>和书上一样，我们如果考虑二分类问题，因为算法是任取的，所以会等可能地出现正确和错误两种情形。</p>
+<p>所以示性函数这一项可以直接将其变成期望提出来：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+
+\sum_f\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] =& \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h \mid X, \mathfrak L_a)\\
+=&  \frac 12 \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x)  \cdot P(h \mid X, \mathfrak L_a)\\
+=& \frac 12 \sum_f \sum_{x \in \mathcal X - X} P(x) \sum_h   \cdot P(h \mid X, \mathfrak L_a)\\
+=& \frac 12 \sum_{x \in \mathcal X - X} P(x) \sum_f \cdot 1\\
+\end{align*}</script><p>那么问题来了，这样的<script type="math/tex">f</script>到底有多少？我们引入一些定义和不加证明的断言：</p>
+<blockquote>
+<p><strong>集合的势</strong></p>
+<p>如果集合<script type="math/tex">A</script>为有限集，则集合<script type="math/tex">A</script>的势为其所含元素的个数，记作<script type="math/tex">\mid A \mid</script></p>
+<p>如果集合<script type="math/tex">A</script> 可以与自然数集 <script type="math/tex">\mathbb N</script> 建立双射，它的势记作 <script type="math/tex">\aleph_0</script> </p>
+<p>两个集合间如果可以建立双射，那么他们的势相同</p>
+<p>有限集以及可以与自然数集建立双射的集合是可数集</p>
+<p>除此之外的集合被称为不可数集 （感兴趣可以证明：<script type="math/tex">\mathbb R</script>上的闭区间<script type="math/tex">[0,1]</script>不是可数集）</p>
+<p><strong>映射的个数</strong></p>
+<p>假设存在一个映射<script type="math/tex">f: A\rightarrow B</script>，那么这样的映射的个数为<script type="math/tex">\mid B \mid ^{\mid A\mid  }</script></p>
+</blockquote>
+<p>这样上面的式子除了中间一项之外其他都是常数，而这显然与算法的选取无关:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+
+\sum_f\mathbb E_{ote}[\mathfrak{L_a} \mid X, f] =& \sum_f \sum_h \sum_{x \in \mathcal X - X} P(x) \cdot \mathbb I(h(x) \ne f(x)) \cdot P(h \mid X, \mathfrak L_a)\\
+=& 2^{|\mathcal X| - 1} \sum_{x \in \mathcal X - X} P(x)\\
+\end{align*}</script><p><strong>脱离具体问题谈论算法好坏没有意义，就像脱离具体问题谈数据结构的好坏一样。（例如堆和二叉搜索树）</strong></p>
+<h3 id="1-2-奥卡姆剃刀原理与泛化性能"><a href="#1-2-奥卡姆剃刀原理与泛化性能" class="headerlink" title="1.2 奥卡姆剃刀原理与泛化性能"></a>1.2 奥卡姆剃刀原理与泛化性能</h3><p><strong>奥卡姆剃刀原理</strong></p>
+<p>如非必要，误增实体。</p>
+<p>那问题来了，如何界定何为<strong>必要</strong>，这又是一个麻烦的问题。事实上，书上所给的曲线拟合的例子，在拟合参数变多时，可以通过<strong>正则化（regulization）</strong>或者<strong>增加数据个数</strong>来很好的减轻过拟合的程度</p>
+<h3 id="1-3-维度灾难"><a href="#1-3-维度灾难" class="headerlink" title="1.3 *维度灾难"></a>1.3 *维度灾难</h3><p>拿以多项式作为拟合模型的拟合问题为例子，在处理<script type="math/tex">f:\mathbb R \rightarrow \mathbb R</script>的问题尚且简单，但在处理<script type="math/tex">f:\mathbb R^n \rightarrow \mathbb R^m</script>的拟合问题时所需参数量快速增加。</p>
+<p><strong>维度灾难的主要体现</strong></p>
+<ul>
+<li>高维空间下Euclidean距离失效（以高维球为例，数据据说主要集中在其若干个 “角落” ，而不像三维或更低维度的均匀分布）</li>
+<li>模型效果变差（我们也可以说，模型的variance变大）</li>
+</ul>
+<p><strong>对策</strong></p>
+<ul>
+<li>增加训练样本 </li>
+<li>选择重要的特征（特征选择算法）</li>
+<li>降维（比如<strong>主成分分析（PCA）</strong>等）</li>
+</ul>
+<p><a href="The Curse of Dimensionality in classification">更多信息: The Curse of Dimensionality in classification</a></p>
+<h2 id="2-模型选择评估"><a href="#2-模型选择评估" class="headerlink" title="2 模型选择评估"></a>2 模型选择评估</h2><h3 id="2-1-模型评估方法"><a href="#2-1-模型评估方法" class="headerlink" title="2.1 模型评估方法"></a>2.1 模型评估方法</h3><ul>
+<li><strong>留出法</strong>——做训练集的一个划分，得到两个互斥的集合，一个作为训练集，一个作为测试集</li>
+<li><strong>交叉验证法</strong>——做训练集的一个划分，得到若干互斥的集合，轮流地将一个作为测试集，其他作为训练集</li>
+<li><strong>自助法</strong>——以每次从数据集中随机抽取一个的方式采样多次形成训练集，其余的形成测试集</li>
+</ul>
+<h3 id="2-2-模型性能度量"><a href="#2-2-模型性能度量" class="headerlink" title="2.2 模型性能度量"></a>2.2 模型性能度量</h3><p><strong>均方误差（<font color="red">M</font>ean <font color="red">S</font>quared <font color="red">E</font>rror）</strong></p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathrm{MSE} [f, D] &:= \frac 1m \sum_{i=1}^m (f(x_i) - y_i)^2\\
+\mathrm{MSE} [f, \mathcal D] &:= \int_{x \sim \mathcal D} (f(x_i) - y_i)^2p(x) \,\mathrm dx
+\end{align*}</script><p>这可以理解为，两个高维空间中以原点为起点的两个向量之间距离的<strong>度量</strong>，那么很自然的，这个距离越小，模型的表现越好。</p>
+<p><strong>精度（<font color="red">Acc</font>uracy）</strong></p>
+<p>精度的定义更加自然，就是模型在样例集中分类正确的比例</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathrm{acc} [f, D] &:= \frac 1m \sum_{i=1}^m \mathbb I(f(x_i) = y_i)\\
+\mathrm{acc} [f, \mathcal D] &:= \int_{x \sim \mathcal D} \mathbb I(f(x_i) = y_i)p(x) \,\mathrm dx
+\end{align*}</script><p><strong>混淆矩阵和P-R曲线</strong></p>
+<p>这主要针对二分类问题进行分析。很显然，二分类问题的结果如果将其表示为二元组<script type="math/tex">(model\_output, ground\_truth)</script>的形式，那么只有四种情况（考虑核酸检测这一实际情况）：</p>
+<ul>
+<li><p><script type="math/tex">(T,T)</script>——真正例（<font color="red">T</font>rue <font color="red">P</font>ositive）</p>
+</li>
+<li><p><script type="math/tex">(T,F)</script>——假正例（<font color="red">F</font>alse <font color="red">P</font>ositive）</p>
+</li>
+<li><script type="math/tex">(F, T)</script>——假反例（<font color="red">F</font>alse <font color="red">N</font>egative）</li>
+<li><script type="math/tex">(F,F)</script>——真反例（<font color="red">T</font>rue <font color="red">N</font>egative）</li>
+</ul>
+<p>于是我们引入以下两个指标：</p>
+<p>第一个是将所有事实上是正例的数据中判断正确的比例，称为<strong>精度（precision）或PPV</strong>：</p>
+<script type="math/tex; mode=display">
+\mathrm{PPV} := \mathrm {\frac{TP}{TP + FN}}</script><p>第二个是将所有模型输出为真的数据中分类正确的比例，称为<strong>召回率（recall）或TPR</strong></p>
+<script type="math/tex; mode=display">
+\mathrm{ TPR := \frac{TP}{TP + FP}}</script><p>但是我们实践中会遇到的一个问题，就是正例和反例的数量严重不等。比如在医学影像处理中，患有某罕见病的病例极少，而正常极多。<strong>如果按照我们之前定义的正确率来比较的话，即使模型 “摆烂” ，把全部的样本全部划为正常，它仍然可以得到很高的正确率，但这显然不是我们想看到的。</strong>如果使用上面的两个指标来刻画模型性能的话，其中某一项会很低，这取决于你将患有某疾病的影像设置为正例还是反例。所以我们寻求一种折中的方法，可以用一个指标来反映两个指标的情况，这就是<strong>F1-score</strong></p>
+<script type="math/tex; mode=display">
+\text{F1-score} = \mathrm{\frac{2 \cdot PPV \cdot TPR}{PPV + TPR}}</script><p>可以分析，如果亮相中有一项很低，那么就可以使得F1-score很低。这就符合了我们的要求。如果我们想调节二者的权重，只要加一个权重参数再归一化即可。对于多个混淆矩阵的情况，我们可以将精度和召回率取平均值，或者将上面四个基本指标平均之后再计算精度和召回率。</p>
+<p>我们还可以将模型的输出按照是正例的可能性从高到低排序，再设计分类阈值，然后逐渐由高到低的降低阈值，可以得到一系列的<script type="math/tex">\mathrm{(TPR, PPV)}</script>。我们将这些点画在图上，这样可以连成一条曲线，称为<strong>P-R曲线</strong>。我们希望它与坐标轴包围的面积越大越好，这样就说明它的精度和召回率都很高。</p>
+<p><img src="/img/2022-08-13/image-20220815120157255.png" alt="image-20220815120157255" style="zoom:33%;" /></p>
+<p>另一种评判指标与TPR和FPR有关（FPR类似TPR）二者都关心实际上为真或假的例子被分类正确的比例。采用P-R曲线相似的方法，我们也可以得到一个曲线，称为ROC（<font color="red">R</font>eciever <font color="red">O</font>perating <font color="red">C</font>haracteristic）曲线。</p>
+<blockquote>
+<h4 id="PR曲线和ROC曲线的关系"><a href="#PR曲线和ROC曲线的关系" class="headerlink" title="PR曲线和ROC曲线的关系"></a><strong>PR曲线和ROC曲线的关系</strong></h4><p>本节转载自<a target="_blank" rel="noopener" href="https://blog.csdn.net/W1995S/article/details/114989313?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-4-114989313-blog-107961184.pc_relevant_multi_platform_featuressortv2removedup&amp;spm=1001.2101.3001.4242.3&amp;utm_relevant_index=7">CSDN_THE@JOKER的博客</a></p>
+<p>PR曲线和ROC曲线都能评价分类器的性能。如果分类器a的PR曲线或ROC曲线包围了分类器b对应的曲线，那么分类器a的性能好于分类器b的性能。</p>
+<h5 id="PR曲线和ROC曲线的联系和不同"><a href="#PR曲线和ROC曲线的联系和不同" class="headerlink" title="PR曲线和ROC曲线的联系和不同"></a>PR曲线和ROC曲线的联系和不同</h5><p><strong>相同点：</strong></p>
+<ul>
+<li><p>首先从定义上PR曲线的R值是等于ROC曲线中的TPR值。</p>
+</li>
+<li><p>都是用来评价分类器的性能的。</p>
+</li>
+</ul>
+<p><strong>不同点：</strong></p>
+<ul>
+<li><p>ROC曲线是单调的而PR曲线不是（根据它能更方便调参），可以用AUC的值得大小来评价分类器的好坏（是否可以用PR曲线围成面积大小来评价呢？）。</p>
+</li>
+<li><p>正负样本的分布失衡的时候，ROC曲线保持不变，而PR曲线会产生很大的变化。</p>
+</li>
+</ul>
+<p>（a）（b）分别是正反例相等的时候的ROC曲线和PR曲线</p>
+<p>（c）（d）分别是十倍反例一倍正例的ROC曲线和PR曲线</p>
+<p><img src="/img/2022-08-13/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1cxOTk1Uw==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" style="zoom:75%;" /></p>
+<p>可以看出，在正负失衡的情况下，从ROC曲线看分类器的表现仍然较好（图c），然而从PR曲线来看，分类器就表现的很差。</p>
+<p>事实情况是分类器确实表现的不好（分析过程见<a href="">知乎qian lv的回答</a>），是ROC曲线欺骗了我们。</p>
+</blockquote>
+<p>我们可以将以上数据画成一个表，并计算各个特征数据（图片来源于<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Confusion_matrix">维基百科</a>）：</p>
+<p><img src="/img/2022-08-13/image-20220815111449691.png" alt="image-20220815111449691" style="zoom:50%;" /></p>
+<p><strong>代价曲线</strong></p>
+<p>对于分类错误不同属性可能造成不同后果的情况，我们可以设置不同的错误分类代价。基于这些代价，我们可以重写代价敏感错误率。</p>
+<p>通过与上述两种曲线绘制的方法相似，我们取不同的划分阈值，得到不同的<script type="math/tex">\mathrm{(FPR, TPR)}</script>二元组，与上面的不同的是，我们以某种方式在图上做出若干直线（每根直线对应一个二元组），最后取所有直线的下界作为边界，就得到了代价曲线。</p>
+<blockquote>
+<h3 id="有关代价曲线"><a href="#有关代价曲线" class="headerlink" title="有关代价曲线"></a>有关代价曲线</h3><p>作者：xf3227</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/63492375/answer/247885093">https://www.zhihu.com/question/63492375/answer/247885093</a></p>
+<p>来源：知乎</p>
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p><strong>问题 1：直线（段）或曲线？</strong></p>
+<p>这个问题仅需<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=代数&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">代数</a>知识就可以解决。我们有</p>
+<p>横轴：</p>
+<script type="math/tex; mode=display">
+P(+) = \frac{p \cdot cost_{0|1}}{p \cdot cost_{0|1} + (1-p) \cdot cost_{1|0}} \tag 1</script><p>纵轴：</p>
+<script type="math/tex; mode=display">
+cost_{norm} = \frac{\text{FNR} \cdot p \cdot cost_{0|1} + \text{FPR} \cdot (1-p) \cdot cost_{1|0}}{p \cdot cost_{0|1} + (1-p) \cdot cost_{1|0}} \tag 2</script><p>式（1）<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=带入式&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">带入式</a>（2）有：</p>
+<script type="math/tex; mode=display">
+cost_{norm} = \text{FNR} \cdot P(+) + \text{FPR} \cdot \big(1 - P(+)\big) \tag 3</script><p>将 <script type="math/tex">P(+) \in [0,1]</script> 整体看作参数（<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=自变量&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">自变量</a>），这是一个线性的参数方程。左端在 <script type="math/tex">(0,\text{FPR})</script> ，右端在 <script type="math/tex">(1,\text{FNR})</script> 的一条线段。这种参数方程的表述在凸函数的定义中也可以看到，如不熟悉可参阅<a href="https://link.zhihu.com/?target=https%3A//baike.baidu.com/item/%E5%87%B8%E5%87%BD%E6%95%B0">凸函数_百度百科</a>。</p>
+<p>另，上面的式子中，<script type="math/tex">cost_{0\mid 1}</script> 表示：实际为 1 类，而错判成 0 类的代价，即 FN 的代价。下标中间的分割线“\mid ”借用了条件概率的表述方式。</p>
+<p><strong>问题 2：<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=单根线段&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">单根线段</a>与横轴之间的（梯形）面积 = 模型对于某一阈值的期望总体代价？</strong></p>
+<p><strong>一言蔽之，该面积是与代价无关的。</strong>“<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=期望总体代价&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">期望总体代价</a>”该命名很容易对理解产生误导。简单地说，给定一个阈值，相应地统计出一个（FPR，FNR）组合，再根据该组合画出一条直线，全程没有用到代价。同时，横轴轴取值范围恒定为 [0,1][0,1][0,1]，故之后的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=积分&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">积分</a>过程也不需要代价概念的参与。</p>
+<p>奇怪的是如果我们把 期望 —— 总体 —— 代价 拆开来一个个说，该命名还是有嚼头的。“期望”和“代价”是针对纵轴而言，毕竟纵轴表示归一化后的代价期望。“总体”是针对横轴，横轴是一个关于正例概率 <script type="math/tex">p</script> 的函数，故“总体”指的是所有 <script type="math/tex">p \in [0,1]</script>。</p>
+<p>对概念的命名是件很难的事情，从不同角度着手理解，一个不完美的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=命名&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">命名</a>可以呈现既合适又不合适的情形。本人斗胆觉得用“期望总体代价”来描述围成面积是不可接受的，<strong>应该命名为“总体错误率”更为妥帖，即模型对于某一阈值的期望总体错误率，即：</strong></p>
+<script type="math/tex; mode=display">
+\int_{p \in [0, 1]} \text{err}(p) \cdot dp</script><p>其中</p>
+<script type="math/tex; mode=display">
+\text{err}(p) = \text{FNR} \cdot p + \text{FPR} \cdot (1-p)</script><p>值得注意的是，式（0.1）中积分的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=微分&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">微分</a>对象仅仅是正例先验 ppp，而不是式（1）中关于 ppp 的一个非线性函数，如此一来，“总体”该词的实际意义也更加直接。具体原因会在之后展开（详见图一、图二以及相关叙述）。</p>
+<p><strong>问题 3：所有线段围成的下包络线与横轴之间的面积 = 模型对于所有阈值的期望总体代价？</strong></p>
+<p>同问题 2。既然任一直线的绘制与代价无关，那么所有直线拟出下包络线（即 CC 曲线）也与代价无关。依旧建议命名“总体错误率”，稍许不同的是 <script type="math/tex">\text{err}(p)</script> 的表述：</p>
+<script type="math/tex; mode=display">
+\text{err}(p) = \inf_{(\text{FNR},\text{FPR}) \in \Omega} \text{FNR} \cdot p + \text{FPR} \cdot (1-p)</script><p>这里，<script type="math/tex">\Omega</script> 指的是一个模型对应的所有（FNR，FPR）的集合，即 CC 空间中所有线段的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=端点&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">端点</a>。<script type="math/tex">\inf</script>操作对应了寻找下包络线。</p>
+<hr>
+<h5 id="引入代价的优势"><a href="#引入代价的优势" class="headerlink" title="引入代价的优势"></a><strong>引入代价的优势</strong></h5><p><strong>一个好的“打分”模型，可以将 0 类和 1 类的分数分布完美分隔</strong>。在完美情况下，我们可以在两个分布之间设一个阈值，根据分数大于或是小于该阈值，准确无误地判断输入样本的类别。但现实通常是：0 类和 1 类的分数分布存在重叠，在重叠区间中，任何判断都存在错误的可能。于是，这个<strong>重叠部分的大小就成了评价模型好坏的关键</strong>，ROC 和<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=代价曲线&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">代价曲线</a>（CC）应运而生。</p>
+<p>熟悉 ROC 的知友知道，ROC 的绘制大致分为以下几步:</p>
+<ol>
+<li>列出所有“适合”的阈值。</li>
+<li>对每一个阈值，计算出 TPR，FPR。</li>
+<li>将所有（TPR，FPR）一一标在 ROC 空间上，并作<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=线性插值&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">线性插值</a>以补全间断处。</li>
+</ol>
+<p>从绘制 ROC 乃至最后计算 AUC 的整个过程中，<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=假+1&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">假 1</a>（FP）和假 0（FN）皆被同等对待。可是，在很多情况下，FP 和 FN 的后果是不一样的。例如，冤判好人比错放罪犯更令人心寒，高位<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=满仓&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">满仓</a>比错过<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=牛市&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">牛市</a>跟让人绝望，漏诊重疾相比小题大做更是对病人的不负责。再例如，坐在自动驾驶车里，我宁可希望它刹停在一个子虚乌有的“障碍”前，也不希望它一头冲向路边的电线杆子。这时，我们就需要给 FP 和 FN 设定不同程度的代价，代价曲线（CC）则可以把代价结合到对模型的评价中去。</p>
+<h2 id="无-等代价的-CC-空间"><a href="#无-等代价的-CC-空间" class="headerlink" title="无/等代价的 CC 空间"></a><strong>无/等代价的 CC 空间</strong></h2><p><img src="/img/2022-08-13/v2-58ad8483ce264fd77097a3b419631779_1440w.jpg" alt="img" style="zoom:50%;" /></p>
+<p>(图一)无/等代价的退化版 CC 空间。纵轴为模型错误率，横轴为正例概率。</p>
+<p>注：纵轴值域截取 [0, 0.5] 以便显示。来源：<a target="_blank" rel="noopener" href="https://doi.org/10.1145/347090.347126">https://doi.org/10.1145/347090.347126</a></p>
+<p>作者虽然在原论文中空降了 CC 的定义，但是易于理解的思路应该是：ROC 空间 <script type="math/tex">\Rightarrow</script> 无/等代价 CC 空间 <script type="math/tex">\Rightarrow</script> 不等代价 CC 空间。这里，无/等代价 CC 空间指得是：不引入代价，或者 <script type="math/tex">\text{cost}_{0\mid 1} = \text{cost}_{1\mid 0}</script> 的情况。如图一，无/等代价 CC 空间的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=纵横轴&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">纵横轴</a>分别退化为错误率 <script type="math/tex">p \cdot \text{FNR} + (1-p) \cdot \text{FPR}</script> 和正例概率 ppp。</p>
+<p><img src="/img/2022-08-13/v2-94a687dd3f191139d5b05cd944bbc5ef_1440w.jpg" alt="img" style="zoom:50%;" />(图二)一个实例。</p>
+<p>在图二中，我做了以下几件事情：</p>
+<ol>
+<li>根据两个不同的正态分布（分别代表 0 类和 1 类），随机各取 50 个样本点以模拟它们的模型打分。</li>
+<li>依据这总共 100 个点绘制 ROC（图二 a）。</li>
+<li>不引入代价，依据 ROC 绘制退化版 CC（图二 b）。</li>
+<li>加入代价并令 <script type="math/tex">\text{cost}_{0\mid 1}=0.2, \text{cost}_{1\mid 0}=0.4</script>，绘制图二 c。此时，虽然纵轴已经依照 CC 空间定义改成<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=归一化代价&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">归一化代价</a>，但横轴依旧是正例概率。可以明显看到直线变弯了。</li>
+<li>在之前的基础上，依照 CC 空间定义再将横轴改成 probability cost（图二 d）。</li>
+</ol>
+<p>实验的结论很明显，图二 b 和图二 d 是一模一样的。事实上，<strong>无论有无代价，还是任意变化代价，对同一个模型来说，其 CC 都是一样的。</strong>既然一样，且看图二 b 和图一，这便是我为何更倾向于命名包络线下面积为“总体错误率”的原因。</p>
+<h4 id="CC-空间纵轴定义的动机"><a href="#CC-空间纵轴定义的动机" class="headerlink" title="CC 空间纵轴定义的动机"></a><strong>CC <a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=空间纵轴&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">空间纵轴</a>定义的动机</strong></h4><p><img src="/img/2022-08-13/v2-52bd5eacd259ea984cace939bdd2abf9_1440w.jpg" alt="img" style="zoom:30%;" /></p>
+<p>（图三)蓝色为 0 类的分数分布，橙色为 1 类的分数分布。为了简便，故选取正态分布。</p>
+<p>灰色的重叠区域导致了分类的不完美。图三尝试从最简单的情况开始：固定先验正例概率 p=0.5p=0.5p=0.5 ，代价也暂时撇开不谈。试问：如何选取阈值，使得分类尽可能好？<strong>图中的 <script type="math/tex">\eta^*</script> 在准确率/错误率意义下给出了最优解</strong>，灰色面积即最小错误率：</p>
+<script type="math/tex; mode=display">
+\text{min. err. rate}(p) = p \cdot \text{FNR}(\eta^*(p)) + (1-p) \cdot \text{FPR}(\eta^*(p)) \tag 4</script><p>至于为什么最小，左右滑动阈值，想象下灰色区域的变化。不过，这一结论对于一般分布并不一定显然，只有遍历所有阈值才能确保最优。这里，我们把 FNR 和 FPR 写作关于 ppp 的函数，因为它们决定于最优阈值，而最优阈值又决定于 ppp ，详见图四。</p>
+<p><img src="/img/2022-08-13/v2-718de50c87e58dbaa6ac09686cffc29e_720w.jpg" alt="img" style="zoom:50%;" /></p>
+<p>（图四)分布、重叠区域、最优阈值随 p 的变化。</p>
+<p>接下来引入代价 cost。</p>
+<p><img src="/img/2022-08-13/v2-96bd3014b5b869f8477f77089ba87bfa_1440w.jpg" alt="img" style="zoom:30%;" /></p>
+<p>(图五)在原有分布上引入了 cost。</p>
+<p>这里 <script type="math/tex">\text{min. cost}(p)</script> 是图五中灰色区域：</p>
+<script type="math/tex; mode=display">
+\text{min. cost}(p) = \text{FNR}(p) \cdot p \cdot \text{cost}_{0|1}+  \text{FPR}(p) \cdot (1-p) \cdot \text{cost}_{1|0} \tag 5</script><p>现在到了<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=归一化&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">归一化</a>。图五中，虚线部分已经不能成为分布了，因为各自乘以 cost 后，积分明显小于原来，不再是 1。可以想象，<strong>灰色区域可以随着 cost 的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=绝对值&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">绝对值</a>任意变化，从而丧失了可比性。归一化的一个目的就是为了消除 <script type="math/tex">\text{cost}_{0\mid 1}</script> 和 <script type="math/tex">\text{cost}_{1\mid 0}</script>的绝对值对模型评价的影响。一种很自然的归一化思路就是把积分再次拉回 1</strong>。纵向拉伸的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=倍率&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">倍率</a>如下：</p>
+<script type="math/tex; mode=display">
+\frac{\text{integral w/ cost}}{\text{integral w/o cost}} =  \frac{\text{integral w/ cost}}{1} \\  = \frac{(1-p) + p}{(1-p) \cdot \text{cost}_{1|0} + p \cdot \text{cost}_{0|1}} =  \frac{1}{(1-p) \cdot \text{cost}_{1|0} + p \cdot \text{cost}_{0|1}} \tag 6</script><p>很明显，灰色区域也会以该倍率变化。归一化后的灰色区域面积，即模型关于 ppp 的归一化代价为：</p>
+<script type="math/tex; mode=display">
+\text{min. norm. cost}(p) = \frac{\text{FNR}(p) \cdot p \cdot \text{cost}_{0|1}+  \text{FPR}(p) \cdot (1-p) \cdot \text{cost}_{1|0}}{p \cdot \text{cost}_{0|1}+ (1-p) \cdot \text{cost}_{1|0}} \tag 7</script><p>至此，式（7）就是 CC 空间中的纵轴。</p>
+<h4 id="CC-空间横轴定义的动机"><a href="#CC-空间横轴定义的动机" class="headerlink" title="CC 空间横轴定义的动机"></a><strong>CC 空间横轴定义的动机</strong></h4><p>回过头看 ROC 空间中的一个点（TPR，FPR），它又等于（1 - FNR，FPR），易见：CC 空间的中的直线与 ROC 空间中的点是一一对应的。这样的<strong>点/直线“对偶”关系</strong>很优雅，即便从直觉的角度来说，我们也应该在从“等代价”到“不等代价”的推广过程中极力保障这个性质。关键就是要“直”，可以给后续分析、模型评价带来极大便捷。所以呢，为了<strong>配合纵轴的归一化思路</strong>，唯有对横轴作这样的操作才可确保直线。</p>
+<h5 id="如何让包络线下面积蕴含代价"><a href="#如何让包络线下面积蕴含代价" class="headerlink" title="如何让包络线下面积蕴含代价"></a><strong>如何让包络线下面积蕴含代价</strong></h5><p>包络线直接对 ppp 而不是对式（1）做积分应该是一种体现代价的方法。启发源于 </p>
+<p><a target="_blank" rel="noopener" href="http://www.zhihu.com/people/e9ba338de955d3e6fe2314c4c4123929">@HY Scatterer</a></p>
+<p> 的答案，虽不知理解得对不对，但是鉴于 HYScatterer 知友的实验结果：CC AUC 会随着 <a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=cost+ratio&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">cost ratio</a> 变化这一点，我觉得他应该是对着一个“均匀尺度”的变量做积分了。原定义中，横轴是关于 ppp 的一个非线性函数，相当于对“天然”横轴的 ppp 做了一个<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=非线性缩放&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={&quot;sourceType&quot;%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A247885093}">非线性缩放</a>，而这个缩放是会随着 cost ratio 改变的。</p>
+<h2 id="CC-相比于-ROC-有什么优势"><a href="#CC-相比于-ROC-有什么优势" class="headerlink" title="CC 相比于 ROC 有什么优势"></a>CC 相比于 ROC 有什么优势</h2><ol>
+<li>CC 能可视化代价。</li>
+<li>CC 的纵轴给出了我们对模型最关心的指标：代价或者错误率。且撇开 ROC 的短板 —— 代价不说，仅就错误率而言，CC 上一目了然的事情，在 ROC 空间里并不方便，每拉出一个点，至少得心算一次加法，一次减法。</li>
+<li>CC 的纵轴与先验 ppp 直接相关。通常情况下，先验与样本中的频率并不相同。CC 可以展示模型在各个 ppp 情况下的表现，也是 ROC 所不及的。</li>
+</ol>
+<p>最后想说的是，CC 的应用远不及 ROC。鉴于本人有限的阅读量，我觉得至少在机器学习的论文中鲜有用 CC 或 CC AUC 做模型指标的。就目前来说，和 CC 有关的文献大多是原作者 C. Drummond 和 R. C. Holte 自己写的。教材、参考书如西瓜书囊括入代价曲线主要是为了内容完整性。总之，哪怕是 CC 的定义目前也没有金科玉律，在使我最早接触代价曲线的教材上，CC 的定义里甚至都没有引入归一化。不论是怎样的回答只要是自洽，就够令人满意了。</p>
+</blockquote>
+<p><strong>==TODO==： 假设检验</strong></p>
+<p><strong>==TODO==： McNemar检验</strong></p>
+<p><strong>偏差与方差</strong></p>
+<p><u>定性讨论</u>：偏差刻画模型期望输出与真实输出之间的 “距离” ，方差刻画模型在接受同一问题的不同数据集时输出情况受影响的程度。</p>
+<p><u>定量分析</u>：</p>
+<p>对于测试样本<script type="math/tex">\mathbf x</script>，令<script type="math/tex">y_D</script>为在数据集<script type="math/tex">D</script>上的标注（可能与真实情况有区别，比如在标注时出现的标注错误），<script type="math/tex">f(\mathbf x; D)</script>为数据在模型中的预测输出，<script type="math/tex">\bar f(\mathbf x)</script>为模型在不同数据集上的期望输出。我们此时可以将期望泛化误差进行拆分：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(f; D) &= \mathbb E_D[(f(\mathbf x; D) - y_D)^2\\
+        &= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x) + \bar f(\mathbf x)- y_D)^2]\\
+        &= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y_D)^2] + 2\mathbb E_D[(f(\mathbf x; D) - \bar f(\mathbf x))(\bar f(\mathbf x)- y_D)]\\
+\end{align*}</script><p>注意第三项，将其展开：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathbb E_D[(f(\mathbf x; D) - \bar f(\mathbf x))(\bar f(\mathbf x)- y_D)] &= \bar f(\mathbf x) \mathbb E_D[f(\mathbf x; D)]  - (\bar f(\mathbf x))^2 + \mathbb E_D[y_Df(\mathbf x; D)] - \bar f(\mathbf x) \mathbb{E}[y_D]
+
+\end{align*}</script><ul>
+<li>由<script type="math/tex">\bar f</script>的定义，前两项相互抵消。又因为数据标注噪声和<script type="math/tex">f</script>无关，因此第三项可以变成期望之积。所以整个式子为<script type="math/tex">0</script>.</li>
+</ul>
+<p>这样我们可以继续向下化简：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(f; D) &= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y_D)^2]\\
+        &= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y + y - y_D)^2]\\
+        &= \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y)] + \mathbb E_D[(y - y_D)^2] + \mathbb E_D[(\bar f(\mathbf x)- y)(y - y_D)]\\
+\end{align*}</script><ul>
+<li>在此我们假定<script type="math/tex">\mathbb E_D[(y - y_D)] = 0</script>，因为<script type="math/tex">\bar f(\mathbf x)- y</script>并非随机变量，可以直接从期望中提出，于是最后一项也为<script type="math/tex">0</script></li>
+</ul>
+<p>于是我们得到最终的化简结果：</p>
+<script type="math/tex; mode=display">
+E(f; D) = \mathbb E_D[(f(\mathbf x; D) -\bar f(\mathbf x))^2] + \mathbb E_D[(\bar f(\mathbf x)- y)] + \mathbb E_D[(y - y_D)^2]</script><p>其中第一项刻画<strong>偏差</strong>，第二项刻画<strong>方差</strong>，最后一项刻画数据集标注<strong>噪声</strong>。</p>
+<h3 id="2-3-“-P-NP-”-？"><a href="#2-3-“-P-NP-”-？" class="headerlink" title="2.3 * “ P=NP ” ？"></a>2.3 * “ P=NP ” ？</h3><p><script type="math/tex">P</script>指多项式时间内，计算机可以花有多项式时间解决并验证的问题（easy to find），<script type="math/tex">NP</script>指不一定能在多项式时间内解决，但可以在多项式时间内验证的问题（easy to check）</p>
+<h3 id="2-4-调参（炼丹）"><a href="#2-4-调参（炼丹）" class="headerlink" title="2.4 调参（炼丹）"></a>2.4 调参（<del>炼丹</del>）</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2022/08/13/2022/2022-08-13-DatawhaleML-1/">https://hrjtju.github.io/2022/08/13/2022/2022-08-13-DatawhaleML-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Machine-Learning/">Machine Learning</a></div><div class="post_share"><div class="social-share" data-image="/img/2016-11-19/abstract-1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/13/2022/2022-08-13-1-The-k-armed-bandit-problem/" title="1 The k-armed bandit problem, k臂赌博机"><img class="cover" src="/img/2016-11-19/abstract-5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">1 The k-armed bandit problem, k臂赌博机</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/10/2022/2022-08-10-SimpleRL-Simple-Reinforcement-Learning-with-Tensorflow-Part-1.5-Contextual-Bandits/" title="【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits"><img class="cover" src="/img/2022-08-10/image-20220810092416819.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/08/19/2022/2022-08-19-DatawhaleML-2/" title="【DatawhaleML】 2 线性模型"><img class="cover" src="/img/2016-11-19/abstract-1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-19</div><div class="title">【DatawhaleML】 2 线性模型</div></div></a></div><div><a href="/2022/08/24/2022/2022-08-24-DatawhaleML-3/" title="【DatawhaleML】 3 决策树和神经网络"><img class="cover" src="/img/2016-11-19/abstract-1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-24</div><div class="title">【DatawhaleML】 3 决策树和神经网络</div></div></a></div><div><a href="/2023/08/11/2022/2022-08-29-DatawhaleML-4/" title="【DatawhaleML】 4 支持向量机"><img class="cover" src="/img/2016-11-19/abstract-1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">【DatawhaleML】 4 支持向量机</div></div></a></div><div><a href="/2023/08/23/2023/08/2023-08-23-DWSP-ML-3/" title="【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化"><img class="cover" src="/img/header/DWMLSC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-23</div><div class="title">【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化</div></div></a></div><div><a href="/2023/08/18/2023/08/2023-08-18-DWSP-ML-1/" title="【Datawhale夏令营】机器学习 1 赛题和Baseline分析"><img class="cover" src="/img/header/DWMLSC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-18</div><div class="title">【Datawhale夏令营】机器学习 1 赛题和Baseline分析</div></div></a></div><div><a href="/2023/08/23/2023/08/2023-08-25-DWSP-ML-2/" title="【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化"><img class="cover" src="/img/header/DWMLSC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-23</div><div class="title">【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%BB%AA%E8%AE%BA"><span class="toc-text">1 绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-%E4%BD%95%E8%B0%93%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-text">1.0 何谓机器学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-NFL%E5%AE%9A%E7%90%86"><span class="toc-text">1.1 NFL定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%A5%A5%E5%8D%A1%E5%A7%86%E5%89%83%E5%88%80%E5%8E%9F%E7%90%86%E4%B8%8E%E6%B3%9B%E5%8C%96%E6%80%A7%E8%83%BD"><span class="toc-text">1.2 奥卡姆剃刀原理与泛化性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E7%BB%B4%E5%BA%A6%E7%81%BE%E9%9A%BE"><span class="toc-text">1.3 *维度灾难</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E8%AF%84%E4%BC%B0"><span class="toc-text">2 模型选择评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95"><span class="toc-text">2.1 模型评估方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F"><span class="toc-text">2.2 模型性能度量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PR%E6%9B%B2%E7%BA%BF%E5%92%8CROC%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">PR曲线和ROC曲线的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#PR%E6%9B%B2%E7%BA%BF%E5%92%8CROC%E6%9B%B2%E7%BA%BF%E7%9A%84%E8%81%94%E7%B3%BB%E5%92%8C%E4%B8%8D%E5%90%8C"><span class="toc-text">PR曲线和ROC曲线的联系和不同</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%85%B3%E4%BB%A3%E4%BB%B7%E6%9B%B2%E7%BA%BF"><span class="toc-text">有关代价曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%BB%A3%E4%BB%B7%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">引入代价的优势</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0-%E7%AD%89%E4%BB%A3%E4%BB%B7%E7%9A%84-CC-%E7%A9%BA%E9%97%B4"><span class="toc-text">无&#x2F;等代价的 CC 空间</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CC-%E7%A9%BA%E9%97%B4%E7%BA%B5%E8%BD%B4%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8A%A8%E6%9C%BA"><span class="toc-text">CC 空间纵轴定义的动机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CC-%E7%A9%BA%E9%97%B4%E6%A8%AA%E8%BD%B4%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8A%A8%E6%9C%BA"><span class="toc-text">CC 空间横轴定义的动机</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E5%8C%85%E7%BB%9C%E7%BA%BF%E4%B8%8B%E9%9D%A2%E7%A7%AF%E8%95%B4%E5%90%AB%E4%BB%A3%E4%BB%B7"><span class="toc-text">如何让包络线下面积蕴含代价</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CC-%E7%9B%B8%E6%AF%94%E4%BA%8E-ROC-%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E5%8A%BF"><span class="toc-text">CC 相比于 ROC 有什么优势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E2%80%9C-P-NP-%E2%80%9D-%EF%BC%9F"><span class="toc-text">2.3 * “ P&#x3D;NP ” ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E8%B0%83%E5%8F%82%EF%BC%88%E7%82%BC%E4%B8%B9%EF%BC%89"><span class="toc-text">2.4 调参（炼丹）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

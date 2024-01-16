@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【DatawhaleML】 4 支持向量机 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Datawhale开源学习社区机器学习项目笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【DatawhaleML】 4 支持向量机">
+<meta property="og:url" content="https://hrjtju.github.io/2023/08/11/2022/2022-08-29-DatawhaleML-4/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Datawhale开源学习社区机器学习项目笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/2016-11-19/abstract-1.jpg">
+<meta property="article:published_time" content="2023-08-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-15T07:51:24.522Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/2016-11-19/abstract-1.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/08/11/2022/2022-08-29-DatawhaleML-4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【DatawhaleML】 4 支持向量机',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-15 15:51:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2016-11-19/abstract-1.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【DatawhaleML】 4 支持向量机</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-10T16:00:00.000Z" title="Created 2023-08-11 00:00:00">2023-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-15T07:51:24.522Z" title="Updated 2023-08-15 15:51:24">2023-08-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>10min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【DatawhaleML】 4 支持向量机"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="支持向量机-Support-Vector-Machine"><a href="#支持向量机-Support-Vector-Machine" class="headerlink" title="支持向量机 (Support Vector Machine)"></a>支持向量机 (<font color="red">S</font>upport <font color="red">V</font>ector <font color="red">M</font>achine)</h2><h3 id="1-间隔和支持向量"><a href="#1-间隔和支持向量" class="headerlink" title="1 间隔和支持向量"></a>1 间隔和支持向量</h3><p>考虑二分类问题，其训练集为<script type="math/tex">D = \{(\boldsymbol x_i, y_i)\}_{i=1}^m</script>，<script type="math/tex">y_i\in\{1, -1\}</script>，分类的主要目标为找到一个超平面，使得这个超平面可以将这两类样本尽可能分开，如下图所示。但对于有限的样本，可以将训练集正确分开的这样的超平面不止一个，我们需要选择一个“最好”的超平面作为我们的判别依据。</p>
+<p><img src="/img/image-20230810115139723.png" alt="image-20230810115139723" style="zoom:10%;" /></p>
+<center>图1 二分类问题可能有多个超平面将训练集完全分开（来源：Wikipedia）</center>
+
+<p>事实上，我们可以这样考虑。由于训练样本只是真实样本空间中的一个采样，在不断接受新样本的时候，我们希望在训练样本上训练得到的划分准则依然可以起到较好的作用，也即具有较好的<strong>鲁棒性 (Robustness)</strong>。具有这样特征的模型，我们也称它具有一定的<strong>泛化 (Generalisation) 能力</strong>。</p>
+<p>超平面可由方程<script type="math/tex">\boldsymbol w^\top\boldsymbol x + b = 0</script>确定，其中<script type="math/tex">\boldsymbol w</script>为权重向量，<script type="math/tex">b</script>为偏置。样本空间<script type="math/tex">\mathcal{X}</script>中的点<script type="math/tex">\boldsymbol x</script>到超平面的距离为<script type="math/tex">\displaystyle r = \frac{|\boldsymbol w^\top\boldsymbol x + b|}{\|\boldsymbol w\|}</script>。</p>
+<blockquote>
+<p><strong>点到超平面距离的计算</strong></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/583954418">Reference</a></p>
+<p>给定超平面外一点<script type="math/tex">\boldsymbol x_0</script>，令<script type="math/tex">\boldsymbol x_1</script>为<script type="math/tex">\boldsymbol x_0</script>在超平面上的投影点，<script type="math/tex">\boldsymbol x_2</script>为超平面上任意一点，问题在<script type="math/tex">\mathbb{R}^3</script>中的情形如下图所示。</p>
+<p><img src="/img/image-20230810122246204-1691705763281-3.png" alt="image-20230810122246204" style="zoom:30%;" /></p>
+<p>于是<script type="math/tex">r = \Big\|\overrightarrow{\boldsymbol x_0\boldsymbol x_1}\Big\| = 
+\Big\|\overrightarrow{\boldsymbol x_0\boldsymbol x_2}\Big\||\cos \theta|</script>。 根据向量夹角公式，有<script type="math/tex">\displaystyle \cos\theta = \frac{\overrightarrow{\boldsymbol x_0\boldsymbol x_1}\cdot \overrightarrow{\boldsymbol x_0\boldsymbol x_2}}{\Big\|\overrightarrow{\boldsymbol x_0\boldsymbol x_1}\Big\|\Big\|\overrightarrow{\boldsymbol x_0\boldsymbol x_2}\Big\|}</script>。由于<script type="math/tex">\boldsymbol w</script>是超平面的法向量，于是有<script type="math/tex">\boldsymbol w\cdot \overrightarrow{\boldsymbol x_1\boldsymbol x_2} = 0</script>。又因为<script type="math/tex">\overrightarrow{\boldsymbol x_0\boldsymbol x_1}</script>和<script type="math/tex">\overrightarrow{\boldsymbol x_1\boldsymbol x_2}</script>垂直，于是存在某个<script type="math/tex">k\in \mathbb{R}</script>，有<script type="math/tex">\overrightarrow{\boldsymbol x_0\boldsymbol x_1} = k\boldsymbol w</script>。所以</p>
+<script type="math/tex; mode=display">
+r = \frac
+{\Big|\overrightarrow{\boldsymbol x_0\boldsymbol x_1}\cdot\overrightarrow{\boldsymbol x_0\boldsymbol x_2}\Big|}
+{\Big\|\overrightarrow{\boldsymbol x_0\boldsymbol x_1}\Big\|} = 
+\frac
+{|k| \cdot \Big|\boldsymbol w\cdot\overrightarrow{\boldsymbol x_0\boldsymbol x_2}\Big|}
+{|k|\cdot \boldsymbol w}  = 
+\frac
+{\Big|\boldsymbol w\cdot(\boldsymbol x_2 - \boldsymbol x_0)\Big|}
+{\boldsymbol w} = 
+\frac
+{\Big|\boldsymbol w^\top\boldsymbol x_0 +b\Big|}
+{\boldsymbol w}.</script></blockquote>
+<p>假设超平面可以对样本进行正确分类（假设没有样本点恰好落在超平面上），令</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\boldsymbol w^\top\boldsymbol x + b \geqslant 1, & y_i = 1;\\
+\boldsymbol w^\top\boldsymbol x + b \leqslant -1, & y_i = -1;\\
+\end{cases}</script><p>于是存在一些距离超平面最近的样本点使得上式中的某一个等号成立，这些样本点被称为<strong>支持向量 (Support Vector)</strong>。反过来讲，这些支持向量可以将分类超平面完全确定，如下图所示。考虑两个属于不同类别的支持向量，可以验证它们到超平面的距离之和为<script type="math/tex">\displaystyle \gamma = \frac 2{\|\boldsymbol w\|}</script>，这被称为<strong>间隔 (Margin)</strong>。</p>
+<p><img src="/img/1920px-SVM_margin-1691705766846-5.png" alt="img" style="zoom:15%;" /></p>
+<p>回顾上文中提到的我们的目标，是要找到泛化能力最好的那一个超平面，一种自然的思路就是让划分间隔越大越好，也即将两类分的越开越好。于是可以得到下面的优化问题</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\mathrm{maximize}}\limits_{\boldsymbol w, b} ~&~ \frac 2{\|\boldsymbol w\|} & \text{优化目标 (Optimization target)}
+\\
+\text{subject to} ~&~ (\boldsymbol w^\top\boldsymbol x + b)y_i \geqslant 1, ~ i=1, ..., m & \text{约束条件 (Constraints)}
+\end{align*}</script><p>显然这等价于最小化权重向量长度的平方，于是上述优化问题可以改写为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\mathrm{maximize}}\limits_{\boldsymbol w, b} ~&~ f_0(\boldsymbol w, b) = \frac 12\|\boldsymbol w\|^2
+\\
+\text{subject to} ~&~ (\boldsymbol w^\top\boldsymbol x + b)y_i \geqslant 1, ~ i=1, ..., m
+\end{align*}\tag{$\star$}</script><p>这就是<strong>支持向量机 (Support Vector Machine)</strong>模型</p>
+<h3 id="2-对偶问题-Dual-Problem"><a href="#2-对偶问题-Dual-Problem" class="headerlink" title="2 对偶问题 (Dual Problem)"></a>2 对偶问题 (Dual Problem)</h3><h4 id="2-1-Lagrange-对偶问题"><a href="#2-1-Lagrange-对偶问题" class="headerlink" title="2.1 Lagrange 对偶问题"></a>2.1 Lagrange 对偶问题</h4><p>TODO：对偶函数和对偶问题的直观意义</p>
+<p>对于优化问题<script type="math/tex">(\star)</script>，我们将每条约束与Lagrange乘子<script type="math/tex">\alpha_i>0</script>，得到该问题的Lagrange函数</p>
+<script type="math/tex; mode=display">
+L(\boldsymbol w, b, \boldsymbol \alpha) = \frac 12 \|\boldsymbol w\|^2 +\sum_{i=1}^m \alpha_i \Big( 1 - (\boldsymbol w^\top\boldsymbol x + b)y_i \Big)</script><p>其中<script type="math/tex">\boldsymbol \alpha</script>为所有Lagrange乘子堆叠形成的向量。注意到<script type="math/tex">L</script>是一个关于<script type="math/tex">\boldsymbol w</script>和<script type="math/tex">b</script>的凸函数 (Convex Function)，将其分别对<script type="math/tex">\boldsymbol w</script>和<script type="math/tex">b</script>求偏导，并令偏导为零，可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\boldsymbol w &= \sum_{i = 1}^m \alpha_iy_i\boldsymbol x_i\\
+0 &= \sum_{i = 1}^m \alpha_iy_i
+\end{align*}</script><p>进而可以得到<strong>Lagrange对偶函数 (Lagrange Dual Function)</strong></p>
+<script type="math/tex; mode=display">
+g(\boldsymbol \alpha) = \inf_{\boldsymbol w, b} L(\boldsymbol w, b, \boldsymbol\alpha ) = \sum_{i=1}^m \alpha_i - \frac 12\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy_iy_j\boldsymbol x_i^\top\boldsymbol x_j.</script><p>这样一来，原问题可以转化为<strong>最大Lagrange函数下界</strong>的<strong>对偶问题</strong>：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\mathrm{maximize}}\limits_{\boldsymbol w, b} ~&~ g(\boldsymbol \alpha)
+\\
+\text{subject to} ~&~ \sum_{i = 1}^m \alpha_iy_i = 0\\
+~&~ \alpha_i \geqslant 0, i=1,...,m
+\end{align*}</script><p>通过求解最优的<script type="math/tex">\alpha</script>后，将结果代入式中即可得到模型。</p>
+<h4 id="2-2-Karush-Kuhn-Tucker-条件"><a href="#2-2-Karush-Kuhn-Tucker-条件" class="headerlink" title="2.2 Karush-Kuhn-Tucker 条件"></a>2.2 Karush-Kuhn-Tucker 条件</h4><p>下面不加证明的引入两个定理：</p>
+<p><strong>定理</strong>    对偶函数一定是凹函数 (Concave Function)</p>
+<p><strong>定理</strong>    假设原问题最优解的目标函数值为<script type="math/tex">p^\star</script>，则<script type="math/tex">g(\cdot) \leqslant p^\star</script></p>
+<p>由于对偶函数是凹函数，于是对偶问题为凸优化问题，假设其最优解为<script type="math/tex">\boldsymbol \alpha^\star</script>，对应的最优函数值为<script type="math/tex">d^\star</script></p>
+<ul>
+<li>若<script type="math/tex">d^\star \leqslant p^\star</script>，称为<strong>弱对偶 (Weak Duality)</strong>，并定义<script type="math/tex">p^\star - d^\star</script>为<strong>对偶间隙 (Duality Gap)</strong></li>
+<li>若<script type="math/tex">d^\star = p^\star</script>，称为<strong>强对偶 (Strong Duality)</strong></li>
+</ul>
+<p>若原优化问题和其对偶问题是强对偶关系，假设<script type="math/tex">\boldsymbol w^\star, b^\star</script>和<script type="math/tex">\boldsymbol \alpha^\star</script>分别为原问题和其对偶问题的最优解，则下面的条件称为 <strong>Karush-Kuhn-Tucker条件</strong>，简称KKT条件 (KKT Conditions) ：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{align*}
+
+\boldsymbol w^\star &= \sum_{i = 1}^m \alpha_i^\star y_i\boldsymbol x_i; & \text{稳定性条件 (Stationarity)}\\
+0 &= \sum_{i = 1}^m \alpha_i^\star y_i; & \text{稳定性条件 (Stationarity)}\\
+\alpha_i^\star(y_i f(\boldsymbol x_i) - 1) &= 0; & \text{互补松弛条件 (Complementary Slackness)}\\
+y_if(\boldsymbol x_i) - 1 &\geqslant 0; & \text{原问题可行性 (Primal Feasibility)} \\
+\alpha_i &\geqslant 0. & \text{对偶问题可行性 (Dual Feasibility)}\\
+
+\end{align*}\right.</script><p>上面的互补松弛条件看起来不是很显然，这个条件表明，当<script type="math/tex">\alpha_i^\star>0</script>时，<script type="math/tex">y_i f(\boldsymbol x_i) - 1 = 0</script>；当<script type="math/tex">y_i f(\boldsymbol x_i) - 1< 0</script>时，<script type="math/tex">\alpha_i = 0</script>。现在给出证明：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+f_0(\boldsymbol w^\star, b^\star) &= g(\boldsymbol \alpha^\star) & \text{对偶间隙为}0\\
+
+&= \inf_{\boldsymbol w, b} \left\{ \frac 12 \|\boldsymbol w\|^2 +\sum_{i=1}^m \alpha_i^\star \Big( 1 - (\boldsymbol w^\top\boldsymbol x + b)y_i \Big) \right\} & \text{对偶函数定义}\\
+
+&\leqslant \frac 12 \|\boldsymbol w^\star\|^2 +\sum_{i=1}^m \alpha_i^\star \Big( 1 - (\boldsymbol w^\star{}^\top\boldsymbol x + b^\star)y_i \Big) & \text{下确界}\\
+
+&\leqslant \frac 12 \|\boldsymbol w^\star\|^2 & \text{对偶问题约束条件} \\
+&= f_0(\boldsymbol w^\star, b^\star)
+\end{align*}</script><p>注意到过程中的两个小于等于号只能取等号。于是<script type="math/tex">\displaystyle \sum_{i=1}^m \alpha_i^\star \Big( 1 - (\boldsymbol w^\star{}^\top\boldsymbol x + b^\star)y_i \Big) = 0</script>。又因为求和式中的每一项不大于零，于是只有<script type="math/tex">\displaystyle \alpha_i^\star \Big( 1 - (\boldsymbol w^\star{}^\top\boldsymbol x + b^\star)y_i \Big) = 0</script>。观察上述的KKT条件，不难发现只有数据中的支持向量才对模型做出了贡献。而其他大规模的样本并未真正参与。</p>
+<h4 id="2-2-对偶问题的求解"><a href="#2-2-对偶问题的求解" class="headerlink" title="2.2 对偶问题的求解"></a>2.2 对偶问题的求解</h4><p>本节以<strong>SMO (Sequential Minimal Optimization)</strong> 为例讨论上述优化问题的求解方法。由于参数向量<script type="math/tex">\boldsymbol\alpha</script>拥有多个分量，不妨考虑固定除两个分量<script type="math/tex">\alpha_i</script>和<script type="math/tex">\alpha_j</script>以外的其他所有分量后，优化受限制的目标函数直至收敛，则就是SMO的主要思路。</p>
+<p>考虑随机选取的两个分量<script type="math/tex">\alpha_i</script>和<script type="math/tex">\alpha_j</script>，第二个稳定性条件可以简化为以下两项</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\alpha_iy_i + \alpha_jy_j &= c,\\
+\sum_{k \ne i,j} \alpha_ky_k  + c&= 0.
+\end{align*}</script><p>消去变量<script type="math/tex">\alpha_j</script>后，原目标函数变成了单变量二次函数可以直接计算解析解。</p>
+<p>在得到权重向量<script type="math/tex">\boldsymbol w</script>之后，可以通过支持向量计算偏置<script type="math/tex">b</script>。对于任何支持向量<script type="math/tex">(\boldsymbol x_s, y_s)_{s \in S}</script>，有</p>
+<script type="math/tex; mode=display">
+y_s \left( \sum_{i \in S} \alpha_iy_i \boldsymbol x_i^\top\boldsymbol x_s +b \right) = 1,</script><p>于是考虑更加鲁棒的计算偏置方法</p>
+<script type="math/tex; mode=display">
+b = \frac 1{|S|} \sum_{s \in S}\left( \frac 1{y_s} - \sum_{i \in S} \alpha_iy_i \boldsymbol x_i^\top\boldsymbol x_s\right).</script><h3 id="3-核函数-Kernel-Function"><a href="#3-核函数-Kernel-Function" class="headerlink" title="3 核函数 (Kernel Function)"></a>3 核函数 (Kernel Function)</h3><h4 id="3-1-核技巧-Kernel-Trick-和核函数-Kernel-Function"><a href="#3-1-核技巧-Kernel-Trick-和核函数-Kernel-Function" class="headerlink" title="3.1 核技巧 (Kernel Trick) 和核函数 (Kernel Function)"></a>3.1 核技巧 (Kernel Trick) 和核函数 (Kernel Function)</h4><p>考虑使用线性模型分类异或问题的情形，不难发现一个线性分类器无法实现（当然，可以通过多个线性分类器实现）在本节我们考虑另一种方法。若可以找到一个映射$\phi$，将低维空间中的数据点嵌入高维空间，使得高维数据可以线性可分，就可以直接应用线性分类器的方法了。</p>
+<p>将映射$\phi$应用于样本向量，在特征空间中的超平面就变为</p>
+<script type="math/tex; mode=display">
+f(\boldsymbol x) = \boldsymbol w^\top \phi(\boldsymbol x) + b</script><p>类似地，优化问题就变为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\mathrm{maximize}}\limits_{\boldsymbol w, b} ~&~ f_0(\boldsymbol w, b) = \frac 12\|\boldsymbol w\|^2
+\\
+\text{subject to} ~&~ \left(\boldsymbol w^\top\phi(\boldsymbol x) + b\right)y_i \geqslant 1, ~ i=1, ..., m
+\end{align*}</script><p>对偶问题就变为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\mathrm{maximize}}\limits_{\boldsymbol w, b} ~&~ g(\boldsymbol \alpha)
+  = \sum_{i=1}^m \alpha_i - \frac 12\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy_iy_j\phi(\boldsymbol x_i)^\top\phi(\boldsymbol x_j)\\
+\text{subject to} ~&~ \sum_{i = 1}^m \alpha_iy_i = 0\\
+~&~ \alpha_i \geqslant 0, i=1,...,m
+\end{align*}</script><p>考虑到高维或无穷维空间下计算向量内积较为困难，我们采用<strong>核技巧 (Kernel Trick)</strong>规避这一问题。定义函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\kappa(\cdot, \cdot): \mathbb{R}^n\times \mathbb{R}^n &\rightarrow \mathbb{R}\\
+(\boldsymbol x_i, \boldsymbol x_j) &\mapsto \langle \phi(\boldsymbol x_i),\phi(\boldsymbol x_j) \rangle = \phi(\boldsymbol x_i)^\top\phi(\boldsymbol x_j)
+\end{align*}</script><p>这样对偶问题的目标函数可以简化为</p>
+<script type="math/tex; mode=display">
+g(\boldsymbol \alpha)
+  = \sum_{i=1}^m \alpha_i - \frac 12\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy_iy_j \kappa(\boldsymbol x_i, \boldsymbol x_j)</script><p>这里的$\kappa(\cdot, \cdot)$称为<strong>核函数 (Kernel Function)</strong>，求解后的线性分类器即为</p>
+<script type="math/tex; mode=display">
+f(\boldsymbol x) = \boldsymbol w^\top \boldsymbol x +b = \sum_{i=1}^m \alpha_iy_i\kappa(\boldsymbol x, \boldsymbol x_i) +b,</script><p>这被称为<strong>支持向量展式 (Support Vector Expansion)</strong></p>
+<h4 id="3-2-再生核-Hilbert-空间-Reproducing-Kernel-Hilbert-Space"><a href="#3-2-再生核-Hilbert-空间-Reproducing-Kernel-Hilbert-Space" class="headerlink" title="3.2 再生核 Hilbert 空间 (Reproducing Kernel Hilbert Space)"></a>3.2 再生核 Hilbert 空间 (Reproducing Kernel Hilbert Space)</h4><h3 id="4-软间隔-Soft-Margin-和正则化-Regularisation"><a href="#4-软间隔-Soft-Margin-和正则化-Regularisation" class="headerlink" title="4 软间隔 (Soft Margin) 和正则化 (Regularisation)"></a>4 软间隔 (Soft Margin) 和正则化 (Regularisation)</h3><h3 id="5-支持向量回归"><a href="#5-支持向量回归" class="headerlink" title="5 支持向量回归"></a>5 支持向量回归</h3><h3 id="6-核方法-Kernel-Methods"><a href="#6-核方法-Kernel-Methods" class="headerlink" title="6 核方法 (Kernel Methods)"></a>6 核方法 (Kernel Methods)</h3><h4 id="6-1-RKHS-上的表示定理"><a href="#6-1-RKHS-上的表示定理" class="headerlink" title="6.1 RKHS 上的表示定理"></a>6.1 RKHS 上的表示定理</h4><h4 id="6-2-核线性判别分析-Kernel-Linear-Discriminant-Analysis"><a href="#6-2-核线性判别分析-Kernel-Linear-Discriminant-Analysis" class="headerlink" title="6.2 核线性判别分析 (Kernel Linear Discriminant Analysis)"></a>6.2 核线性判别分析 (Kernel Linear Discriminant Analysis)</h4><h3 id="7-支持向量机的求解"><a href="#7-支持向量机的求解" class="headerlink" title="7 支持向量机的求解"></a>7 支持向量机的求解</h3><h4 id="7-1-Nystrom-近似-Nystrom-Approximation"><a href="#7-1-Nystrom-近似-Nystrom-Approximation" class="headerlink" title="7.1 Nystrom 近似 (Nystrom Approximation)"></a>7.1 Nystrom 近似 (Nystrom Approximation)</h4><h4 id="7-2-随机-Fourier-特征-Random-Fourier-Features"><a href="#7-2-随机-Fourier-特征-Random-Fourier-Features" class="headerlink" title="7.2 随机 Fourier 特征 (Random Fourier Features)"></a>7.2 随机 Fourier 特征 (Random Fourier Features)</h4><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1] Alexey Zaytsev, Scalable Kernel Methods: Overview</p>
+<p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/64580199">https://zhuanlan.zhihu.com/p/64580199</a></p>
+<p>[3] </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/08/11/2022/2022-08-29-DatawhaleML-4/">https://hrjtju.github.io/2023/08/11/2022/2022-08-29-DatawhaleML-4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Machine-Learning/">Machine Learning</a></div><div class="post_share"><div class="social-share" data-image="/img/2016-11-19/abstract-1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/12/todo/9999-99-99-AutoML-1/" title="【AutoML】 1"><div class="cover" style="background: /img/2023/headers/"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【AutoML】 1</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/10/2023/08/2023-08-13-DatawhaleML-5/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info"></div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/08/13/2022/2022-08-13-DatawhaleML-1/" title="【DatawhaleML】 1 机器学习引入"><img class="cover" src="/img/2016-11-19/abstract-1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-13</div><div class="title">【DatawhaleML】 1 机器学习引入</div></div></a></div><div><a href="/2022/08/19/2022/2022-08-19-DatawhaleML-2/" title="【DatawhaleML】 2 线性模型"><img class="cover" src="/img/2016-11-19/abstract-1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-19</div><div class="title">【DatawhaleML】 2 线性模型</div></div></a></div><div><a href="/2022/08/24/2022/2022-08-24-DatawhaleML-3/" title="【DatawhaleML】 3 决策树和神经网络"><img class="cover" src="/img/2016-11-19/abstract-1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-24</div><div class="title">【DatawhaleML】 3 决策树和神经网络</div></div></a></div><div><a href="/2023/08/23/2023/08/2023-08-23-DWSP-ML-3/" title="【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化"><img class="cover" src="/img/header/DWMLSC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-23</div><div class="title">【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化</div></div></a></div><div><a href="/2023/08/18/2023/08/2023-08-18-DWSP-ML-1/" title="【Datawhale夏令营】机器学习 1 赛题和Baseline分析"><img class="cover" src="/img/header/DWMLSC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-18</div><div class="title">【Datawhale夏令营】机器学习 1 赛题和Baseline分析</div></div></a></div><div><a href="/2023/08/23/2023/08/2023-08-25-DWSP-ML-2/" title="【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化"><img class="cover" src="/img/header/DWMLSC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-23</div><div class="title">【Datawhale夏令营】机器学习 2 数据可视化和特征工程优化</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-Support-Vector-Machine"><span class="toc-text">支持向量机 (Support Vector Machine)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%97%B4%E9%9A%94%E5%92%8C%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F"><span class="toc-text">1 间隔和支持向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98-Dual-Problem"><span class="toc-text">2 对偶问题 (Dual Problem)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Lagrange-%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="toc-text">2.1 Lagrange 对偶问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-Karush-Kuhn-Tucker-%E6%9D%A1%E4%BB%B6"><span class="toc-text">2.2 Karush-Kuhn-Tucker 条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E6%B1%82%E8%A7%A3"><span class="toc-text">2.2 对偶问题的求解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%A0%B8%E5%87%BD%E6%95%B0-Kernel-Function"><span class="toc-text">3 核函数 (Kernel Function)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E6%A0%B8%E6%8A%80%E5%B7%A7-Kernel-Trick-%E5%92%8C%E6%A0%B8%E5%87%BD%E6%95%B0-Kernel-Function"><span class="toc-text">3.1 核技巧 (Kernel Trick) 和核函数 (Kernel Function)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E5%86%8D%E7%94%9F%E6%A0%B8-Hilbert-%E7%A9%BA%E9%97%B4-Reproducing-Kernel-Hilbert-Space"><span class="toc-text">3.2 再生核 Hilbert 空间 (Reproducing Kernel Hilbert Space)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BD%AF%E9%97%B4%E9%9A%94-Soft-Margin-%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96-Regularisation"><span class="toc-text">4 软间隔 (Soft Margin) 和正则化 (Regularisation)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E5%9B%9E%E5%BD%92"><span class="toc-text">5 支持向量回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%A0%B8%E6%96%B9%E6%B3%95-Kernel-Methods"><span class="toc-text">6 核方法 (Kernel Methods)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-RKHS-%E4%B8%8A%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%AE%9A%E7%90%86"><span class="toc-text">6.1 RKHS 上的表示定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-%E6%A0%B8%E7%BA%BF%E6%80%A7%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90-Kernel-Linear-Discriminant-Analysis"><span class="toc-text">6.2 核线性判别分析 (Kernel Linear Discriminant Analysis)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E7%9A%84%E6%B1%82%E8%A7%A3"><span class="toc-text">7 支持向量机的求解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-Nystrom-%E8%BF%91%E4%BC%BC-Nystrom-Approximation"><span class="toc-text">7.1 Nystrom 近似 (Nystrom Approximation)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-%E9%9A%8F%E6%9C%BA-Fourier-%E7%89%B9%E5%BE%81-Random-Fourier-Features"><span class="toc-text">7.2 随机 Fourier 特征 (Random Fourier Features)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

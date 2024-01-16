@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【Datawhale】【CS224W】图机器学习 1 图的基本表示 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Datawhale开源学习社区 x 同济子豪兄 Stanford课程中文精讲系列笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Datawhale】【CS224W】图机器学习 1 图的基本表示">
+<meta property="og:url" content="https://hrjtju.github.io/2023/02/13/2023/02/2023-02-13-DatawhaleCS224w-1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Datawhale开源学习社区 x 同济子豪兄 Stanford课程中文精讲系列笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/fuyu.jpg">
+<meta property="article:published_time" content="2023-02-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T17:02:13.426Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="GraphML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/fuyu.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/02/13/2023/02/2023-02-13-DatawhaleCS224w-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Datawhale】【CS224W】图机器学习 1 图的基本表示',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 01:02:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/fuyu.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Datawhale】【CS224W】图机器学习 1 图的基本表示</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-12T16:00:00.000Z" title="Created 2023-02-13 00:00:00">2023-02-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-09T17:02:13.426Z" title="Updated 2023-08-10 01:02:13">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>4min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Datawhale】【CS224W】图机器学习 1 图的基本表示"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li>Reference<ul>
+<li><a target="_blank" rel="noopener" href="https://b23.tv/BNJ1uYL">【图的基本表示【斯坦福CS224W图机器学习】-哔哩哔哩</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/328199090_Basic_category_theory_for_the_software_sciences?enrichId=rgreq-c071df073708abdd306474f91d88d2a1-XXX&amp;enrichSource=Y292ZXJQYWdlOzMyODE5OTA5MDtBUzo2ODAyMDkxNzUwMjM2MThAMTUzOTE4NTkxMzY0NA%3D%3D&amp;el=1_x_2&amp;_esc=publicationCoverPdf">Basic category theory for the software sciences</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="1-0-回顾"><a href="#1-0-回顾" class="headerlink" title="1.0 回顾"></a>1.0 回顾</h2><ul>
+<li>图神经网络是<strong>端到端的表示学习</strong></li>
+<li>图嵌入：节点 -&gt; 特征向量</li>
+<li>特征<ul>
+<li>权重</li>
+<li>排序</li>
+<li>类型</li>
+<li>标志</li>
+<li>等等其他特征</li>
+</ul>
+</li>
+</ul>
+<p><strong>图数据挖掘类型</strong></p>
+<ul>
+<li>节点层面</li>
+<li>子图层面</li>
+<li>全图层面</li>
+</ul>
+<h2 id="1-1-图的基本表示"><a href="#1-1-图的基本表示" class="headerlink" title="1.1 图的基本表示"></a>1.1 图的基本表示</h2><ul>
+<li>由<strong>节点</strong>和<strong>连接</strong>表示：<br>$ G(V, E)$$</li>
+</ul>
+<p><strong>本体图（Ontology）</strong></p>
+<ul>
+<li>对于某些情况，有唯一的、无歧义的表示</li>
+<li>另一些情况这种表示并不唯一</li>
+<li>定义节点之间的连接方式会影响所研究的问题的结构</li>
+</ul>
+<h2 id="1-2-图的种类"><a href="#1-2-图的种类" class="headerlink" title="1.2 图的种类"></a>1.2 图的种类</h2><p><strong>有向图（Directed Graph）</strong></p>
+<p><strong>无向图（Undirected Graph）</strong></p>
+<p><strong>异质图（Heterogeneous Graph）</strong></p>
+<script type="math/tex; mode=display">
+G = (V, E, R, T)</script><ul>
+<li>节点$ V$$</li>
+<li>边$ E$ $</li>
+<li>节点类型$T(\cdot)$</li>
+<li>连接类型$ r\in R$$</li>
+</ul>
+<p><strong>二分图（Bipartite Graph）</strong></p>
+<ul>
+<li>展开二分图</li>
+</ul>
+<h2 id="1-3-描述图"><a href="#1-3-描述图" class="headerlink" title="1.3 描述图"></a>1.3 描述图</h2><p><strong>节点度数</strong><br><em>无向图</em></p>
+<script type="math/tex; mode=display">
+\bar{k} = \frac{2E}{N}</script><p><em>有向图</em></p>
+<ul>
+<li>入度$ k_{C}^{in}$$</li>
+<li>出度$ k_{C}^{out}$$</li>
+</ul>
+<blockquote>
+<p>我们可以根据节点的度数推断节点的重要程度</p>
+</blockquote>
+<p><strong>邻接矩阵（Adjacency Matrix）</strong></p>
+<ul>
+<li>有向图的邻接矩阵不是对称阵</li>
+</ul>
+<p><em>求度数</em></p>
+<ul>
+<li>无向图</li>
+</ul>
+<script type="math/tex; mode=display">
+  k_{i} = \sum\limits_{j}^{} A_{i, j} = \sum\limits_{j}^{} A_{j, i}</script><ul>
+<li>有向图</li>
+</ul>
+<ul>
+<li><p>稀疏图</p>
+<script type="math/tex; mode=display">
+k \ll N-1</script></li>
+</ul>
+<p><strong>连接表和邻接表</strong></p>
+<ul>
+<li><p>连接表</p>
+<script type="math/tex; mode=display">
+\begin{align*}(1,& 2)\\(2,& 4)\\\vdots\end{align*}</script></li>
+<li><p>邻接表</p>
+<script type="math/tex; mode=display">
+\begin{align*}A &\rightarrow B, D, E\\B &\rightarrow C, D, E, F\\\vdots\end{align*}</script></li>
+</ul>
+<h2 id="1-4-其他种类的图"><a href="#1-4-其他种类的图" class="headerlink" title="1.4 其他种类的图"></a>1.4 其他种类的图</h2><ul>
+<li>无权重图</li>
+<li>有权重图</li>
+</ul>
+<script type="math/tex; mode=display">
+A_{G}' = A_{G} \odot W_{G}</script><ul>
+<li>带有自回路的图</li>
+</ul>
+<script type="math/tex; mode=display">
+E = \frac{1}{2}\sum\limits_{i, j}^{} A_{i, j} + \frac{1}{2}\text{tr}(A)</script><ul>
+<li>多重图</li>
+</ul>
+<h2 id="1-5-图的可连通性"><a href="#1-5-图的可连通性" class="headerlink" title="1.5 图的可连通性"></a>1.5 图的可连通性</h2><ul>
+<li>不联通的图的邻接矩阵可以表示为分块对角的形式</li>
+</ul>
+<p><strong>强连通图</strong></p>
+<ul>
+<li>有向图中任意两个节点都可以相互到达</li>
+</ul>
+<p><strong>弱连通图</strong></p>
+<ul>
+<li>将有向边全部改为无向边，任意两节点可以相互到达</li>
+</ul>
+<p><strong>强连通域（SCC）</strong></p>
+<ul>
+<li>有向图中的某一个子图，其中任意两节点之间可以相互到达</li>
+</ul>
+<h2 id="1-6-思考题"><a href="#1-6-思考题" class="headerlink" title="1.6 思考题"></a>1.6 思考题</h2><h3 id="1-6-1-举几个异质图的例子"><a href="#1-6-1-举几个异质图的例子" class="headerlink" title="1.6.1 举几个异质图的例子"></a>1.6.1 举几个异质图的例子</h3><ul>
+<li>在推荐系统中，假设商品、用户和卖家均是图中的节点，则可以根据用户购买商品、卖家上架商品等关系建立异质图</li>
+<li>在论文协作与发表中，如果将作者和论文都视作图中的节点，则作者撰写论文，其他论文引用论文的关系可以组成异质图</li>
+</ul>
+<h3 id="1-6-2-异质图和普通图有什么区别"><a href="#1-6-2-异质图和普通图有什么区别" class="headerlink" title="1.6.2 异质图和普通图有什么区别"></a>1.6.2 异质图和普通图有什么区别</h3><ul>
+<li>异质图在表示上比普通图更加复杂，拥有不同类型的节点以及节点之间连接的多样性。我们不能简单的将其视作普通图</li>
+</ul>
+<h3 id="1-6-3-举几个二分图的例子"><a href="#1-6-3-举几个二分图的例子" class="headerlink" title="1.6.3 举几个二分图的例子"></a>1.6.3 举几个二分图的例子</h3><ul>
+<li>考虑论文协作与发表的例子，我们将范围缩小至作者和论文之间的撰写关系，而暂时忽略其他因素。则可以将其向作者和论文这两个域进行投影。<ul>
+<li>作者域：将共同撰写一篇论文的作者之间建立连接</li>
+<li>论文域：将有相同作者的论文建立连接</li>
+</ul>
+</li>
+<li>考虑番剧和爱好者的关系。爱好者喜欢某部番剧，将二者建立连接。类似的，我们可以将其往两个域进行投影：<ul>
+<li>爱好者域：共同喜欢某部番剧的爱好者建立连接（也就是所谓的圈子）</li>
+<li>番剧域：受到相同爱好者喜爱的番剧建立连接（这也可以帮助我们将其进行分类？）</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-6-4-举几个有向图的例子"><a href="#1-6-4-举几个有向图的例子" class="headerlink" title="1.6.4 举几个有向图的例子"></a>1.6.4 举几个有向图的例子</h3><ul>
+<li>考虑城市道路。将路口（或路的末端）视为节点，将连接路口的道路视为边。于是有<ul>
+<li>双向通行的道路可以视作两个节点之间有两条互相值相对方的有向边</li>
+<li>单行道只有某节点单方向指向另一节点的边</li>
+</ul>
+</li>
+<li><p>考虑范畴（Category）。现有一些对象（Object）和态射（Morphism），满足如下几条公理：</p>
+<ul>
+<li>(Identity) 任何一个对象$ A$ ，都拥有一个从自己出发指向自己的态射$ \text{id}_{A}$$</li>
+<li>(Composition) 如果有三个对象$ A$ ，$ B$ ，以及态射$ f: A\rightarrow B$ ，$ g: B \rightarrow C$ ，那么存在一个从$ A$ 到$ C$ 的态射$ h: A\rightarrow C$ ，使得$ h = g\circ f$  ($ g$  after $ f$ )</li>
+<li><p>(Associativity) 态射之间满足结合律</p>
+<p>考虑范畴$ \mathbf{Set}$ ，其中的对象是集合，态射是全函数 (Total functions)，则他们显然构成一个有向图</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-6-5-如何设计本体图"><a href="#1-6-5-如何设计本体图" class="headerlink" title="1.6.5 如何设计本体图"></a>1.6.5 如何设计本体图</h3><ul>
+<li>考虑需要解决的问题，根据实际需求来确定需要的节点和边，在将实际的关系和对象填在里面</li>
+</ul>
+<h3 id="1-6-6-为什么要把图表示成矩阵"><a href="#1-6-6-为什么要把图表示成矩阵" class="headerlink" title="1.6.6 为什么要把图表示成矩阵"></a>1.6.6 为什么要把图表示成矩阵</h3><ul>
+<li><p>可以使用一些线性代数的方法来更深刻的了解图的结构。例如可以使用矩阵乘法来了解图的多跳邻居的数目：</p>
+<script type="math/tex; mode=display">
+k_{i}^{(2)} = \sum_{k} \sum_{j} A_{i, j}A_{j, k} = \sum_{k} (A^{2})_{i, k}</script></li>
+<li><p>使得计算机可以更加方便的进行计算</p>
+</li>
+</ul>
+<h3 id="1-6-7-从连通域角度理解-“六度空间”-理论"><a href="#1-6-7-从连通域角度理解-“六度空间”-理论" class="headerlink" title="1.6.7 从连通域角度理解 “六度空间” 理论"></a>1.6.7 从连通域角度理解 “六度空间” 理论</h3><ul>
+<li>每个人的社交圈中的里层往往是出一个强连通域</li>
+<li>不同人的强连通域之外或之中的人又处在自己或他人的强连通域中</li>
+</ul>
+<h3 id="1-6-8-为什么很多真实场景中的图都是稀疏的"><a href="#1-6-8-为什么很多真实场景中的图都是稀疏的" class="headerlink" title="1.6.8 为什么很多真实场景中的图都是稀疏的"></a>1.6.8 为什么很多真实场景中的图都是稀疏的</h3><ul>
+<li>物理或个人社交范围的限制，真实场景中的实体往往不能同时与很多其他实体建立连接</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/02/13/2023/02/2023-02-13-DatawhaleCS224w-1/">https://hrjtju.github.io/2023/02/13/2023/02/2023-02-13-DatawhaleCS224w-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/GraphML/">GraphML</a></div><div class="post_share"><div class="social-share" data-image="/img/header/fuyu.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/02/15/2023/02/2023-02-15-Optim-1/" title="【Convex Optimization】1 Introduction to Convex Optimization and Algorithms"><img class="cover" src="/img/header/optim.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【Convex Optimization】1 Introduction to Convex Optimization and Algorithms</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/22/2023/01/2023-01-22-DatawhaleAIMA-2/" title="【DatawhaleAIMA】2 智能体概述"><img class="cover" src="/img/2016-11-19/bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【DatawhaleAIMA】2 智能体概述</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/02/15/2023/02/2023-02-15-DatawhaleCS224W-2/" title="【Datawhale】【CS224W】图机器学习 2 图的特征工程"><img class="cover" src="/img/header/fuyu.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-15</div><div class="title">【Datawhale】【CS224W】图机器学习 2 图的特征工程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-0-%E5%9B%9E%E9%A1%BE"><span class="toc-text">1.0 回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%9B%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A1%A8%E7%A4%BA"><span class="toc-text">1.1 图的基本表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%9B%BE%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-text">1.2 图的种类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E6%8F%8F%E8%BF%B0%E5%9B%BE"><span class="toc-text">1.3 描述图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E5%85%B6%E4%BB%96%E7%A7%8D%E7%B1%BB%E7%9A%84%E5%9B%BE"><span class="toc-text">1.4 其他种类的图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E5%9B%BE%E7%9A%84%E5%8F%AF%E8%BF%9E%E9%80%9A%E6%80%A7"><span class="toc-text">1.5 图的可连通性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-text">1.6 思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-1-%E4%B8%BE%E5%87%A0%E4%B8%AA%E5%BC%82%E8%B4%A8%E5%9B%BE%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-text">1.6.1 举几个异质图的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-2-%E5%BC%82%E8%B4%A8%E5%9B%BE%E5%92%8C%E6%99%AE%E9%80%9A%E5%9B%BE%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-text">1.6.2 异质图和普通图有什么区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-3-%E4%B8%BE%E5%87%A0%E4%B8%AA%E4%BA%8C%E5%88%86%E5%9B%BE%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-text">1.6.3 举几个二分图的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-4-%E4%B8%BE%E5%87%A0%E4%B8%AA%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-text">1.6.4 举几个有向图的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-5-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%9C%AC%E4%BD%93%E5%9B%BE"><span class="toc-text">1.6.5 如何设计本体图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-6-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8A%8A%E5%9B%BE%E8%A1%A8%E7%A4%BA%E6%88%90%E7%9F%A9%E9%98%B5"><span class="toc-text">1.6.6 为什么要把图表示成矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-7-%E4%BB%8E%E8%BF%9E%E9%80%9A%E5%9F%9F%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3-%E2%80%9C%E5%85%AD%E5%BA%A6%E7%A9%BA%E9%97%B4%E2%80%9D-%E7%90%86%E8%AE%BA"><span class="toc-text">1.6.7 从连通域角度理解 “六度空间” 理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-8-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BE%88%E5%A4%9A%E7%9C%9F%E5%AE%9E%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%9B%BE%E9%83%BD%E6%98%AF%E7%A8%80%E7%96%8F%E7%9A%84"><span class="toc-text">1.6.8 为什么很多真实场景中的图都是稀疏的</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

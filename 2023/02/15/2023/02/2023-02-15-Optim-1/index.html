@@ -1,0 +1,433 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【Convex Optimization】1 Introduction to Convex Optimization and Algorithms | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="同济大学数学科学学院数据分析协会计算数学讨论班">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Convex Optimization】1 Introduction to Convex Optimization and Algorithms">
+<meta property="og:url" content="https://hrjtju.github.io/2023/02/15/2023/02/2023-02-15-Optim-1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="同济大学数学科学学院数据分析协会计算数学讨论班">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/optim.png">
+<meta property="article:published_time" content="2023-02-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T17:02:13.426Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Optimization">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/optim.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/02/15/2023/02/2023-02-15-Optim-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Convex Optimization】1 Introduction to Convex Optimization and Algorithms',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 01:02:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/optim.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Convex Optimization】1 Introduction to Convex Optimization and Algorithms</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-02-14T16:00:00.000Z" title="Created 2023-02-15 00:00:00">2023-02-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-09T17:02:13.426Z" title="Updated 2023-08-10 01:02:13">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>12min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Convex Optimization】1 Introduction to Convex Optimization and Algorithms"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li>By: Chonghe Jiang</li>
+<li>Notes: Ruijie He</li>
+<li>References:<ul>
+<li>Boyd</li>
+<li>Qin Lin</li>
+<li>Convex Analysis</li>
+<li><a target="_blank" rel="noopener" href="https://pages.nyu.edu/debraj/TapanMitra/Lectures/Notes_on_Sepration_Theorem2013.pdf">https://pages.nyu.edu/debraj/TapanMitra/Lectures/Notes_on_Sepration_Theorem2013.pdf</a></li>
+<li>Nestrov, Introductory Lectures on Convex Programming</li>
+<li>Stanford, cd-161</li>
+<li>Matrix Computation</li>
+<li>Yinyu Ye, Linear Programming</li>
+<li>Slides: Numerical Methods for Optimal Control</li>
+<li>Sebastian Bubeck, Convex Optimization: Algorithms and Complexity, DOI: 10.1561/2200000050</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Numerical solution of PDE</li>
+</ul>
+<hr>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h2><ul>
+<li><p>Optimization: find the maximum or minimum of a function given certain constraints</p>
+<ul>
+<li><p>continuous</p>
+</li>
+<li><p>descrete</p>
+</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\text{minimize}} ~& f(x)\\
+\text{s.t.} ~& x \in \mathcal{X}
+\end{align*}</script><ul>
+<li><p>Boyd, Convex Optimization</p>
+</li>
+<li><p>Nocedal, Numerical Optimization</p>
+</li>
+</ul>
+<p><strong>Optimization &lt;-&gt; Machine Learning</strong></p>
+<ul>
+<li>What does optimzation do ?</li>
+<li>Interplay with ML</li>
+</ul>
+<hr>
+<p><strong>What you can learn from</strong></p>
+<ul>
+<li>Structure of a problem</li>
+<li>Complexity of a algorithm<ul>
+<li>Converge rate</li>
+<li>Big-Oh notation</li>
+</ul>
+</li>
+<li>Impact</li>
+</ul>
+<h2 id="2-Convexity"><a href="#2-Convexity" class="headerlink" title="2 Convexity"></a>2 Convexity</h2><h3 id="2-1-Convex-Sets-and-Convex-Functions"><a href="#2-1-Convex-Sets-and-Convex-Functions" class="headerlink" title="2.1 Convex Sets and Convex Functions"></a>2.1 Convex Sets and Convex Functions</h3><p><strong>Convex Set</strong><br>A set $ \mathcal{X}$   is called a <em>convex</em> set iff $ \forall (x, y, \psi) \in \mathcal{X}\times \mathcal{X}\times[0,1)$ , $ (1-\psi)x + \psi y \in \mathcal{X}$$</p>
+<p><strong>Convex function</strong><br><em>A function that always lies below its chords</em><br>$ \forall (x, y, \psi) \in \mathcal{X}\times \mathcal{X}\times[0, 1)$ , $ f((1-\psi)x + \psi y) \leqslant (1-\psi)f(x) + \psi f(y)$$</p>
+<p><strong>Convex &lt;=&gt; Optimization</strong></p>
+<ul>
+<li>Convex function $ f$$</li>
+<li>Convex domain $ \mathcal{X}$$</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\text{minimize}} ~& f(x)\\
+\text{s.t.} ~& x \in \mathcal{X}
+\end{align*}</script><p><em>First-order, second order Condition</em></p>
+<p><strong>Seperation Theorem</strong><br>$\mathcal{X}$ being a closed convex set and $ x_{0} \in \mathbb{R}^{n} - \mathcal{X}$ , there exists $ w^{T}$  such that</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{align*}
+w^{T} x &< t, &x \in \mathcal{X}\\
+w^{T} x &\geqslant t, & x = x_{0}
+\end{align*}
+\right.</script><p><strong>Seperation Hyperplane Theorem</strong><br>Let $ \mathcal{X} \subset \mathbb{R}^{n}$  be a convex set, and $ x_{0} \in \partial \mathcal{X}$ . Then there exists $ w \in \mathbb{R}^{n}$ , $ w \ne 0$ , s.t. </p>
+<p>$ \forall x \in \mathcal{X}, w^{T}x \geqslant w^{T}x_{0}.$$</p>
+<p><u>Proof.</u></p>
+<ol>
+<li><p><em>Find a point in $ \mathcal{X}$  that is closest to $ x_{0}$ </em></p>
+<ul>
+<li>$ \mathcal{X}$  is non-empty, so there exists some $ a\in \mathcal{X}$  s.t. $ r = d(a, x<em>{0}) &gt; 0.$$<br>Let $ B := {x \in \mathbb{R}^{n}: d(x, x</em>{0}) \leqslant r}$  and let $ C := \mathcal{X} \cap B$ . Then $ C$  is a closed bounded set.</li>
+<li>Define $ f(x) = d(x, x<em>{0})$  in $ \mathbb{R}^{n}$$<br>By <em>Weierstrass theorem</em>, there exists a $ c \in C$  such that $ d(x, x</em>{0}) \geqslant d(c, x_{0})$$</li>
+<li>For some $ a \in C$ , we have $ d(a, x<em>{0}) \geqslant d(c, x</em>{0})$ . <ul>
+<li>If $ x \in \mathcal{X}$  but $ x \notin C$ , then $ d(x, x<em>{0}) &gt; r$ , which yields:$ $d(x, x</em>{0}) &gt; r = d(a, x<em>{0}) \geqslant d(c, x</em>{0})$ $<br>Thus we have $ d(x, x<em>{0}) \geqslant d(c, x</em>{0}), \forall x \in \mathcal{X}$ .</li>
+</ul>
+</li>
+<li>That is, $ c$  is the point in $ \mathcal{X}$  that stays closest to $ x_{0}$ .</li>
+</ul>
+</li>
+<li><em>Constructing a hyperplane</em><br>Let $ w = x_{0} - c$  and $ t = w^{T}c$  and define<script type="math/tex; mode=display">
+\mathcal{H} = \{x \in \mathbb{R}^{n}: w^{T}x = \alpha\}</script></li>
+</ol>
+<ul>
+<li>$ w^{T}x<em>{0} = w^{T}(x</em>{0} - c) + w^{T}c = |w|^{2} + w^{T}c &gt; w^{T}c = t$$</li>
+<li><p>Let $x$ be an arbitrary point in $A$, then $x(t) = tx + (1-t)c$, which is in $A$ for all $0&lt;t&lt;1$. Thus we have</p>
+<script type="math/tex; mode=display">
+d(x(t), x_{0}) \geqslant d(c, x_{0}), ~\forall~0 < t < 1.</script></li>
+</ul>
+<pre><code> Actually, 
+</code></pre><script type="math/tex; mode=display">
+\begin{align*}
+\left[ d(x(t), x_{0}) \right]^{2} &= [t(x-x_{0}) + (1-t)(c-x_{0})]^{T}[t(x-x_{0}) + (1-t)(c-x_{0})]\\
+&= t^{2}\|x-x_{0}\|^{2} + 2t(1-t)(c-x_{0})^{T}(x-x_{0}) + (1-t)^{2}\|c-x_{0}\|^{2}.
+\end{align*}</script><p>For all $ 0 &lt; t &lt; 1$ , $ t^{2}|x-x<em>{0}|^{2} + 2t(1-t)(c-x</em>{0})^{T}(x-x<em>{0}) + (t^{2} - 2t + 1)|c-x</em>{0}|^{2} \geqslant |c - x_{0}|^{2}$ , we obtain</p>
+<script type="math/tex; mode=display">
+t^{2}\|x-x_{0}\|^{2} + 2t(1-t)(c-x_{0})^{T}(x-x_{0}) + (t^{2} - 2t)\|c-x_{0}\|^{2} \geqslant 0</script><p>Let $ t \to 0$ , we have</p>
+<script type="math/tex; mode=display">
+(c-x_{0})^{T}(x-x_{0}) \geqslant \|c - x_{0}\|^{2},</script><p>which can be written as</p>
+<script type="math/tex; mode=display">
+- w^{T}x + w^{T}x_{0} = t - w^{T}x \geqslant \|w\|^{2} \geqslant 0.</script><p>Since $x$ is an arbitrary point in $ \mathcal{X}$ , this yields $ w^{T}x \leqslant t$ . $ \square$</p>
+<blockquote>
+<p>Rmk.<br><strong>Weierstrass Theorem</strong><br>A continuous function defined on a closed bounded set has minima and maxima.</p>
+</blockquote>
+<hr>
+<h3 id="2-2-Gradient-and-Subgradient-of-Convex-Functions"><a href="#2-2-Gradient-and-Subgradient-of-Convex-Functions" class="headerlink" title="2.2 Gradient and Subgradient of Convex Functions"></a>2.2 Gradient and Subgradient of Convex Functions</h3><p>Recall. </p>
+<ul>
+<li>First order: Function $ J: \Omega \rightarrow \mathbb{R}$  is convex iff $ \forall x, y \in \Omega$ , we have $ J(y) \geqslant J(x) + \nabla J(x)^{T}(y-x)$$</li>
+<li>Second order: (If second-order differentiable) the Hessian matrix is semi-definite.</li>
+<li>Gradient descent / ascent<ul>
+<li>smooth —&gt; differentiable —&gt; Gradient</li>
+<li>non-smooth —&gt; undiffrentiable —&gt; <strong>Subgradient</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>Definition. Subgradient</strong><br>The subgradient $ g \in G$  of function $ f$  at point $ x \in \mathcal{X}$  satiefies</p>
+<script type="math/tex; mode=display">
+\forall y \in \mathcal{X}, f(x) - f(y) \leqslant g^{T} (x - y)</script><p><strong>Proposition 1.1</strong> If $ \mathcal{X} \subset \mathbb{R}^{n}$  is convex and given function $ f:\mathcal{X} \rightarrow \mathbb{R}$$</p>
+<ol>
+<li>If $ \forall x \in \mathcal{X}$ , $ \partial f(x) \ne \varnothing$ , then $ f$  is convex.</li>
+<li>Conversely, if $ f$  is convex, then for any $ x \in \text{int}(\mathcal X)$ , $ \partial f(x) \ne \varnothing$ . Futhermore, if $ f$  is convex and differentiable at $ x$ , then $ \nabla f(x) \in \partial f(x)$$</li>
+</ol>
+<blockquote>
+<p><strong>Definition. Epigraph</strong><br>The epigraph of a function $ f:\mathcal{X} \rightarrow \mathbb{R}$  under $ t \in \mathbb{R}$  is defined as</p>
+<script type="math/tex; mode=display">
+\text{epi}(f) := \{(x, t)\in \mathcal{X}\times \mathbb{R}: f(x) \leqslant t\}</script><p><strong>Claim.</strong> The epigraph of a convex function is always convex.<br><u>Proof.</u> Trivial.$\square$</p>
+</blockquote>
+<p><strong>Claim. A convex function always have subgradient.</strong><br><u>Proof.</u><br>Let $ g \in \partial f((1-\psi)x + \psi y)$ , then by the definition of the subgradient, we have</p>
+<script type="math/tex; mode=display">
+\begin{align*}f((1-\psi)x + \psi y) - f(x) &\leqslant f(x) + \psi g^{T}(y - x)\\ 
+f((1-\psi)x + \psi y) - f(y) &\leqslant f(y) + (1-\psi)g^{T}(x-y)
+\end{align*}</script><p><em>Let’s prove that the function has subgradient in the interior points of its domain by building a subgradinet.</em></p>
+<p>(1) Let $ x \in \mathcal{X}$ , then $ (x, f(x)) \in \partial~\text{epi}(f)$  and the epigraph of $ f$  is a convex set. By supporting hyperplane theorem, there exists $ (a, b) \in \mathbb{R}^{n} \times \mathbb{R}$ , such that</p>
+<script type="math/tex; mode=display">
+</script><p>Letting $ t \rightarrow \infty$ , it is apparent that $ b \leqslant 0$ . We assume that $ x \in \text{int}(\mathcal{X})$ , then there exists an $ \varepsilon \in \mathbb{R}$  such that the ball centered at $x$ is a subset of the interior of the domain, i.e. $ B(x, \varepsilon a) \subset \text{int}(\mathcal{X})$  for some $ a \in \mathbb{R}$ , which reveals that the inequality $ (*)$  still holds:</p>
+<script type="math/tex; mode=display">
+a^{T}x + b f(x) \geqslant a^{T}(x + \varepsilon a) + bt \implies b f(x) \geqslant \varepsilon  \|a\|^{2} + bt,</script><p>from which we can see that $ b \ne 0$ .</p>
+<p>Rewriting $ (*)$  for $ t = f(y)$ , one obtains</p>
+<script type="math/tex; mode=display">
+f(x) - f(y) \leqslant \frac{1}{|b|} a^{T}(x - y)</script><p>Then $ \displaystyle \frac{a}{|b|} \in \partial f(x)$  is the subgradient of $ f$  at point $ x$ , which completes the proof.$ \square$</p>
+<p>(2) Let f be a convex and differentiable function, then by definition, we have</p>
+<script type="math/tex; mode=display">
+f(y) \geqslant \frac{f((1-\psi)x + \psi y) - (1-\psi)f(x)}{\psi} = f(x) + \frac{f(x + \psi(y-x)) - f(x)}{\psi}</script><p>Let $\psi \rightarrow 0$, we have $ f(y) \geqslant f(x) + \nabla f(x)^{T} (y-x)$ , we shows that $ \nabla f(x) \in \partial f(x)$ .$ \square$</p>
+<hr>
+<p>Remark.</p>
+<ul>
+<li>More Information<ul>
+<li>Rockafellar, Convex Analysis</li>
+</ul>
+</li>
+<li>Closed convex function </li>
+<li>Proper convex function</li>
+</ul>
+<p><strong>Proposition 1.2 (Local minima of a convex function are global minima)</strong> Let $ x$  be a local minimum of convex function $ f$ , then $ x$  is a global minimum of $ f$ . Futhermore, this happens iff $ 0 \in \partial f(x)$$</p>
+<p><u>Proof.</u><br>(1) $ 0 \in \partial f(x)$$<br>By definition, one can show that</p>
+<script type="math/tex; mode=display">
+f(x) - f(y) \leqslant 0^{T}(x - y) \implies f(x) \leqslant f(y), ~\forall y \in \mathcal{X}</script><p>Trivially, $ x$  is a global minimum of $ f$ .</p>
+<p>(2) Assume $ x$  is a local minimum of $ f$ . Then for a small enough $ \psi$ , for any $ y \in \mathcal{X}$ , we have</p>
+<script type="math/tex; mode=display">
+f(x) \leqslant f((1-\psi)x + \psi y) \leqslant (1-\psi)f(x) + \psi f(y)，</script><p>which shows that $ f(x) \leqslant f(y)$ . $ \square$</p>
+<hr>
+<p><strong>Why convex?</strong><br><em>Assumption 1</em></p>
+<p><em>Assumption 2</em> Any linear function $ f(x) = \alpha + &lt;&gt;$$</p>
+<p><em>Assumption 3</em> If $ f<em>{1}, f</em>{2} \in \mathcal{F}$  and $ \alpha, \beta \geqslant 0$ , then $ \alpha f<em>{1} + \beta f</em>{2} \in \mathcal{F}$$</p>
+<p><strong>Proposition 1.3 (First order optimal condition)</strong> Let $ f$  be convex and $ \mathcal{X}$  is a closed convex set on which $ f$  is differentiable. Then $ x^{<em>} \in \mathop{\text{argmin}}\limits_{x\in \mathcal{X}}~f(x) \iff \nabla f(x^{</em>})^{T}(x^{*} - y) \leqslant 0, \forall y \in \mathcal{X} $$</p>
+<p><em>(“if” direction)</em><br>Given that $ \nabla f(x^{<em>})^{T}(x^{</em>} - y) \leqslant 0$  and the convexity of $ f$ , we have</p>
+<script type="math/tex; mode=display">
+f(x^{*}) - f(y) \leqslant \nabla f(x^{*})^{T}(x^{*} - y).</script><p>Conbining the two term, $ x^{*}$  is the global optim. $ \square$</p>
+<p><em>(“onlyif” direction)</em><br>If $ \nabla f(x)^{T}(y - x) &lt; 0$ , consider $ h(t) = f(x + t(y - x))$ , then $ h(t)$  is convex and furthermore,  $ h’(0) = \nabla f(x)^{T}(y - x)$ . For all $ y \in \mathcal{X}$ , one can show that</p>
+<script type="math/tex; mode=display">
+h(0 + \psi t) \leqslant \psi h'(0) t + h(0)</script><p>for some $ \psi &gt; 0$  and for all $ t \in \mathbb{R}$ . Notice that $ 0$  is the global minimum of $ h(t)$  for all $ y$ , then $ h’(0) = 0$ .$ \square$</p>
+<h2 id="3-Algorithm"><a href="#3-Algorithm" class="headerlink" title="3 Algorithm"></a>3 Algorithm</h2><h3 id="3-1-The-Black-box-Model"><a href="#3-1-The-Black-box-Model" class="headerlink" title="3.1 The Black-box Model"></a>3.1 The Black-box Model</h3><p>With unlimited computatino resources and objective function $ f: \mathcal{X} \rightarrow \mathbb{R}$ , which is unknown but can be accessed through queries to <em>oracles</em>:</p>
+<ul>
+<li>A zeroth order oracle: $ \mathcal{X} \rightarrow \text{Im}(f), x\mapsto f(x)$$</li>
+<li>A first order oracle: $ \mathcal{X} \rightarrow \text{Im}(\partial f), x \mapsto g_{x}$$</li>
+</ul>
+<blockquote>
+<p><em>Oracle Complexity</em><br>How many queries to the oracles are necessary and sufficient to find an $ \varepsilon$ -approximate minima of a convex function ?</p>
+</blockquote>
+<ul>
+<li><em>Epsilon-approximate minimum</em></li>
+<li><em>Converging Speed</em><br>Convergin with <u>order</u> $ q$  to $ L$ :<script type="math/tex; mode=display">
+\lim_{ k \to \infty } \frac{| x_{k+1} - L |}{|x_{k} - L|^{q}} = \mu</script></li>
+</ul>
+<pre><code>* Linear convergence
+* Quadratic convergence
+* Cubic convergence
+</code></pre><ul>
+<li><em>Q-convergence</em> </li>
+<li><p><em>R-convergence</em> The sequence is said to be R-linearly convergence if there exists a sequence ${\varepsilon_{k}}$ s.t. </p>
+<script type="math/tex; mode=display">
+|x_{k} - L| \leqslant \varepsilon_{k}</script><p>for all $ k$  and $ \varepsilon_{k}$  converges Q-linearly to zero</p>
+</li>
+<li><p><em>Complexity</em> — Big-oh notation</p>
+<ul>
+<li>$ f(x) = O(g(x)), n \rightarrow \infty \iff |f(x)| \leqslant Mg(x), \forall x&gt;x_{0}$$</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Applications"><a href="#4-Applications" class="headerlink" title="4 Applications"></a>4 Applications</h2><ul>
+<li><em>Linear Programming</em><script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\text{minimize}}\limits_{}~ &f(x) = c^{T}x\\
+\text{s.t.} ~& c \in \mathbb{R}^{n}\\
+~& x \in \mathcal{X} = \{x \in \mathbb{R}^{n}: Ax = b\}, \text{in which } A \in \mathbb{R}^{m\times n}, b\in \mathbb{R}^{n}
+\end{align*}</script></li>
+</ul>
+<ul>
+<li><em>Semi-definite Programming</em><script type="math/tex; mode=display">
+\begin{align*}
+\mathop{\text{minimize}}\limits_{}~&f(x) = \langle X, C\rangle  = \mathrm{Tr}(X^{T}C)\\
+\text{s.t.}~& x \in \mathcal{X} = \{X \in \mathbb{S}_{+}^{n}: \langle X, A \rangle \leqslant b, i \in \{1, 2, \dots, m\}\}\\
+~& A_{1}, A_{2}, \dots, A_m \in \mathbb{R}^{n\times m}, b \in \mathbb{R}^{m}
+\end{align*}</script></li>
+</ul>
+<hr>
+<ul>
+<li>Data filtering</li>
+<li>Shortest Path</li>
+<li>Application in ML (Ridge Regression and Lasso Regression)</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/02/15/2023/02/2023-02-15-Optim-1/">https://hrjtju.github.io/2023/02/15/2023/02/2023-02-15-Optim-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Optimization/">Optimization</a></div><div class="post_share"><div class="social-share" data-image="/img/header/optim.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/02/15/2023/02/2023-02-15-DatawhaleCS224W-2/" title="【Datawhale】【CS224W】图机器学习 2 图的特征工程"><img class="cover" src="/img/header/fuyu.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【Datawhale】【CS224W】图机器学习 2 图的特征工程</div></div></a></div><div class="next-post pull-right"><a href="/2023/02/13/2023/02/2023-02-13-DatawhaleCS224w-1/" title="【Datawhale】【CS224W】图机器学习 1 图的基本表示"><img class="cover" src="/img/header/fuyu.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【Datawhale】【CS224W】图机器学习 1 图的基本表示</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Introduction"><span class="toc-text">1 Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Convexity"><span class="toc-text">2 Convexity</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Convex-Sets-and-Convex-Functions"><span class="toc-text">2.1 Convex Sets and Convex Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Gradient-and-Subgradient-of-Convex-Functions"><span class="toc-text">2.2 Gradient and Subgradient of Convex Functions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Algorithm"><span class="toc-text">3 Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-The-Black-box-Model"><span class="toc-text">3.1 The Black-box Model</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Applications"><span class="toc-text">4 Applications</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

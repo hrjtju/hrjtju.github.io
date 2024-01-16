@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="source: https:&#x2F;&#x2F;medium.com&#x2F;emergent-future&#x2F;simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c   (Note: This post is designed as an additional tutorial to act as a b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits">
+<meta property="og:url" content="https://hrjtju.github.io/2022/08/10/2022/2022-08-10-SimpleRL-Simple-Reinforcement-Learning-with-Tensorflow-Part-1.5-Contextual-Bandits/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="source: https:&#x2F;&#x2F;medium.com&#x2F;emergent-future&#x2F;simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c   (Note: This post is designed as an additional tutorial to act as a b">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/2022-08-10/image-20220810092416819.png">
+<meta property="article:published_time" content="2022-08-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T17:02:12.000Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Reinforcement Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/2022-08-10/image-20220810092416819.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2022/08/10/2022/2022-08-10-SimpleRL-Simple-Reinforcement-Learning-with-Tensorflow-Part-1.5-Contextual-Bandits/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 01:02:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2022-08-10/image-20220810092416819.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-08-09T16:00:00.000Z" title="Created 2022-08-10 00:00:00">2022-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-09T17:02:12.000Z" title="Updated 2023-08-10 01:02:12">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>9min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>source: <a target="_blank" rel="noopener" href="https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c">https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c</a></p>
+<p><img src="/img/2022-08-10/image-20220810092249860.png" alt="image-20220810092249860" style="zoom:50%;" /></p>
+<p><img src="/img/2022-08-10/image-20220810092416819.png" alt="image-20220810092416819" style="zoom:50%;" /></p>
+<p><em>(Note: This post is designed as an additional tutorial to act as a bridge between</em> <a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-1-fd544fab149"><em>Parts 1</em></a> <em>&amp;</em> <a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-2-ded33892c724"><em>2.</em></a><em>)</em></p>
+<p>In <a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-1-fd544fab149">Part 1</a> of my Simple RL series, we introduced the field of Reinforcement Learning, and I demonstrated how to build an agent which can solve the multi-armed bandit problem. In that situation, there are no environmental states, and the agent must simply learn to choose which action is best to take. Without a given state state, the best action at any moment is also the best action always. <a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-2-ded33892c724">Part 2</a> establishes the full Reinforcement Learning problem in which there are environmental states, new states depend on previous actions, and rewards can be delayed over time.</p>
+<p>There is actually a set of problems in-between the stateless situation and the full RL problem. I want to provide an example of such a problem, and show how to solve it. My hope is that those entirely new to RL can benefit from being introduced to each element of the full formulation step by step. Specifically, in this post I want to show how to solve problems in which there are states, but they aren’t determined by the previous states or actions. Additionally, we won’t be considering delayed rewards. All of that comes in <a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-2-ded33892c724">Part 2.</a> This simplified way of posing the RL problem is referred to as the Contextual Bandit.</p>
+<p><img src="/img/2022-08-10/image-20220810094849088.png" alt="image-20220810094849088" style="zoom:50%;" /></p>
+<h2 id="Contextual-Bandit"><a href="#Contextual-Bandit" class="headerlink" title="Contextual Bandit"></a>Contextual Bandit</h2><p>In the original multi-armed bandit problem discussed in Part 1, there is only a single bandit, which can be thought of as like a slot-machine. The range of actions available to the agent consist of pulling one of multiple arms of the bandit. By doing so, a reward of +1 or -1 is received at different rates. The problem is considered solved if the agent learns to always choose the arm that most often provides a positive reward. In such a case, we can design an agent that completely ignores the state of the environment, since for all intents and purposes, there is only ever a single, unchanging state.</p>
+<p>Contextual Bandits introduce the concept of the <em>state</em>. The state consists of a description of the environment that the agent can use to take more informed actions. In our problem, instead of a single bandit, there can now be multiple bandits. The state of the environment tells us which bandit we are dealing with, and the goal of the agent is to learn the best action not just for a single bandit, but for any number of them. Since each bandit will have different reward probabilities for each arm, our agent will need to learn to condition its action on the state of the environment. Unless it does this, it won’t achieve the maximum reward possible over time. In order to accomplish this, we will be building a single-layer neural network in Tensorflow that takes a state and produces an action. By using a policy-gradient update method, we can have the network learn to take actions that maximize its reward. Below is the iPython notebook walking through the tutorial.</p>
+<blockquote>
+<h1 id="Simple-RL-in-TF-Part-1-5"><a href="#Simple-RL-in-TF-Part-1-5" class="headerlink" title="Simple RL in TF Part 1.5:"></a>Simple RL in TF Part 1.5:</h1><h2 id="The-Contextual-Bandits"><a href="#The-Contextual-Bandits" class="headerlink" title="The Contextual Bandits"></a>The Contextual Bandits</h2><p>This tutorial contains a simple example of how to build a policy-gradient based agent that can solve the contextual bandit problem. For more information, see this <a target="_blank" rel="noopener" href="https://medium.com/p/bff01d1aad9c">Medium post</a>.</p>
+<p>For more Reinforcement Learning algorithms, including DQN and Model-based learning in Tensorflow, see my Github repo, <a target="_blank" rel="noopener" href="https://github.com/awjuliani/DeepRL-Agents">DeepRL-Agents</a>.</p>
+<p>In [1]:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> tensorflow.contrib.slim <span class="keyword">as</span> slim</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h3 id="The-Contextual-Bandits-1"><a href="#The-Contextual-Bandits-1" class="headerlink" title="The Contextual Bandits"></a>The Contextual Bandits</h3><p>Here we define our contextual bandits. In this example, we are using three four-armed bandit. What this means is that each bandit has four arms that can be pulled. Each bandit has different success probabilities for each arm, and as such requires different actions to obtain the best result. The pullBandit function generates a random number from a normal distribution with a mean of 0. The lower the bandit number, the more likely a positive reward will be returned. We want our agent to learn to always choose the bandit-arm that will most often give a positive reward, depending on the Bandit presented.</p>
+<p>In [6]:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">contextual_bandit</span>():</span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">     self.state = <span class="number">0</span></span><br><span class="line">     <span class="comment">#List out our bandits. Currently arms 4, 2, and 1 (respectively) are the most optimal.</span></span><br><span class="line">     self.bandits = np.array([[<span class="number">0.2</span>,<span class="number">0</span>,-<span class="number">0.0</span>,-<span class="number">5</span>],[<span class="number">0.1</span>,-<span class="number">5</span>,<span class="number">1</span>,<span class="number">0.25</span>],[-<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>]])</span><br><span class="line">     self.num_bandits = self.bandits.shape[<span class="number">0</span>]</span><br><span class="line">     self.num_actions = self.bandits.shape[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">getBandit</span>(<span class="params">self</span>):</span><br><span class="line">     self.state = np.random.randint(<span class="number">0</span>,<span class="built_in">len</span>(self.bandits)) <span class="comment">#Returns a random state for each episode.</span></span><br><span class="line">     <span class="keyword">return</span> self.state</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">pullArm</span>(<span class="params">self,action</span>):</span><br><span class="line">     <span class="comment">#Get a random number.</span></span><br><span class="line">     bandit = self.bandits[self.state,action]</span><br><span class="line">     result = np.random.randn(<span class="number">1</span>)</span><br><span class="line">     <span class="keyword">if</span> result &gt; bandit:</span><br><span class="line">         <span class="comment">#return a positive reward.</span></span><br><span class="line">         <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">     <span class="keyword">else</span>:</span><br><span class="line">         <span class="comment">#return a negative reward.</span></span><br><span class="line">         <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="The-Policy-Based-Agent"><a href="#The-Policy-Based-Agent" class="headerlink" title="The Policy-Based Agent"></a>The Policy-Based Agent</h3><p>The code below established our simple neural agent. It takes as input the current state, and returns an action. This allows the agent to take actions which are conditioned on the state of the environment, a critical step toward being able to solve full RL problems. The agent uses a single set of weights, within which each value is an estimate of the value of the return from choosing a particular arm given a bandit. We use a policy gradient method to update the agent by moving the value for the selected action toward the recieved reward.</p>
+<p>In [7]:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">agent</span>():</span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, lr, s_size,a_size</span>):</span><br><span class="line">     <span class="comment">#These lines established the feed-forward part of the network. The agent takes a state and produces an action.</span></span><br><span class="line">     self.state_in= tf.placeholder(shape=[<span class="number">1</span>],dtype=tf.int32)</span><br><span class="line">     state_in_OH = slim.one_hot_encoding(self.state_in,s_size)</span><br><span class="line">     output = slim.fully_connected(state_in_OH,a_size,\</span><br><span class="line">         biases_initializer=<span class="literal">None</span>,activation_fn=tf.nn.sigmoid,weights_initializer=tf.ones_initializer())</span><br><span class="line">     self.output = tf.reshape(output,[-<span class="number">1</span>])</span><br><span class="line">     self.chosen_action = tf.argmax(self.output,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">     <span class="comment">#The next six lines establish the training proceedure. We feed the reward and chosen action into the network</span></span><br><span class="line">     <span class="comment">#to compute the loss, and use it to update the network.</span></span><br><span class="line">     self.reward_holder = tf.placeholder(shape=[<span class="number">1</span>],dtype=tf.float32)</span><br><span class="line">     self.action_holder = tf.placeholder(shape=[<span class="number">1</span>],dtype=tf.int32)</span><br><span class="line">     self.responsible_weight = tf.<span class="built_in">slice</span>(self.output,self.action_holder,[<span class="number">1</span>])</span><br><span class="line">     self.loss = -(tf.log(self.responsible_weight)*self.reward_holder)</span><br><span class="line">     optimizer = tf.train.GradientDescentOptimizer(learning_rate=lr)</span><br><span class="line">     self.update = optimizer.minimize(self.loss)</span><br></pre></td></tr></table></figure>
+<h3 id="Training-the-Agent"><a href="#Training-the-Agent" class="headerlink" title="Training the Agent"></a>Training the Agent</h3><p>We will train our agent by getting a state from the environment, take an action, and recieve a reward. Using these three things, we can know how to properly update our network in order to more often choose actions given states that will yield the highest rewards over time.</p>
+<p>In [8]:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.reset_default_graph() <span class="comment">#Clear the Tensorflow graph.</span></span><br><span class="line"></span><br><span class="line">cBandit = contextual_bandit() <span class="comment">#Load the bandits.</span></span><br><span class="line">myAgent = agent(lr=<span class="number">0.001</span>,s_size=cBandit.num_bandits,a_size=cBandit.num_actions) <span class="comment">#Load the agent.</span></span><br><span class="line">weights = tf.trainable_variables()[<span class="number">0</span>] <span class="comment">#The weights we will evaluate to look into the network.</span></span><br><span class="line"></span><br><span class="line">total_episodes = <span class="number">10000</span> <span class="comment">#Set total number of episodes to train agent on.</span></span><br><span class="line">total_reward = np.zeros([cBandit.num_bandits,cBandit.num_actions]) <span class="comment">#Set scoreboard for bandits to 0.</span></span><br><span class="line">e = <span class="number">0.1</span> <span class="comment">#Set the chance of taking a random action.</span></span><br><span class="line"></span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Launch the tensorflow graph</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"> sess.run(init)</span><br><span class="line"> i = <span class="number">0</span></span><br><span class="line"> <span class="keyword">while</span> i &lt; total_episodes:</span><br><span class="line">     s = cBandit.getBandit() <span class="comment">#Get a state from the environment.</span></span><br><span class="line"></span><br><span class="line">     <span class="comment">#Choose either a random action or one from our network.</span></span><br><span class="line">     <span class="keyword">if</span> np.random.rand(<span class="number">1</span>) &lt; e:</span><br><span class="line">         action = np.random.randint(cBandit.num_actions)</span><br><span class="line">     <span class="keyword">else</span>:</span><br><span class="line">         action = sess.run(myAgent.chosen_action,feed_dict=&#123;myAgent.state_in:[s]&#125;)</span><br><span class="line"></span><br><span class="line">     reward = cBandit.pullArm(action) <span class="comment">#Get our reward for taking an action given a bandit.</span></span><br><span class="line"></span><br><span class="line">     <span class="comment">#Update the network.</span></span><br><span class="line">     feed_dict=&#123;myAgent.reward_holder:[reward],myAgent.action_holder:[action],myAgent.state_in:[s]&#125;</span><br><span class="line">     _,ww = sess.run([myAgent.update,weights], feed_dict=feed_dict)</span><br><span class="line"></span><br><span class="line">     <span class="comment">#Update our running tally of scores.</span></span><br><span class="line">     total_reward[s,action] += reward</span><br><span class="line">     <span class="keyword">if</span> i % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">         <span class="built_in">print</span> <span class="string">&quot;Mean reward for each of the &quot;</span> + <span class="built_in">str</span>(cBandit.num_bandits) + <span class="string">&quot; bandits: &quot;</span> + <span class="built_in">str</span>(np.mean(total_reward,axis=<span class="number">1</span>))</span><br><span class="line">     i+=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(cBandit.num_bandits):</span><br><span class="line"> <span class="built_in">print</span> <span class="string">&quot;The agent thinks action &quot;</span> + <span class="built_in">str</span>(np.argmax(ww[a])+<span class="number">1</span>) + <span class="string">&quot; for bandit &quot;</span> + <span class="built_in">str</span>(a+<span class="number">1</span>) + <span class="string">&quot; is the most promising....&quot;</span></span><br><span class="line"> <span class="keyword">if</span> np.argmax(ww[a]) == np.argmin(cBandit.bandits[a]):</span><br><span class="line">     <span class="built_in">print</span> <span class="string">&quot;...and it was right!&quot;</span></span><br><span class="line"> <span class="keyword">else</span>:</span><br><span class="line">     <span class="built_in">print</span> <span class="string">&quot;...and it was wrong!&quot;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Hopefully you’ve found this tutorial helpful in giving an intuition of how reinforcement learning agents can learn to solve problems of varying complexity and interactivity. If you’ve mastered this problem, you are ready to explore the full problem where time and actions matter in Part 2 and beyond of this series.</p>
+<p>If this post has been valuable to you, please consider <a target="_blank" rel="noopener" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=V2R22DV4XSR5Y&amp;lc=US&amp;item_name=Arthur Juliani&#39;s Deep Learning Tutorials&amp;currency_code=USD&amp;bn=PP-DonationsBF%3abtn_donateCC_LG.gif%3aNonHosted"><em>donating</em></a> to help support future tutorials, articles, and implementations. Any contribution is greatly appreciated!</p>
+<p><strong>More from my Simple Reinforcement Learning with Tensorflow series:</strong></p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0"><em>Part 0 — Q-Learning Agents</em></a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-1-fd544fab149"><em>Part 1 — Two-Armed Bandit</em></a></li>
+<li><strong>Part 1.5 — Contextual Bandits</strong></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-2-ded33892c724"><em>Part 2 — Policy-Based Agents</em></a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-3-model-based-rl-9a6fe0cce99"><em>Part 3 — Model-Based RL</em></a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-4-deep-q-networks-and-beyond-8438a3e2b8df#.i2zpbmre8"><em>Part 4 — Deep Q-Networks and Beyond</em></a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-5-visualizing-an-agents-thoughts-and-actions-4f27b134bb2a"><em>Part 5 — Visualizing an Agent’s Thoughts and Actions</em></a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-6-partial-observability-and-deep-recurrent-q-68463e9aeefc#.gi4xdq8pk"><em>Part 6 — Partial Observability and Deep Recurrent Q-Networks</em></a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-7-action-selection-strategies-for-exploration-d3a97b7cceaf"><em>Part 7 — Action-Selection Strategies for Exploration</em></a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-8-asynchronous-actor-critic-agents-a3c-c88f72a5e9f2#.hg13tn9zw"><em>Part 8 — Asynchronous Actor-Critic Agents (A3C)</em></a></li>
+</ol>
+<p>If you’d like to follow my work on Deep Learning, AI, and Cognitive Science, follow me on Medium @</p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/u/18dfe63fa7f0?source=post_page-----bff01d1aad9c--------------------------------">Arthur Juliani</a> , or on twitter <a target="_blank" rel="noopener" href="https://twitter.com/awjuliani">@awjliani</a>.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2022/08/10/2022/2022-08-10-SimpleRL-Simple-Reinforcement-Learning-with-Tensorflow-Part-1.5-Contextual-Bandits/">https://hrjtju.github.io/2022/08/10/2022/2022-08-10-SimpleRL-Simple-Reinforcement-Learning-with-Tensorflow-Part-1.5-Contextual-Bandits/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a></div><div class="post_share"><div class="social-share" data-image="/img/2022-08-10/image-20220810092416819.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/13/2022/2022-08-13-DatawhaleML-1/" title="【DatawhaleML】 1 机器学习引入"><img class="cover" src="/img/2016-11-19/abstract-1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【DatawhaleML】 1 机器学习引入</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/09/2022/2022-08-09-1%20%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E7%BB%93%E6%9E%84/" title="01 冯诺依曼结构"><img class="cover" src="/img/2016-11-19/abstract-4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">01 冯诺依曼结构</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/08/13/2022/2022-08-13-1-The-k-armed-bandit-problem/" title="1 The k-armed bandit problem, k臂赌博机"><img class="cover" src="/img/2016-11-19/abstract-5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-13</div><div class="title">1 The k-armed bandit problem, k臂赌博机</div></div></a></div><div><a href="/2023/07/17/2023/09/2023-08-10-DRL-9/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-17</div><div class="title">【UCBerkley DRL】 7 Value Functions</div></div></a></div><div><a href="/2023/07/17/2023/07/2023-07-17-DRL-6-Actor-Critic/" title="【UCBerkley DRL】 6 Actor Critic"><img class="cover" src="/img/2023/headers/drl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-17</div><div class="title">【UCBerkley DRL】 6 Actor Critic</div></div></a></div><div><a href="/2023/07/17/2023/09/2023-08-10-DRL-8/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-17</div><div class="title">【UCBerkley DRL】 7 Value Functions</div></div></a></div><div><a href="/2023/07/17/2023/08/2023-08-10-DRL-7-Value-Functions/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-17</div><div class="title">【UCBerkley DRL】 7 Value Functions</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Contextual-Bandit"><span class="toc-text">Contextual Bandit</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Simple-RL-in-TF-Part-1-5"><span class="toc-text">Simple RL in TF Part 1.5:</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Contextual-Bandits"><span class="toc-text">The Contextual Bandits</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Contextual-Bandits-1"><span class="toc-text">The Contextual Bandits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Policy-Based-Agent"><span class="toc-text">The Policy-Based Agent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Training-the-Agent"><span class="toc-text">Training the Agent</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

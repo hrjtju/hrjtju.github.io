@@ -1,0 +1,670 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【Diffusion】1 搭建扩散模型 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Hugging Face官方书籍《扩散模型》读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Diffusion】1 搭建扩散模型">
+<meta property="og:url" content="https://hrjtju.github.io/2023/08/25/2023/08/2023-08-25-DIFFUSION-1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Hugging Face官方书籍《扩散模型》读书笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/diffusion.png">
+<meta property="article:published_time" content="2023-08-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-26T03:25:10.732Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/diffusion.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/08/25/2023/08/2023-08-25-DIFFUSION-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Diffusion】1 搭建扩散模型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-26 11:25:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/diffusion.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Diffusion】1 搭建扩散模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-24T16:00:00.000Z" title="Created 2023-08-25 00:00:00">2023-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-26T03:25:10.732Z" title="Updated 2023-08-26 11:25:10">2023-08-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">4.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>26min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Diffusion】1 搭建扩散模型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1 环境准备"></a>1 环境准备</h3><p>下载<code>diffusers</code>包<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pip install -q diffusers</span><br></pre></td></tr></table></figure></p>
+<p>导入模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">from</span> diffusers <span class="keyword">import</span> DDPMScheduler, UNet2DModel</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;DEVICE: <span class="subst">&#123;device&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>准备数据集</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dataset = torchvision.datasets.MNIST(root=<span class="string">&quot;G:/MNIST/&quot;</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>,</span><br><span class="line">                                     transform=torchvision.transforms.ToTensor())</span><br><span class="line">train_dataloader = DataLoader(dataset, batch_size=<span class="number">16</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">X, y = <span class="built_in">next</span>(<span class="built_in">iter</span>(train_dataloader))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;X.shape: <span class="subst">&#123;X.shape&#125;</span>\nLabels: <span class="subst">&#123;y&#125;</span>&quot;</span>)</span><br><span class="line">plt.imshow(torchvision.utils.make_grid(X)[<span class="number">0</span>], cmap=<span class="string">&quot;Greys&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>X.shape: torch.Size([16, 1, 28, 28])
+Labels: tensor([0, 0, 3, 8, 3, 2, 5, 0, 4, 3, 5, 2, 7, 3, 4, 6])
+</code></pre><p><img src="/img/output_2_2.png" alt="png" /></p>
+<p>注意，MNIST数据集中图像像素值范围为$[0,1]$.</p>
+<p>​    </p>
+<h3 id="2-退化过程"><a href="#2-退化过程" class="headerlink" title="2 退化过程"></a>2 退化过程</h3><p>假设输入图像为$\boldsymbol x$，考虑如下的简化退化过程：</p>
+<script type="math/tex; mode=display">
+\boldsymbol x_c = \lambda\boldsymbol x + (1-\lambda)\boldsymbol \varepsilon,~~~~~~~~\boldsymbol \varepsilon_{i, j} \sim \mathcal{U}(0, 1);</script><p>在实现上可简单的写为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">corrupt</span>(<span class="params">X, amount</span>):</span><br><span class="line">  noise = torch.rand_like(X)</span><br><span class="line">  amount = amount.view(-<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">return</span> X * (<span class="number">1</span>-amount) + noise * amount</span><br></pre></td></tr></table></figure>
+<p>使用下列代码测试<code>corrupt</code>函数，可以看到：随着<code>amount</code>的不断增大，添加噪声后的原图像越来越像”随机“信号。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig, ax = plt.subplots(<span class="number">2</span>, <span class="number">1</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line">ax[<span class="number">0</span>].set_title(<span class="string">&quot;Input data&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>].imshow(torchvision.utils.make_grid(X)[<span class="number">0</span>], cmap=<span class="string">&quot;Greys&quot;</span>)</span><br><span class="line"></span><br><span class="line">amount = torch.linspace(<span class="number">0</span>, <span class="number">1</span>, X.shape[<span class="number">0</span>])</span><br><span class="line">noised_X = corrupt(X, amount)</span><br><span class="line">ax[<span class="number">1</span>].set_title(<span class="string">&quot;Corrupted data ---amount increases---&gt;&quot;</span>)</span><br><span class="line">ax[<span class="number">1</span>].imshow(torchvision.utils.make_grid(noised_X)[<span class="number">0</span>], cmap=<span class="string">&quot;Greys&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br></pre></td></tr></table></figure></p>
+<p>​    <img src="/img/output_4_0.png" alt="png" style="zoom:80%;" /><br>​    </p>
+<h3 id="3-训练"><a href="#3-训练" class="headerlink" title="3 训练"></a>3 训练</h3><h4 id="3-1-简单的UNet"><a href="#3-1-简单的UNet" class="headerlink" title="3.1 简单的UNet"></a>3.1 简单的UNet</h4><p>UNet最初被提出用于解决医学影像处理中的图像分割问题。它通过<strong>压缩路径</strong>不断下采样和卷积使得输入数据维数降低直至一个”瓶颈“，接着在<strong>扩展路径</strong>中通过上采样等方式逐步让特征图恢复到原来的形状。其在原论文中的网络结构如下图所示。</p>
+<p><img src="/img/image-20230826085816177.png" alt="image-20230826085816177" style="zoom: 33%;" /></p>
+<p>我们在此实现一个简化版的UNet，它的压缩路径和扩展路径中各有两个下采样和上采样操作，在这些操作前后有一个卷积操作。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BasicUNet</span>(nn.Module):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_channels=<span class="number">1</span>, out_channels=<span class="number">1</span></span>):</span><br><span class="line">    <span class="built_in">super</span>().__init__()</span><br><span class="line">    self.down_layers = torch.nn.ModuleList([</span><br><span class="line">        nn.Conv2d(in_channels, <span class="number">32</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">        nn.Conv2d(<span class="number">32</span>, <span class="number">64</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">        nn.Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    self.up_layers = torch.nn.ModuleList([</span><br><span class="line">        nn.Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">        nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">        nn.Conv2d(<span class="number">32</span>, in_channels, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">    ])</span><br><span class="line">    self.act = nn.ReLU()</span><br><span class="line">    self.downscale = torch.nn.MaxPool2d(<span class="number">2</span>)</span><br><span class="line">    self.upscale = torch.nn.Upsample(scale_factor=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">    h = []</span><br><span class="line">    <span class="keyword">for</span> i, l <span class="keyword">in</span> <span class="built_in">enumerate</span>(self.down_layers):</span><br><span class="line">        x = self.act(l(x))</span><br><span class="line">        <span class="keyword">if</span> i &lt; <span class="number">2</span>:</span><br><span class="line">            h.append(x)</span><br><span class="line">            x = self.downscale(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, l <span class="keyword">in</span> <span class="built_in">enumerate</span>(self.up_layers):</span><br><span class="line">        x = self.act(l(x))</span><br><span class="line">        <span class="keyword">if</span> i &lt; <span class="number">2</span>:</span><br><span class="line">            x = self.upscale(x)</span><br><span class="line">            x += h.pop()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">net = BasicUNet()</span><br><span class="line">x = torch.rand(<span class="number">8</span>, <span class="number">1</span>, <span class="number">128</span>, <span class="number">128</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;x.shape: <span class="subst">&#123;x.shape&#125;</span>\nnet(x).shape: <span class="subst">&#123;net(x).shape&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;num_params: <span class="subst">&#123;<span class="built_in">sum</span>(p.numel() <span class="keyword">for</span> p <span class="keyword">in</span> net.parameters())&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>x.shape: torch.Size([8, 1, 128, 128])
+net(x).shape: torch.Size([8, 1, 128, 128])
+num_params: 309057
+</code></pre><h4 id="3-2-训练模型"><a href="#3-2-训练模型" class="headerlink" title="3.2 训练模型"></a>3.2 训练模型</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tqdm</span><br><span class="line"><span class="comment"># 开始训练模型</span></span><br><span class="line">BATCH_SIZE = <span class="number">128</span></span><br><span class="line">train_dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 设置训练轮数</span></span><br><span class="line">N_EPOCHS = <span class="number">5</span></span><br><span class="line"><span class="comment"># 创建网络</span></span><br><span class="line">net = BasicUNet()</span><br><span class="line">net.to(device)</span><br><span class="line"><span class="comment"># 损失函数</span></span><br><span class="line">loss_fn = nn.MSELoss()</span><br><span class="line"><span class="comment"># 优化器</span></span><br><span class="line">opt = torch.optim.Adam(net.parameters(), lr=<span class="number">1e-4</span>)</span><br><span class="line"><span class="comment"># 损失列表，方便在训练后进行可视化</span></span><br><span class="line">losses = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练主循环</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(N_EPOCHS):</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> tqdm.tqdm(train_dataloader):</span><br><span class="line">        <span class="comment"># 处理输入数据</span></span><br><span class="line">        x = x.to(device)</span><br><span class="line">        noise_amount = torch.rand(x.shape[<span class="number">0</span>]).to(device)</span><br><span class="line">        noisy_x = corrupt(x, noise_amount)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用带噪数据预测结果</span></span><br><span class="line">        pred = net(noisy_x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算损失函数</span></span><br><span class="line">        loss = loss_fn(pred, x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 反向传播</span></span><br><span class="line">        opt.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">        losses.append(loss.item())</span><br><span class="line">    avg_loss = <span class="built_in">sum</span>(losses[-<span class="built_in">len</span>(train_dataloader):]) / <span class="built_in">len</span>(train_dataloader)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Finished epoch <span class="subst">&#123;epoch+<span class="number">1</span>:02d&#125;</span>. Average loss: <span class="subst">&#123;avg_loss:<span class="number">.05</span>e&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>100%|██████████| 469/469 [00:12&lt;00:00, 38.57it/s]
+Finished epoch 01. Average loss: 2.91265e-02
+100%|██████████| 469/469 [00:11&lt;00:00, 40.05it/s]
+Finished epoch 02. Average loss: 2.14327e-02
+100%|██████████| 469/469 [00:11&lt;00:00, 39.78it/s]
+Finished epoch 03. Average loss: 2.03510e-02
+100%|██████████| 469/469 [00:11&lt;00:00, 39.22it/s]
+Finished epoch 04. Average loss: 1.96886e-02
+100%|██████████| 469/469 [00:11&lt;00:00, 39.70it/s]
+Finished epoch 05. Average loss: 1.93834e-02
+</code></pre><p>绘制损失曲线</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.ticker <span class="keyword">as</span> ticker</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">300</span>)</span><br><span class="line">ax = plt.subplot(<span class="number">111</span>)</span><br><span class="line">line = plt.plot(losses, alpha=<span class="number">0.5</span>, label=<span class="string">&quot;Original&quot;</span>)</span><br><span class="line">plt.plot(pd.Series(losses).rolling(window=<span class="number">20</span>, min_periods=<span class="number">1</span>).mean(), c=<span class="string">&quot;#1f77b4&quot;</span>, label=<span class="string">&quot;Smoothed&quot;</span>)</span><br><span class="line">plt.xticks(<span class="number">250</span> * np.arange(<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">ax.set_yscale(<span class="string">&quot;log&quot;</span>)</span><br><span class="line"></span><br><span class="line">ax.yaxis.set_major_formatter(ticker.FormatStrFormatter(<span class="string">&quot;%.4f&quot;</span>))</span><br><span class="line">ax.yaxis.set_minor_formatter(ticker.FormatStrFormatter(<span class="string">&quot;%.3f&quot;</span>))</span><br><span class="line">ax.yaxis.set_tick_params(labelsize = <span class="number">10</span>, which=<span class="string">&quot;major&quot;</span>)</span><br><span class="line">ax.yaxis.set_tick_params(labelsize = <span class="number">8</span>, which=<span class="string">&quot;minor&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.grid(which=<span class="string">&quot;major&quot;</span>, alpha=<span class="number">0.7</span>)</span><br><span class="line">plt.grid(which=<span class="string">&quot;minor&quot;</span>, alpha=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">plt.legend()</span><br><span class="line">plt.title(<span class="string">&quot;Loss curve of BasicUnet on randomly corrupted MNIST&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/output_10_1.png" alt="png" style="zoom: 25%;" /></p>
+<p>检验模型：在人工添加均匀分布噪声的数据上进行预测</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x, y = <span class="built_in">next</span>(<span class="built_in">iter</span>(train_dataloader))</span><br><span class="line">x = x[:<span class="number">16</span>]</span><br><span class="line"></span><br><span class="line">amount = torch.linspace(<span class="number">0</span>, <span class="number">1</span>, x.shape[<span class="number">0</span>])</span><br><span class="line">noised_x = corrupt(x, amount)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    preds = net(noised_x.to(device)).detach().cpu()</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">7</span>), dpi=<span class="number">300</span>)</span><br><span class="line"></span><br><span class="line">titles = [<span class="string">&quot;Original&quot;</span>, <span class="string">&quot;Corrupted&quot;</span>, <span class="string">&quot;Reconstructed&quot;</span>]</span><br><span class="line">Xs = [x, noised_x, preds]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    ax = plt.subplot(<span class="number">3</span>, <span class="number">1</span>, i+<span class="number">1</span>)</span><br><span class="line">    ax.set_title(titles[i])</span><br><span class="line">    ax.imshow(torchvision.utils.make_grid(Xs[i])[<span class="number">0</span>].clip(<span class="number">0</span>, <span class="number">1</span>), cmap=<span class="string">&quot;Greys&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/output_11_0.png" alt="png" style="zoom: 33%;" /><br>​    </p>
+<h4 id="3-4-采样过程"><a href="#3-4-采样过程" class="headerlink" title="3.4 采样过程"></a>3.4 采样过程</h4><p>从上图可以看出，在面对高额噪声的加入，模型的效果并不好。但可以看出具有高额噪声的图像经过模型一次以后其噪声水平有所下降。于是我们可以考虑将模型输出作为下一次模型的输入，从而<strong>不断降低噪声水平</strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">N_STEPS = <span class="number">20</span></span><br><span class="line">x = torch.rand(<span class="number">8</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>).to(device)</span><br><span class="line">step_history = [x.detach().cpu()]</span><br><span class="line">pred_output_history = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N_STEPS):</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        pred = net(x)</span><br><span class="line">    pred_output_history.append(pred.detach().cpu())</span><br><span class="line">    </span><br><span class="line">    mix_factor = <span class="number">1</span> / (N_STEPS - i)</span><br><span class="line">    </span><br><span class="line">    x = x * (<span class="number">1</span> - mix_factor) + pred * mix_factor</span><br><span class="line">    step_history.append(x.detach().cpu())</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(N_STEPS, <span class="number">2</span>, figsize=(<span class="number">16</span>, <span class="number">32</span>), sharex=<span class="literal">True</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">0</span>].set_title(<span class="string">&quot;X (Model Input)&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">1</span>].set_title(<span class="string">&quot;Model Prediction&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N_STEPS):</span><br><span class="line">    ax[i, <span class="number">0</span>].imshow(torchvision.utils.make_grid(step_history[i])[<span class="number">0</span>].clip(<span class="number">0</span>, <span class="number">1</span>), cmap=<span class="string">&quot;Greys&quot;</span>)</span><br><span class="line">    ax[i, <span class="number">1</span>].imshow(torchvision.utils.make_grid(pred_output_history[i])[<span class="number">0</span>].clip(<span class="number">0</span>, <span class="number">1</span>), cmap=<span class="string">&quot;Greys&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br></pre></td></tr></table></figure>
+<p><img src="/img/output_12_0.png" alt="png" style="zoom: 50%;" /><br>​    从上图可以看出，这类似于一种正反馈过程。随着迭代次数不断增加，输出图像的噪声不断减少。但从最终的结果来看只有少部分图像可以辨认为某个手写数字。这可能是因为在先前的训练过程中轮数不够、数据量不足或超参数取值不佳。</p>
+<p><strong>简单的”扩散模型“与DDPM的比较</strong></p>
+<ul>
+<li>DDPM使用更先进的UNet模型，即<code>UNet2DModel</code></li>
+<li>退化过程的处理方式不同</li>
+<li>DDPM的训练目标是预测噪声，而不是预测去噪图像</li>
+<li>DDPM中的UNet模型通过调节时间步 (Time Step) 来调节噪声量</li>
+<li>有更多种采样策略可供选择</li>
+</ul>
+<p>导入<code>UNet2DModel</code>模型：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model = UNet2DModel(sample_size=<span class="number">28</span>, </span><br><span class="line">                    in_channels=<span class="number">1</span>,</span><br><span class="line">                    out_channels=<span class="number">1</span>,</span><br><span class="line">                    layers_per_block=<span class="number">2</span>,</span><br><span class="line">                    block_out_channels=(<span class="number">32</span>, <span class="number">64</span>, <span class="number">64</span>),</span><br><span class="line">                    down_block_types=(<span class="string">&quot;DownBlock2D&quot;</span>, <span class="string">&quot;AttnDownBlock2D&quot;</span>, <span class="string">&quot;AttnDownBlock2D&quot;</span>),</span><br><span class="line">                    up_block_types=(<span class="string">&quot;AttnUpBlock2D&quot;</span>, <span class="string">&quot;AttnUpBlock2D&quot;</span>, <span class="string">&quot;UpBlock2D&quot;</span>)</span><br><span class="line">                    )</span><br><span class="line"><span class="built_in">print</span>(model)</span><br></pre></td></tr></table></figure>
+<pre><code>UNet2DModel(
+  (conv_in): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (time_proj): Timesteps()
+  (time_embedding): TimestepEmbedding(
+    (linear_1): Linear(in_features=32, out_features=128, bias=True)
+    (act): SiLU()
+    (linear_2): Linear(in_features=128, out_features=128, bias=True)
+  )
+  (down_blocks): ModuleList(
+    (0): DownBlock2D(
+      (resnets): ModuleList(
+        (0): ResnetBlock2D(
+          (norm1): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=32, bias=True)
+          (norm2): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+        )
+        (1): ResnetBlock2D(
+          (norm1): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=32, bias=True)
+          (norm2): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+        )
+      )
+      (downsamplers): ModuleList(
+        (0): Downsample2D(
+          (conv): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        )
+      )
+    )
+    (1): AttnDownBlock2D(
+      (attentions): ModuleList(
+        (0): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (1): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (resnets): ModuleList(
+        (0): ResnetBlock2D(
+          (norm1): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(32, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (1): ResnetBlock2D(
+          (norm1): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+        )
+      )
+      (downsamplers): ModuleList(
+        (0): Downsample2D(
+          (conv): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        )
+      )
+    )
+    (2): AttnDownBlock2D(
+      (attentions): ModuleList(
+        (0): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (1): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (resnets): ModuleList(
+        (0): ResnetBlock2D(
+          (norm1): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+        )
+        (1): ResnetBlock2D(
+          (norm1): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+        )
+      )
+    )
+  )
+  (up_blocks): ModuleList(
+    (0): AttnUpBlock2D(
+      (attentions): ModuleList(
+        (0): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (1): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (2): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (resnets): ModuleList(
+        (0): ResnetBlock2D(
+          (norm1): GroupNorm(32, 128, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (1): ResnetBlock2D(
+          (norm1): GroupNorm(32, 128, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (2): ResnetBlock2D(
+          (norm1): GroupNorm(32, 128, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+      (upsamplers): ModuleList(
+        (0): Upsample2D(
+          (conv): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (1): AttnUpBlock2D(
+      (attentions): ModuleList(
+        (0): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (1): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (2): Attention(
+          (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (to_q): Linear(in_features=64, out_features=64, bias=True)
+          (to_k): Linear(in_features=64, out_features=64, bias=True)
+          (to_v): Linear(in_features=64, out_features=64, bias=True)
+          (to_out): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (resnets): ModuleList(
+        (0): ResnetBlock2D(
+          (norm1): GroupNorm(32, 128, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (1): ResnetBlock2D(
+          (norm1): GroupNorm(32, 128, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (2): ResnetBlock2D(
+          (norm1): GroupNorm(32, 96, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(96, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+          (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(96, 64, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+      (upsamplers): ModuleList(
+        (0): Upsample2D(
+          (conv): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (2): UpBlock2D(
+      (resnets): ModuleList(
+        (0): ResnetBlock2D(
+          (norm1): GroupNorm(32, 96, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(96, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=32, bias=True)
+          (norm2): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(96, 32, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (1): ResnetBlock2D(
+          (norm1): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=32, bias=True)
+          (norm2): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(64, 32, kernel_size=(1, 1), stride=(1, 1))
+        )
+        (2): ResnetBlock2D(
+          (norm1): GroupNorm(32, 64, eps=1e-05, affine=True)
+          (conv1): LoRACompatibleConv(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=32, bias=True)
+          (norm2): GroupNorm(32, 32, eps=1e-05, affine=True)
+          (dropout): Dropout(p=0.0, inplace=False)
+          (conv2): LoRACompatibleConv(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (nonlinearity): SiLU()
+          (conv_shortcut): LoRACompatibleConv(64, 32, kernel_size=(1, 1), stride=(1, 1))
+        )
+      )
+    )
+  )
+  (mid_block): UNetMidBlock2D(
+    (attentions): ModuleList(
+      (0): Attention(
+        (group_norm): GroupNorm(32, 64, eps=1e-05, affine=True)
+        (to_q): Linear(in_features=64, out_features=64, bias=True)
+        (to_k): Linear(in_features=64, out_features=64, bias=True)
+        (to_v): Linear(in_features=64, out_features=64, bias=True)
+        (to_out): ModuleList(
+          (0): Linear(in_features=64, out_features=64, bias=True)
+          (1): Dropout(p=0.0, inplace=False)
+        )
+      )
+    )
+    (resnets): ModuleList(
+      (0): ResnetBlock2D(
+        (norm1): GroupNorm(32, 64, eps=1e-05, affine=True)
+        (conv1): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+        (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+        (dropout): Dropout(p=0.0, inplace=False)
+        (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (nonlinearity): SiLU()
+      )
+      (1): ResnetBlock2D(
+        (norm1): GroupNorm(32, 64, eps=1e-05, affine=True)
+        (conv1): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (time_emb_proj): LoRACompatibleLinear(in_features=128, out_features=64, bias=True)
+        (norm2): GroupNorm(32, 64, eps=1e-05, affine=True)
+        (dropout): Dropout(p=0.0, inplace=False)
+        (conv2): LoRACompatibleConv(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (nonlinearity): SiLU()
+      )
+    )
+  )
+  (conv_norm_out): GroupNorm(32, 32, eps=1e-05, affine=True)
+  (conv_act): SiLU()
+  (conv_out): Conv2d(32, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+)
+</code></pre><p>可以看到，该模型相比于简单的UNet模型更为复杂。其具有以下几点改进</p>
+<ul>
+<li>使用了<code>GroupNorm</code>层</li>
+<li>添加了<code>dropout</code>层</li>
+<li>每个块具有多个残差连接（若其中的层数大于$1$）</li>
+<li>使用了注意力机制</li>
+<li>可对时间步进行调节</li>
+<li>引入具有可学习参数的上/下采样模块</li>
+</ul>
+<p>下面将模型换成<code>UNet2DModel</code>重新进行训练：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始训练模型</span></span><br><span class="line">BATCH_SIZE = <span class="number">64</span></span><br><span class="line">train_dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 设置训练轮数</span></span><br><span class="line">N_EPOCHS = <span class="number">20</span></span><br><span class="line"></span><br><span class="line">net = model</span><br><span class="line">net.to(device)</span><br><span class="line"><span class="comment"># 损失函数</span></span><br><span class="line">loss_fn = nn.MSELoss()</span><br><span class="line"><span class="comment"># 优化器</span></span><br><span class="line">opt = torch.optim.Adam(net.parameters(), lr=<span class="number">1e-4</span>)</span><br><span class="line">losses = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练主循环</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(N_EPOCHS):</span><br><span class="line">    torch.cuda.empty_cache()</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> tqdm.tqdm(train_dataloader):</span><br><span class="line">        <span class="comment"># 处理输入数据</span></span><br><span class="line">        x = x.to(device)</span><br><span class="line">        noise_amount = torch.rand(x.shape[<span class="number">0</span>]).to(device)</span><br><span class="line">        noisy_x = corrupt(x, noise_amount)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用带噪数据预测结果</span></span><br><span class="line">        pred = net(noisy_x, <span class="number">0</span>).sample</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算损失函数</span></span><br><span class="line">        loss = loss_fn(pred, x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 反向传播</span></span><br><span class="line">        opt.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">        losses.append(loss.item())</span><br><span class="line">    avg_loss = <span class="built_in">sum</span>(losses[-<span class="built_in">len</span>(train_dataloader):]) / <span class="built_in">len</span>(train_dataloader)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Finished epoch <span class="subst">&#123;epoch+<span class="number">1</span>:02d&#125;</span>. Average loss: <span class="subst">&#123;avg_loss:<span class="number">.05</span>e&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>100%|██████████| 938/938 [02:48&lt;00:00,  5.58it/s]
+Finished epoch 01. Average loss: 2.20906e-02
+100%|██████████| 938/938 [02:46&lt;00:00,  5.63it/s]
+Finished epoch 02. Average loss: 1.45821e-02
+100%|██████████| 938/938 [02:47&lt;00:00,  5.59it/s]
+Finished epoch 03. Average loss: 1.28183e-02
+100%|██████████| 938/938 [02:46&lt;00:00,  5.63it/s]
+Finished epoch 04. Average loss: 1.20022e-02
+100%|██████████| 938/938 [02:46&lt;00:00,  5.63it/s]
+Finished epoch 05. Average loss: 1.15648e-02
+100%|██████████| 938/938 [02:48&lt;00:00,  5.56it/s]
+Finished epoch 06. Average loss: 1.12752e-02
+100%|██████████| 938/938 [02:47&lt;00:00,  5.59it/s]
+Finished epoch 07. Average loss: 1.08558e-02
+100%|██████████| 938/938 [03:00&lt;00:00,  5.19it/s]
+Finished epoch 08. Average loss: 1.08167e-02
+100%|██████████| 938/938 [02:59&lt;00:00,  5.21it/s]
+Finished epoch 09. Average loss: 1.05255e-02
+100%|██████████| 938/938 [02:47&lt;00:00,  5.61it/s]
+Finished epoch 10. Average loss: 1.03597e-02
+100%|██████████| 938/938 [02:39&lt;00:00,  5.87it/s]
+Finished epoch 11. Average loss: 1.01714e-02
+100%|██████████| 938/938 [02:43&lt;00:00,  5.74it/s]
+Finished epoch 12. Average loss: 1.00583e-02
+100%|██████████| 938/938 [02:36&lt;00:00,  5.99it/s]
+Finished epoch 13. Average loss: 9.98472e-03
+100%|██████████| 938/938 [02:42&lt;00:00,  5.77it/s]
+Finished epoch 14. Average loss: 9.93186e-03
+100%|██████████| 938/938 [02:43&lt;00:00,  5.73it/s]
+Finished epoch 15. Average loss: 9.77118e-03
+100%|██████████| 938/938 [02:33&lt;00:00,  6.11it/s]
+Finished epoch 16. Average loss: 9.73921e-03
+100%|██████████| 938/938 [02:33&lt;00:00,  6.12it/s]
+Finished epoch 17. Average loss: 9.69426e-03
+100%|██████████| 938/938 [02:33&lt;00:00,  6.09it/s]
+Finished epoch 18. Average loss: 9.68899e-03
+100%|██████████| 938/938 [02:33&lt;00:00,  6.10it/s]
+Finished epoch 19. Average loss: 9.45214e-03
+100%|██████████| 938/938 [02:33&lt;00:00,  6.10it/s]
+Finished epoch 20. Average loss: 9.50347e-03
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.ticker <span class="keyword">as</span> ticker</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>), dpi=<span class="number">300</span>)</span><br><span class="line">ax = plt.subplot(<span class="number">111</span>)</span><br><span class="line">line = plt.plot(losses, alpha=<span class="number">0.5</span>, label=<span class="string">&quot;Original&quot;</span>)</span><br><span class="line">plt.plot(pd.Series(losses).rolling(window=<span class="number">20</span>, min_periods=<span class="number">1</span>).mean(), c=<span class="string">&quot;#1f77b4&quot;</span>, label=<span class="string">&quot;Smoothed&quot;</span>)</span><br><span class="line"><span class="comment"># plt.xticks(250 * np.arange(10))</span></span><br><span class="line"></span><br><span class="line">ax.set_yscale(<span class="string">&quot;log&quot;</span>)</span><br><span class="line"></span><br><span class="line">ax.yaxis.set_major_formatter(ticker.FormatStrFormatter(<span class="string">&quot;%.4f&quot;</span>))</span><br><span class="line">ax.yaxis.set_minor_formatter(ticker.FormatStrFormatter(<span class="string">&quot;%.3f&quot;</span>))</span><br><span class="line">ax.yaxis.set_tick_params(labelsize = <span class="number">9</span>, which=<span class="string">&quot;major&quot;</span>)</span><br><span class="line">ax.yaxis.set_tick_params(labelsize = <span class="number">6</span>, which=<span class="string">&quot;minor&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.grid(which=<span class="string">&quot;major&quot;</span>, alpha=<span class="number">0.7</span>)</span><br><span class="line">plt.grid(which=<span class="string">&quot;minor&quot;</span>, alpha=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">plt.legend()</span><br><span class="line">plt.title(<span class="string">&quot;Loss curve of BasicUnet on randomly corrupted MNIST&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/output_18_1.png" alt="png" style="zoom: 33%;" />​   </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">N_STEPS = <span class="number">20</span></span><br><span class="line">x = torch.rand(<span class="number">8</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>).to(device)</span><br><span class="line">step_history = [x.detach().cpu()]</span><br><span class="line">pred_output_history = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N_STEPS):</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        pred = net(x, <span class="number">0</span>).sample</span><br><span class="line">    pred_output_history.append(pred.detach().cpu())</span><br><span class="line">    </span><br><span class="line">    mix_factor = <span class="number">1</span> / (N_STEPS - i)</span><br><span class="line">    </span><br><span class="line">    x = x * (<span class="number">1</span> - mix_factor) + pred * mix_factor</span><br><span class="line">    step_history.append(x.detach().cpu())</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(N_STEPS, <span class="number">2</span>, figsize=(<span class="number">16</span>, <span class="number">32</span>), sharex=<span class="literal">True</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">0</span>].set_title(<span class="string">&quot;X (Model Input)&quot;</span>)</span><br><span class="line">ax[<span class="number">0</span>, <span class="number">1</span>].set_title(<span class="string">&quot;Model Prediction&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N_STEPS):</span><br><span class="line">    ax[i, <span class="number">0</span>].imshow(torchvision.utils.make_grid(step_history[i])[<span class="number">0</span>].clip(<span class="number">0</span>, <span class="number">1</span>), cmap=<span class="string">&quot;Greys&quot;</span>)</span><br><span class="line">    ax[i, <span class="number">1</span>].imshow(torchvision.utils.make_grid(pred_output_history[i])[<span class="number">0</span>].clip(<span class="number">0</span>, <span class="number">1</span>), cmap=<span class="string">&quot;Greys&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br></pre></td></tr></table></figure>
+<p><img src="/img/output_19_0.png" alt="png"><br>​    从上图可以看出，当使用更复杂的网络、训练更多轮次以后迭代产生的图像有更大比例可以被认出是某个手写数字。</p>
+<h3 id="3-5-退化过程"><a href="#3-5-退化过程" class="headerlink" title="3.5 退化过程"></a>3.5 退化过程</h3><p>现在考虑真正的退化过程。在DDPM论文中，某一时间步的数据$\boldsymbol x_{t-1}$在经过退化后得到噪声增强的$\boldsymbol x_t$，二者之间的关系满足下面的等式</p>
+<script type="math/tex; mode=display">
+q(\boldsymbol x_t|\boldsymbol x_{t-1}) = \mathcal{N} \left( \boldsymbol x_t; \sqrt{1-\beta_t} \boldsymbol x_{t-1}, \beta_t \boldsymbol I \right)q(\boldsymbol x_{1:t}|\boldsymbol x_0) = \prod_{i=1}^tq(\boldsymbol x_i|\boldsymbol x_{i-1})</script><p>为了简化推理过程，可以通过给定原始输入$\boldsymbol x_0$直接计算得到扩散$t$步以后的结果：</p>
+<script type="math/tex; mode=display">
+q(\boldsymbol x_t |\boldsymbol x_0) = \mathcal{N}\left( \boldsymbol x_t; \sqrt{\bar{\alpha}_t}\boldsymbol x , (1 - \bar\alpha_t)\boldsymbol I \right)</script><p>其中$\displaystyle \bar\alpha<em>t = \prod</em>{i=1}^t (1-\beta_i)$</p>
+<p><strong>为什么要这么做？</strong></p>
+<p>​    不同任务目标计算得到的结果会根据损失值向不同的“隐含权重”收敛，而预测噪声本身可以使得权重倾向于更低的噪声量。也可以将模型设计成预测velocity，即受图像和噪声影响的组合。</p>
+<h3 id="3-6-其他"><a href="#3-6-其他" class="headerlink" title="3.6 其他"></a>3.6 其他</h3><p><strong>关于时间步</strong></p>
+<p>时间步可以作为嵌入在训练过程中多次调整模型</p>
+<p><strong>关于采样</strong></p>
+<ul>
+<li>需要考虑噪声添加的计划，即每次添加多少噪声</li>
+<li>考虑不仅使用模型的一步预测指导下一步的更新方向</li>
+<li>可以考虑添加额外的随机噪声或完全确定的噪声</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/08/25/2023/08/2023-08-25-DIFFUSION-1/">https://hrjtju.github.io/2023/08/25/2023/08/2023-08-25-DIFFUSION-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Diffusion/">Diffusion</a></div><div class="post_share"><div class="social-share" data-image="/img/header/diffusion.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/30/2023/08/2023-08-30-PySciPlot-3/" title="【Datawhale 科研绘图】3 单变量图形绘制"><img class="cover" src="/img/header/sciplot.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【Datawhale 科研绘图】3 单变量图形绘制</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/25/2023/08/2023-08-29-PySciPlot-2/" title="【Datawhale 科研绘图】 2 绘制工具及示例"><img class="cover" src="/img/header/sciplot.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【Datawhale 科研绘图】 2 绘制工具及示例</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/09/14/2023/09/2023-09-14-DIFFUSION-2/" title="【Diffusion】2 DDPM 的数学原理"><img class="cover" src="/img/header/diffusion.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-14</div><div class="title">【Diffusion】2 DDPM 的数学原理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">1 环境准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%80%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="toc-text">2 退化过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AE%AD%E7%BB%83"><span class="toc-text">3 训练</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%AE%80%E5%8D%95%E7%9A%84UNet"><span class="toc-text">3.1 简单的UNet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">3.2 训练模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E9%87%87%E6%A0%B7%E8%BF%87%E7%A8%8B"><span class="toc-text">3.4 采样过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E9%80%80%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="toc-text">3.5 退化过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E5%85%B6%E4%BB%96"><span class="toc-text">3.6 其他</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

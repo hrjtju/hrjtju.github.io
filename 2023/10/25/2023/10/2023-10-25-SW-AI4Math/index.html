@@ -1,0 +1,503 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【集智|AI4Math读书会】Talk 3 利用强化学习改进Buchberger算法 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="集智俱乐部AI4Math读书会讲座笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【集智|AI4Math读书会】Talk 3 利用强化学习改进Buchberger算法">
+<meta property="og:url" content="https://hrjtju.github.io/2023/10/25/2023/10/2023-10-25-SW-AI4Math/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="集智俱乐部AI4Math读书会讲座笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/CAG.png">
+<meta property="article:published_time" content="2023-10-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-27T10:03:13.606Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Swarma">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/CAG.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/10/25/2023/10/2023-10-25-SW-AI4Math/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【集智|AI4Math读书会】Talk 3 利用强化学习改进Buchberger算法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-27 18:03:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/CAG.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【集智|AI4Math读书会】Talk 3 利用强化学习改进Buchberger算法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-24T16:00:00.000Z" title="Created 2023-10-25 00:00:00">2023-10-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-27T10:03:13.606Z" title="Updated 2023-11-27 18:03:13">2023-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/todo/">todo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>18min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【集智|AI4Math读书会】Talk 3 利用强化学习改进Buchberger算法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-多项式"><a href="#1-多项式" class="headerlink" title="1 多项式"></a>1 多项式</h2><h3 id="1-1-数学和物理问题中的多项式方程组"><a href="#1-1-数学和物理问题中的多项式方程组" class="headerlink" title="1.1 数学和物理问题中的多项式方程组"></a>1.1 数学和物理问题中的多项式方程组</h3><p>在数学和物理问题的求解中，我们常常需要求解这样的多项式方程组：</p>
+<script type="math/tex; mode=display">
+\left\{ \begin{align*} &x + 2y + 3z = 0\\ &x - z = 1 \\ &y + 4z = 6 \\ &x^{2} + xz + yz = 1 \end{align*} \right.</script><p>在求解其中一些多项式方程组（例如使用Lagrange乘数法时）需要求解复杂的多项式方程组。于是我们考虑如何使得上述解方程的过程更加简单。这就是<b>代数几何</b>最初希望解决的问题。</p>
+<h3 id="1-2-多元多项式"><a href="#1-2-多元多项式" class="headerlink" title="1.2 多元多项式"></a>1.2 多元多项式</h3><h4 id="1-2-1-单项式-Mononomial"><a href="#1-2-1-单项式-Mononomial" class="headerlink" title="1.2.1 单项式 (Mononomial)"></a>1.2.1 单项式 (Mononomial)</h4><p>我们要求多项式的变元数量是有限的它们互相独立，将其记作<script type="math/tex">x_{1}, x_{2}, \dots, x_{n}</script>。这些变元组成的<b>单项式</b>形如<script type="math/tex">x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}}\cdots x_{n}^{\alpha_{n}}</script>，其中指数都是非负整数，且乘法可交换。为了简便，称向量</p>
+<script type="math/tex; mode=display">
+\alpha := (\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}) \in \mathbb{Z}^{n}_{\geqslant 0}</script><p>是<script type="math/tex">x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}}\cdots x_{n}^{\alpha_{n}}</script>的<b>次数向量</b>。而<script type="math/tex">|\alpha| = a_{1} + a_{2} + \cdots = a_{n}</script>为此单项式的<b>总次数</b>，简称次数。我们再记</p>
+<script type="math/tex; mode=display">
+x = (x_{1}, x_{2}, \dots, x_{n})</script><p>并将上面的单项式记为<script type="math/tex">x^{\alpha}</script></p>
+<h4 id="1-2-2-多项式-Polynomial"><a href="#1-2-2-多项式-Polynomial" class="headerlink" title="1.2.2 多项式 (Polynomial)"></a>1.2.2 多项式 (Polynomial)</h4><p>关于变元<script type="math/tex">x_{1}, x_{2}, \dots, x_{n}</script>的复系数<b>多项式</b>是指形如下面的表达式：</p>
+<script type="math/tex; mode=display">
+\sum\limits_{\alpha \in \mathbb{Z}^{n}_{\geqslant 0}} c_{\alpha}x^{\alpha} = 
+\sum\limits_{(\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}) \in \mathbb{Z}^{n}_{\geqslant 0}}
+c_{\alpha_{1},\alpha_{2}, \dots, \alpha_{n}}x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}}\cdots x_{n}^{\alpha_{n}}</script><p>其中</p>
+<ul>
+<li>对于每个<script type="math/tex">\alpha</script>，系数<script type="math/tex">c_{\alpha} \in \mathbb{C}</script>,</li>
+<li>除了有限个<script type="math/tex">\alpha</script>之外，都有<script type="math/tex">c_{\alpha} = 0</script>.</li>
+</ul>
+<h4 id="1-2-3-多项式的加法和乘法"><a href="#1-2-3-多项式的加法和乘法" class="headerlink" title="1.2.3 多项式的加法和乘法"></a>1.2.3 多项式的加法和乘法</h4><p>给定两个多项式</p>
+<script type="math/tex; mode=display">
+\begin{align}
+f &= \sum\limits_{\alpha \in \mathbb{Z}^{n}_{\geqslant 0}} c_{\alpha}x^{\alpha} = 
+\sum\limits_{(\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}) \in \mathbb{Z}^{n}_{\geqslant 0}}
+c_{\alpha_{1},\alpha_{2}, \dots, \alpha_{n}}x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}}\cdots x_{n}^{\alpha_{n}}\\
+g &= \sum\limits_{\alpha \in \mathbb{Z}^{n}_{\geqslant 0}} b_{\alpha}x^{\alpha} = 
+\sum\limits_{(\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}) \in \mathbb{Z}^{n}_{\geqslant 0}}
+b_{\alpha_{1},\alpha_{2}, \dots, \alpha_{n}}x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}}\cdots x_{n}^{\alpha_{n}}
+\end{align}</script><p>它们的<b>和</b>记为</p>
+<script type="math/tex; mode=display">
+\begin{align}
+f + g &= \sum\limits_{z \in \mathbb{Z}^{n}_{\geqslant 0}} (c_{\alpha} + b_{\alpha}) x^{\alpha}\\
+&= \sum\limits_{(\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}) \in \mathbb{Z}^{n}_{\geqslant 0}}
+\left( c_{\alpha_{1},\alpha_{2}, \dots, \alpha_{n}} + b_{\alpha_{1},\alpha_{2}, \dots, \alpha_{n}} \right) 
+x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}}\cdots x_{n}^{\alpha_{n}}
+\end{align}</script><p>它们的<b>乘积</b>记为</p>
+<script type="math/tex; mode=display">
+fg = f \cdot g = \sum\limits_{\gamma \in \mathbb{Z}^{n}_{\geqslant 0}} \left( 
+\sum\limits_{\alpha + \beta= \gamma} c_{\alpha}b_{\beta} 
+\right) x^{\gamma}</script><h2 id="2-环和理想"><a href="#2-环和理想" class="headerlink" title="2 环和理想"></a>2 环和理想</h2><h3 id="2-1-环-Ring"><a href="#2-1-环-Ring" class="headerlink" title="2.1 环 (Ring)"></a>2.1 环 (Ring)</h3><p>取所有以<script type="math/tex">x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}}\cdots x_{n}^{\alpha_{n}}</script>为变元的复系数<script type="math/tex">n</script>元多项式全体组成的集合<script type="math/tex">R := \mathbb{C}[x_{1}, \dots, x_{n}]</script>称为<script type="math/tex">n</script>元复系数多项式<b>环</b>。</p>
+<p>一个集合<script type="math/tex">R</script>以及其上装配的加法<script type="math/tex">+</script>，乘法<script type="math/tex">\cdot</script>被称作是一个<b>环</b>，需要满足一下三组公理</p>
+<ol>
+<li>$R$ 装配加法是一个<em>交换群</em><ul>
+<li>结合律：对所有<script type="math/tex">a,b,c \in R</script>，有<script type="math/tex">a+(b+c) = (a+b)+c</script></li>
+<li>交换律：对所有<script type="math/tex">a+b=b+a</script></li>
+<li>零元：存在一个<script type="math/tex">0 \in R</script>，对所有<script type="math/tex">a \in R</script>，有<script type="math/tex">a + 0 = a</script></li>
+<li>负元：对所有<script type="math/tex">a \in R</script>，存在<script type="math/tex">-a \in R</script>，使得<script type="math/tex">a + (-a) = 0</script></li>
+</ul>
+</li>
+<li>$R$ 装配乘法是一个<em>幺半群</em><ul>
+<li>结合律：对任意<script type="math/tex">a,b,c \in R</script>，<script type="math/tex">(a \cdot b) \cdot c = a \cdot(b \cdot c)</script></li>
+<li>单位元：存在一个<script type="math/tex">1 \in R</script>，对任意<script type="math/tex">a \in R</script>，有<script type="math/tex">1 \cdot a = a</script></li>
+</ul>
+</li>
+<li>乘法和加法满足<em>分配律</em><ul>
+<li>左分配律：<script type="math/tex">a \cdot (b + c) = (a \cdot b) + (a \cdot c)</script></li>
+<li>右分配律：<script type="math/tex">(b + c) \cdot a = (b \cdot a) + (c \cdot a)</script></li>
+</ul>
+</li>
+</ol>
+<p>若一个环<script type="math/tex">R</script>上的乘法满足交换律，则环<script type="math/tex">R</script>被称为是<b>交换环</b>。在<script type="math/tex">\mathbb{C}[x_{1}, \dots, x_{n}]</script>中，我们有乘法单位元。于是它是一个<b>含1交换环</b></p>
+<h3 id="2-2-理想-Ideal"><a href="#2-2-理想-Ideal" class="headerlink" title="2.2 理想 (Ideal)"></a>2.2 理想 (Ideal)</h3><h4 id="2-2-1-回到多项式组"><a href="#2-2-1-回到多项式组" class="headerlink" title="2.2.1 回到多项式组"></a>2.2.1 回到多项式组</h4><p>我们回到多项式环的讨论，在现在的语境下，多项式组可以写成下面的样子</p>
+<script type="math/tex; mode=display">
+\{ f_{\lambda} | \lambda \in A \}</script><p>其中<script type="math/tex">A</script>是指标集。对于这样的方程组，我们关心它的解，也即在</p>
+<script type="math/tex; mode=display">
+\mathbb{C}^{n} := \{ (a_{1}, a_{2}, \dots, a_{n}) : a_{i} \in \mathbb{C}, i=1, 2, \dots, n \}</script><p>（注意这里的<script type="math/tex">\mathbb{C}^{n}</script>不是通常的<script type="math/tex">\mathbb{C}^{n}</script>在此不展开叙述）中找到满足</p>
+<script type="math/tex; mode=display">
+f_{\lambda}(a_{1}, a_{2}, \dots, a_{n}) = 0, \quad \forall \lambda \in A</script><p>的所有点，记为多项式的<b>公共零点集</b></p>
+<script type="math/tex; mode=display">
+\mathbf{V}\left( \left\langle f_{\lambda} | \lambda \in A \right\rangle \right)</script><h4 id="2-2-2-理想"><a href="#2-2-2-理想" class="headerlink" title="2.2.2 理想"></a>2.2.2 理想</h4><p>现在我们定义环<script type="math/tex">R</script>的<b>理想</b>。一个环<script type="math/tex">R</script>的子集<script type="math/tex">I</script>被称为是环<script type="math/tex">R</script>的一个理想，如果对任意的<script type="math/tex">i, j \in I</script>，对任意的<script type="math/tex">r \in R</script>，都有<script type="math/tex">ri + j \in I</script>.<br>这个定义也可等价为</p>
+<ul>
+<li>封闭：对任意的<script type="math/tex">i, j \in I</script>，有<script type="math/tex">i + j \in I</script></li>
+<li>吸收律：对任意的<script type="math/tex">i \in I</script>，<script type="math/tex">r \in R</script>，有<script type="math/tex">ri \in I</script><br>如果<script type="math/tex">I</script>是<script type="math/tex">R</script>的真子集，我们称其为<em>真理想</em>。</li>
+</ul>
+<blockquote>
+<p>为了更好的理解理想的定义，我们引入<b>R-模</b>：装配了一个<script type="math/tex">R</script>数乘的加群<script type="math/tex">M</script>。显然<script type="math/tex">R</script>本身是一个<script type="math/tex">R</script>-模。对比理想的定义，我们知道：<script type="math/tex">R</script>上的理想是<script type="math/tex">R</script>-模的<script type="math/tex">R</script>-子模。在<script type="math/tex">R</script>-模范畴上的Kernel就是一个理想，考虑R-模<script type="math/tex">R</script>到R-模<script type="math/tex">S</script>的同态<script type="math/tex">f</script>，于是我们有</p>
+<script type="math/tex; mode=display">
+\ker f \longrightarrow R \mathop\longrightarrow\limits^{f} S</script><h1 id="TODO-搞清楚正合列是怎么回事，然后补全这里"><a href="#TODO-搞清楚正合列是怎么回事，然后补全这里" class="headerlink" title="TODO 搞清楚正合列是怎么回事，然后补全这里"></a>TODO 搞清楚正合列是怎么回事，然后补全这里</h1></blockquote>
+<h4 id="2-2-3-生成理想"><a href="#2-2-3-生成理想" class="headerlink" title="2.2.3 生成理想"></a>2.2.3 生成理想</h4><p>一方面，可以证明，任意多个理想的交还是理想。对于任意<script type="math/tex">R</script>的非空子集<script type="math/tex">S</script>，考虑所有包含<script type="math/tex">S</script>的理想。我们定义<script type="math/tex">S</script>的<b>生成理想</b>是所有包含<script type="math/tex">S</script>的理想的交。这是一个包含<script type="math/tex">S</script>的最小理想，记作<script type="math/tex">I(S)</script>。可以证明，<script type="math/tex">f \in I(S)</script> 当且仅当存在<script type="math/tex">s_{1}, \dots, s_{k} \in S</script>，<script type="math/tex">r_{1}, \dots, r_{k} \in R</script>，满足</p>
+<script type="math/tex; mode=display">
+f = r_{1}s_{1} + \cdots + r_{k}s_{k}</script><p>这被称为是<script type="math/tex">s_{1}, \dots, s_{k}</script>的一个<b>代数组合</b>。</p>
+<p>另一方面，如果<script type="math/tex">I</script>是理想，<script type="math/tex">S</script>是<script type="math/tex">R</script>的一个子集，满足对任意<script type="math/tex">f \in I</script>，都存在<script type="math/tex">s_{1}, \dots, s_{k} \in S</script>，使得<script type="math/tex">f</script>是它们的代数组合，则称<script type="math/tex">S</script>是<script type="math/tex">I</script>的一组<b>生成元</b>。显然<script type="math/tex">I = I(S)</script></p>
+<p>进一步，如果理想<script type="math/tex">I</script>有一组<em>有限</em>生成元集<script type="math/tex">S</script>，我们称<script type="math/tex">I</script>是<em>有限生成的</em>。</p>
+<h4 id="2-2-4-从理想的角度看多项式组"><a href="#2-2-4-从理想的角度看多项式组" class="headerlink" title="2.2.4 从理想的角度看多项式组"></a>2.2.4 从理想的角度看多项式组</h4><p>记<script type="math/tex">I = I(\{ f_{\lambda} | \lambda \in A \}) = \left\langle f_{\lambda} | \lambda \in A \right\rangle</script>，对任意<script type="math/tex">f \in I</script>，有</p>
+<script type="math/tex; mode=display">
+f(a_{1}, \dots, a_{n}) = 0.</script><p>这说明方程组<script type="math/tex">f_{\lambda} = 0</script>和方程组<script type="math/tex">f = 0, \forall f \in I</script>拥有<b>相同的解集</b>。接下来我们给出一个“美好的现实”</p>
+<h4 id="2-2-5-美好的现实：Hilbert-基定理"><a href="#2-2-5-美好的现实：Hilbert-基定理" class="headerlink" title="2.2.5 美好的现实：Hilbert 基定理"></a>2.2.5 美好的现实：Hilbert 基定理</h4><p><b>Hilbert 基定理 (Hilbert Basis Theorem)</b><br>$R = \mathbb{C}[x<em>{1}, \dots, x</em>{n}]$是一个<b>诺特环(Noetherian Ring)</b>，即它的任意理想都是<em>有限生成的</em>。</p>
+<p>诺特环的另一等价定义，即任何理想的<b>升列</b>是<b>有限终止</b>的，即考虑下面的离线链</p>
+<script type="math/tex; mode=display">
+I_{1} \subseteq I_{2} \subseteq \cdots \subseteq I_{n} \subseteq \cdots</script><p>一定存在一个$N$，使得$n &gt; N$时，其中的$\subseteq$全取等号。</p>
+<p>我们带着这个想法考虑无穷方程组</p>
+<script type="math/tex; mode=display">
+f_{\lambda} = 0, \quad \forall \lambda \in A</script><p>我们可以从理想<script type="math/tex">I = \langle f_{\lambda}| \lambda \in A\rangle</script>中逐个拿出<script type="math/tex">N</script>个元素，使得这<script type="math/tex">N</script>个元素组成的集合生成<script type="math/tex">I</script>。</p>
+<p>以上说明，<b>给定一个多项式方程组，考虑其零点集，等价于考虑其生成的理想的零点集，也等价于这个生成理想的一组生成元的零点集。如果能找到一组足够好的生成元，那么求解方程组就变得容易。</b></p>
+<h2 id="3-Grobner-基和-Buchberger-算法"><a href="#3-Grobner-基和-Buchberger-算法" class="headerlink" title="3 Gröbner 基和 Buchberger 算法"></a>3 Gröbner 基和 Buchberger 算法</h2><h3 id="3-1-单项式序"><a href="#3-1-单项式序" class="headerlink" title="3.1 单项式序"></a>3.1 单项式序</h3><p><b>定义 单项式序</b><br>单项式序是指<script type="math/tex">\mathbb{Z}^{n}_{\geqslant 0}</script>上的一个全序且良序<script type="math/tex"><</script>，对于任意的<script type="math/tex">\alpha, \beta, \gamma \in \mathbb{Z}^{n}_{\geqslant 0}</script>，若<script type="math/tex">\alpha > \beta</script>，则<script type="math/tex">\alpha + \gamma > \beta + \gamma</script>；每个降链都<em>有限终止</em></p>
+<h4 id="3-1-1-字典序-Lexicographic-Order"><a href="#3-1-1-字典序-Lexicographic-Order" class="headerlink" title="3.1.1 字典序 (Lexicographic Order)"></a>3.1.1 字典序 (Lexicographic Order)</h4><p>我们规定<em>字典序</em>：</p>
+<script type="math/tex; mode=display">\alpha >_{\mathrm{lex}} \beta</script><p>当且仅当<script type="math/tex">\alpha - \beta</script>最左侧的非零数字是正数</p>
+<h4 id="3-1-2-先比较次数在倒查字典序-Graded-Reverse-Lex-Order"><a href="#3-1-2-先比较次数在倒查字典序-Graded-Reverse-Lex-Order" class="headerlink" title="3.1.2 先比较次数在倒查字典序 (Graded Reverse Lex Order)"></a>3.1.2 先比较次数在倒查字典序 (Graded Reverse Lex Order)</h4><p>我们规定<em>grevlex序</em>：</p>
+<script type="math/tex; mode=display">\alpha >_{\mathrm{grevlex}} \beta</script><p>当且仅当下面中的一项成立</p>
+<ul>
+<li><script type="math/tex; mode=display">|\alpha| > |\beta|</script></li>
+<li><script type="math/tex">\alpha - \beta</script>最右侧的非零数字是负数</li>
+</ul>
+<h4 id="3-1-3-首项"><a href="#3-1-3-首项" class="headerlink" title="3.1.3 首项"></a>3.1.3 首项</h4><p>给定一个多项式</p>
+<script type="math/tex; mode=display">
+f = \sum\limits_{\alpha} c_{\alpha} x^{\alpha}</script><p>在给定的一个单项式序<script type="math/tex"><</script>下有一个最大的单项式，这被称为<b>首单项式</b>，记作<script type="math/tex">\mathrm{LM}(f)</script>；首单项式对应的那一项被称为多项式的<b>首项</b>，记为<script type="math/tex">\mathrm{LT}(f)</script>，这一项的系数称为<b>首项系数</b>，记作<script type="math/tex">\mathrm{LC}(f)</script>。首项的次数也被称为多项式的<b>次数</b>。</p>
+<h3 id="3-2-除法算法"><a href="#3-2-除法算法" class="headerlink" title="3.2 除法算法"></a>3.2 除法算法</h3><h4 id="3-2-1-单项式的整除"><a href="#3-2-1-单项式的整除" class="headerlink" title="3.2.1 单项式的整除"></a>3.2.1 单项式的整除</h4><p>我们说单项式<script type="math/tex">x^{\beta}</script>被单项式<script type="math/tex">x^{\alpha}</script><b>整除</b>，如果<script type="math/tex">\beta - \alpha</script>里面的每个分量都是非负的。显然，两个单项式的<b>最大公因式</b>(Greatest common divisor)和<b>最小公倍式</b>(Least common multiple)可以这样描述</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathrm{lcm}(x^{\alpha}, x^{\beta}) = \prod\limits_{i}^{n} x_{i}^{\max(\alpha_{i}, \beta_{i})}\\
+\mathrm{gcd}(x^{\alpha}, x^{\beta}) = \prod\limits_{i}^{n} x_{i}^{\min(\alpha_{i}, \beta_{i})}
+\end{align*}</script><h4 id="3-2-2-除法算法"><a href="#3-2-2-除法算法" class="headerlink" title="3.2.2 除法算法"></a>3.2.2 除法算法</h4><p>类似一元多项式的带余除法，我们关心多项式<script type="math/tex">f</script>在给定一组<b>除式</b><script type="math/tex">f_{1}, \dots, f_{s}</script>下的<b>商式</b><script type="math/tex">a_{1}, \dots, a_{s}</script>和<b>余式</b><script type="math/tex">r</script>，也即</p>
+<script type="math/tex; mode=display">
+f = a_{1}f_{1} + \cdots + a_{s}f_{s} + r.</script><p>对此，我们有除法算法</p>
+<p><b>定理 除法算法</b><br>记<script type="math/tex">R = \mathbb{C}[x_{1}, \dots, x_{n}]</script>，并规定一个单项式序<script type="math/tex">></script>，给定一组带有顺序的除式<script type="math/tex">f_{1}, \dots, f_{s} \in R</script>和<b>被除式</b><script type="math/tex">f \in R</script>，则<script type="math/tex">f</script>可以写为</p>
+<script type="math/tex; mode=display">
+f = a_{1}f_{1} + \cdots + a_{s}f_{s} + r,</script><p>其中<script type="math/tex">a_{1}, \dots, a_{s}, r \in R</script>，且或者<script type="math/tex">r = 0</script>，或者<script type="math/tex">r</script>中的所有单项式都不能整除<script type="math/tex">f_{i}</script>中的每个首项，且除非<script type="math/tex">a_{i}f_{i} = 0</script>，否则<script type="math/tex">a_{i}f_{i}</script>的次数向量都不大于<script type="math/tex">f</script>的次数</p>
+<p>下面的算法模拟了我们做除法的过程：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    &\rule{200mm}{0.4pt}                                                                 \\
+    &\textbf{Algorithm 1 除法算法}\\[-1.ex]
+    &\rule{200mm}{0.4pt}                                                                 \\
+    &\textbf{input} : 
+        f_{1}, \dots, f_{s}, f
+    \\
+    &\textbf{output} :  
+        a_{1}, \dots, a_{s}, r                                                            \\
+    &\mathbf{initialize}: a_{1} = \cdots = a_s = r := 0, p := f
+    \\[-1.ex]
+    &\rule{200mm}{0.4pt}                                                                 
+    \\
+    &\mathbf{while}~ p \ne 0\text{ do}\\
+    &\hspace{10mm} i := 1\\
+    &\hspace{10mm} \mathrm{divisionoccurred} := \mathrm{False}\\
+    &\hspace{10mm} \mathbf{while~}i \leqslant s\text{ and }\mathrm{divisionoccurred} = \text{ False }\mathbf{do}\\
+    &\hspace{20mm} \mathbf{if~} \mathrm{LT}(f_{i})\text{ divides }\mathrm{LT}(p) \mathbf{~then}\\
+    &\hspace{30mm} a_{i} := a_{i} + \frac{\mathrm{LT}(p)}{\mathrm{LT}(f_{i})}\\
+    &\hspace{30mm} p := p - \frac{\mathrm{LT}(p)}{\mathrm{LT}(f_{i})} f_{i}\\
+    &\hspace{30mm} \mathrm{divisionoccurred} := \text{True} \\
+    &\hspace{20mm} \mathbf{else}\\
+    &\hspace{30mm} i = i + 1\\
+    &\hspace{20mm} \mathbf{if}~\mathrm{divisionoccurred} = \text{ False } \mathbf{then}\\
+    &\hspace{30mm} r := r + \mathrm{LT}(p)\\
+    &\hspace{30mm} p := p - \mathrm{LT}(p)\\
+
+    &\rule{200mm}{0.4pt}
+\end{aligned}</script><p>需要注意的是</p>
+<ul>
+<li>如果算法得到的余式<script type="math/tex">r = 0</script>，那么显然<script type="math/tex">f \in \langle f_{1}, \dots, f_{s} \rangle</script>，但<b>这件事反过来并不成立</b></li>
+<li>同一组除式，其排列顺序不同，得出的余式<b>可能不同</b>（这也印证了上一条）</li>
+</ul>
+<p>这似乎对我们来说并不是一个好消息。我们希望有一些满足条件的除式可以加强以上两个条件到下面这两个条件：</p>
+<ul>
+<li>如果余式为<script type="math/tex">0</script>，<b>当且仅当</b><script type="math/tex">f \in \langle f_{1}, \dots, f_{s}\rangle</script></li>
+<li>不论如何调换除式的顺序，得到的余式<b>唯一</b><br>这就引出了今天的主角 —— Gröbner 基。</li>
+</ul>
+<h3 id="3-3-Grobner-基"><a href="#3-3-Grobner-基" class="headerlink" title="3.3 Gröbner 基"></a>3.3 Gröbner 基</h3><h4 id="3-3-1-首项理想"><a href="#3-3-1-首项理想" class="headerlink" title="3.3.1 首项理想"></a>3.3.1 首项理想</h4><p>在定义 Gröbner 基之前，我们需要先定义<script type="math/tex">\mathbb{C}[x_{1}, \dots, x_{s}]</script>上理想<script type="math/tex">I</script>的<b>首项理想</b>：</p>
+<script type="math/tex; mode=display">
+\mathrm{LT}(I) := I\Big(\big\{ \mathrm{LT}(f): f \in I \big\}\Big)</script><h4 id="3-3-2-Grobner-基"><a href="#3-3-2-Grobner-基" class="headerlink" title="3.3.2 Gröbner 基"></a>3.3.2 Gröbner 基</h4><p>设<script type="math/tex">I</script>是<script type="math/tex">R = \mathbb{C}[x_{1}, \dots, x_{s}]</script>的一个理想，<script type="math/tex">I</script>中的元素<script type="math/tex">g_{1}, \dots, g_{t}</script>被称为<script type="math/tex">I</script>的一组 <b>Gröbner 基</b>，如果</p>
+<script type="math/tex; mode=display">
+\langle \mathrm{LT}(g_{1}), \dots, \mathrm{LT}(g_{t}) \rangle = \mathrm{LT}(I).</script><p>一个理想的 Gröbner 基有一些好的性质：</p>
+<ul>
+<li>对于所有非零的理想，Gröbner 基<b>总存在</b></li>
+<li>对 Gröbner 基做除法，得到的余式<b>和除式的顺序无关</b></li>
+<li>$f$在$I$里<b>当且仅当</b>它除以 Gröbner 基的余式 $r = 0$</li>
+<li>对于表法<script type="math/tex">f = g + r</script>，其中<script type="math/tex">g \in I</script>，对于所有的<script type="math/tex">f</script>是<b>唯一的</b></li>
+</ul>
+<h3 id="3-4-S-多项式"><a href="#3-4-S-多项式" class="headerlink" title="3.4 S-多项式"></a>3.4 <script type="math/tex">S</script>-多项式</h3><p><b>定义 <script type="math/tex">S</script>-多项式</b><br>设<script type="math/tex">f</script>，<script type="math/tex">g</script>是两个多项式，其最小公倍式记为<script type="math/tex">x^{\gamma}</script>，则称<script type="math/tex">f</script>和<script type="math/tex">g</script>的<script type="math/tex">S</script>-多项式定义为</p>
+<script type="math/tex; mode=display">
+S(f, g) := \frac{x^{\gamma}}{\mathrm{LT}(f)}\cdot f - \frac{x^{\gamma}}{\mathrm{LT}(g)} \cdot g</script><h3 id="3-5-Buchberger-判别法"><a href="#3-5-Buchberger-判别法" class="headerlink" title="3.5 Buchberger 判别法"></a>3.5 Buchberger 判别法</h3><p>到此为止，前置的信息已经全部齐备，现在介绍Buchberger判别法：</p>
+<p><b>定理 Buchberger判别法</b><br>理想<script type="math/tex">I</script>中的一组多项式<script type="math/tex">G = \{ g_{1}, \dots, g_{t} \}</script>是一组 Gröbner 基，当且仅当<script type="math/tex">G</script>中的任意一对元素<script type="math/tex">g_{i}, g_{j}</script>的<script type="math/tex">S</script>-多项式除以以某顺序排列的<script type="math/tex">G</script>余式为<script type="math/tex">0</script></p>
+<p>Buchberger 判别法提供了一个检查<script type="math/tex">G</script>是否是 Gröbner 基的有效方法。可以基于这个定理，我们有下面的 Buchberger 算法，求解<script type="math/tex">I</script>中的一组 Gröbner 基。若记多项式<script type="math/tex">f</script>除以某组多项式<script type="math/tex">F</script>的余式为<script type="math/tex">\bar{f}^{F}</script></p>
+<script type="math/tex; mode=display">
+\begin{aligned}\\
+    &\rule{200mm}{0.4pt}                                                                 \\
+    &\textbf{Algorithm 2 Buchberger算法}\\[-1.ex]
+    &\rule{200mm}{0.4pt}                                                                 \\
+    &\textbf{input} : 
+        F = (f_{1}, \dots, f_{s})
+    \\
+    &\textbf{output} :  
+        I上的一组 \mathrm{Gr\ddot{o}bner}基G = (g_{1}, \dots, g_{t})\text{ s.t. }F \subset G  \\
+    &\mathbf{initialize}: G := F
+    \\[-1.ex]
+    &\rule{200mm}{0.4pt}                                                                 
+    \\
+    &\mathbf{repeat}\\
+    &\hspace{10mm} G' := G\\
+    &\hspace{10mm} \mathbf{for}\text{ all pairs }\{p, q\} \subset G, p \ne q~\mathbf{do}\\
+    &\hspace{20mm} S := \overline{S(p, q)}^{G'} \\
+    &\hspace{20mm} \mathbf{if}~S \ne 0~\mathbf{then}~G := G \cup \{ S \}\\
+    &\mathbf{until}~G = G'\\
+    &\rule{200mm}{0.4pt}\\
+\end{aligned}</script><h2 id="4-Buchberger-算法的人工改进"><a href="#4-Buchberger-算法的人工改进" class="headerlink" title="4 Buchberger 算法的人工改进"></a>4 Buchberger 算法的人工改进</h2><p>注意到算法2的外层循环对应着<script type="math/tex">\displaystyle \binom{|G|}{2}</script>次除法计算，这带来了巨大的计算量。于是如何优化算法2是一个十分有意义的问题。下面给出了一个优化方法，其细节详见 [1]</p>
+<script type="math/tex; mode=display">
+\begin{aligned}\\
+    &\rule{200mm}{0.4pt}                                                                 \\
+    &\textbf{Algorithm 3 改进的Buchberger算法}\\[-1.ex]
+    &\rule{200mm}{0.4pt}                                                                 \\
+    &\textbf{input} : 
+        F = (f_{1}, \dots, f_{s})
+    \\
+    &\textbf{output} :  
+        I上一组 \mathrm{Gr\ddot{o}bner}基G = (g_{1}, \dots, g_{t})\\
+    &\mathbf{initialize}: B:=\{ (i, j): i \leqslant i \leqslant j \leqslant s \} 
+    , G := F, t := s
+    \\[-1.ex]
+    &\rule{200mm}{0.4pt}                                                                 
+    \\
+    &\mathbf{while}~B \ne \varnothing~\mathbf{do}\\
+    &\hspace{10mm} \text{randomly pick }(i, j) \in B\\
+    &\hspace{10mm} \mathbf{if}~\mathrm{lcm}(\mathrm{LT}(f_{i}), \mathrm{LT}(f_{j})) = \mathrm{LT}(f_{i})\mathrm{LT}(f_{j})~\mathbf{and}~\mathrm{Criterion}(f_{i}, f_{j}, B) \text{ is False}
+    \mathbf{~then}\\
+    &\hspace{20mm} S := S(f_{i}, f_{j})G\\
+    &\hspace{20mm} \mathbf{if}~S = 0~\mathbf{then}\\
+    &\hspace{30mm} t := t +1\\
+    &\hspace{30mm} f_{t} := S\\
+    &\hspace{30mm} G := G \cup \{ f_{t} \}\\
+    &\hspace{30mm} B := B \cup \{ (i, t): 1 \leqslant i \leqslant t-1 \}\\
+    &\hspace{20mm} B := B - \{ (i, j) \}\\
+    &\rule{200mm}{0.4pt}\\
+\end{aligned}</script><h2 id="5-带签名的-Grobner-基算法"><a href="#5-带签名的-Grobner-基算法" class="headerlink" title="5 带签名的 Grobner 基算法"></a>5 带签名的 Grobner 基算法</h2><p>本部分不影响整篇笔记的主旨，故先行省略</p>
+<h3 id="5-1-自由模"><a href="#5-1-自由模" class="headerlink" title="5.1 自由模"></a>5.1 自由模</h3><h3 id="5-2-理想的表示"><a href="#5-2-理想的表示" class="headerlink" title="5.2 理想的表示"></a>5.2 理想的表示</h3><h3 id="5-3-模单项式序"><a href="#5-3-模单项式序" class="headerlink" title="5.3 模单项式序"></a>5.3 模单项式序</h3><h3 id="5-4-签名"><a href="#5-4-签名" class="headerlink" title="5.4 签名"></a>5.4 签名</h3><h3 id="5-5-带签名的-Grobner-基"><a href="#5-5-带签名的-Grobner-基" class="headerlink" title="5.5 带签名的 Gröbner 基"></a>5.5 带签名的 Gröbner 基</h3><h3 id="5-6-重回-Buchberger-判别法"><a href="#5-6-重回-Buchberger-判别法" class="headerlink" title="5.6 重回 Buchberger 判别法"></a>5.6 重回 Buchberger 判别法</h3><h2 id="6-使用强化学习的-Buchberger-算法改进"><a href="#6-使用强化学习的-Buchberger-算法改进" class="headerlink" title="6 使用强化学习的 Buchberger 算法改进"></a>6 使用强化学习的 Buchberger 算法改进</h2><h3 id="6-1-确定-Markov-决策过程"><a href="#6-1-确定-Markov-决策过程" class="headerlink" title="6.1 确定 Markov 决策过程"></a>6.1 确定 Markov 决策过程</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>MDP 元素</th>
+<th>符号</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态空间</td>
+<td><script type="math/tex">s_{t}</script></td>
+<td>生成元集和对集的二元组<script type="math/tex">(G_{t}, P_{t})</script></td>
+</tr>
+<tr>
+<td>动作空间</td>
+<td><script type="math/tex">\mathcal{A}_{t}</script></td>
+<td>即为所有配对集合<script type="math/tex">P_{t}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>选择动作<script type="math/tex">a_{t} \in P_{t}</script>，计算该对是<script type="math/tex">S</script>-多项式，并判定此多项式是否加入到<script type="math/tex">G_{t}</script>中，但不论如何<script type="math/tex">P_{t+1} = P_{t} - \{ a_{t} \}</script></li>
+<li>奖励函数<script type="math/tex">r_{t}</script>定义为采取动作<script type="math/tex">a_{t}</script>后所需的加减法次数的相反数</li>
+</ul>
+<h3 id="6-2-优化目标"><a href="#6-2-优化目标" class="headerlink" title="6.2 优化目标"></a>6.2 优化目标</h3><p>考虑带折扣因子的序列的加权求和的期望</p>
+<script type="math/tex; mode=display">
+\max \mathbb{E} \left( \sum\limits_{t=1}^{T} \gamma^{t-1} r_{t} \right)</script><p>其中<script type="math/tex">\gamma</script>是折扣因子，这保证优化目标始终有限</p>
+<h3 id="6-3-策略选择"><a href="#6-3-策略选择" class="headerlink" title="6.3 策略选择"></a>6.3 策略选择</h3><p>现考虑一些硬逻辑：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>策略内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>First</b></td>
+<td>将配对集<script type="math/tex">\mathcal{P}</script>排队</td>
+</tr>
+<tr>
+<td><b>Degree</b></td>
+<td>选取<script type="math/tex">\mathrm{lcm}(\mathrm{LM}(f_{i}, f_{j}))</script>总次数的最小者，如果如法选出就fall back to First</td>
+</tr>
+<tr>
+<td><b>Normal</b></td>
+<td>选取<script type="math/tex">\mathrm{lcm}(\mathrm{LM}(f_{i}, f_{j}))</script>按单项式序的最小者，如果如法选出就fall back to First</td>
+</tr>
+<tr>
+<td><b>Sugar</b></td>
+<td>选取<script type="math/tex">\mathrm{lcm}(\mathrm{LM}(f_{i}, f_{j}))</script><em>齐次化</em>后次数向量的最小者，如果如法选出就fall back to Normal</td>
+</tr>
+<tr>
+<td><b>Random</b></td>
+<td>任意选择</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="6-4-计算复杂度"><a href="#6-4-计算复杂度" class="headerlink" title="6.4 计算复杂度"></a>6.4 计算复杂度</h3><p>文献[2]中给出了约化 Gröbner 基的一个复杂度上界：</p>
+<script type="math/tex; mode=display">
+(2d)^{2^{n+1}}</script><p>其中<script type="math/tex">n</script>为变量数，<script type="math/tex">d</script>为生成元最大次数。除此之外，进行除法过程中，多项式<script type="math/tex">s</script>系数会随着算法的进行逐渐变大，可考虑取一个较大的有限域，如<script type="math/tex">\mathbb{Z}/32003</script>。为了降低计算复杂度，可考虑使用无常数项的两项式。对于初始状态的生成，在总次数<script type="math/tex">\leqslant d</script>的所有单项式中，可以考虑以下的选取方法：</p>
+<ul>
+<li>weighted：先随机取两个总次数，再随机取单项式</li>
+<li>uniform：两项同时在总次数<script type="math/tex">\leqslant d</script>中取</li>
+</ul>
+<h3 id="6-5-神经网络结构和训练过程"><a href="#6-5-神经网络结构和训练过程" class="headerlink" title="6.5 神经网络结构和训练过程"></a>6.5 神经网络结构和训练过程</h3><h4 id="6-5-1-DRL框架下的MDP"><a href="#6-5-1-DRL框架下的MDP" class="headerlink" title="6.5.1 DRL框架下的MDP"></a>6.5.1 DRL框架下的MDP</h4><p>现考虑使用神经网络对策略进行建模。注意到状态集可以表示为一个矩阵，其中有<script type="math/tex">n</script>个变元，于是矩阵的形状是<script type="math/tex">p \times 4n</script>（这是因为每个多项式有两个指数向量，每个组合包含两个多项式。网络输出为一个向量，对于每个配对，输出一个分数，表示策略选取该对多项式的概率似然</p>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol x} = \mathrm{softmax}\left( f(X) \right)</script><p>对于状态<script type="math/tex">s_{t}</script>和策略<script type="math/tex">\hat{\boldsymbol x}</script>，我们可将其视为离散概率分布<script type="math/tex">p(s_{t})</script>，然后在其中采样动作</p>
+<script type="math/tex; mode=display">
+a_{t} \sim p(s_{t})</script><p>得到选取的配对后，则进行除法操作，与此同时记录所需的运算数目，系统状态变为<script type="math/tex">s_{t+1}</script>同时得到这一步的奖励</p>
+<script type="math/tex; mode=display">
+r(s_{t}, a_{t}, s_{t+1}) = -\#\mathrm{operations}</script><h4 id="6-5-2-GAE"><a href="#6-5-2-GAE" class="headerlink" title="6.5.2 GAE"></a>6.5.2 GAE</h4><p>我们可以采用 GAE 作为模型的Advantage函数作为模型的优化目标，对其进行训练：</p>
+<script type="math/tex; mode=display">
+J(\theta) = \hat{A}^{\mathrm{GAE}(\gamma, \lambda)}_{t} := \sum\limits_{i=0}^{\infty} (\gamma\lambda)^{i}\delta^{V}_{t+i}</script><p>其中<script type="math/tex">\delta_{t}^{V}</script>是第<script type="math/tex">t</script>步的<b>TD Error</b>：<script type="math/tex">\delta_{t}^{V} = r_{t} + V_{t+1} - V_{t}</script></p>
+<p>然后做策略梯度法：</p>
+<script type="math/tex; mode=display">
+\nabla_{\theta}J(\theta) = \mathbb{E}\left[ \sum\limits_{t=0}^{\infty} \nabla_{\theta}\log \pi_{\theta} (a_{t}|s_{t}) \hat{A}^{\mathrm{GAE}(\gamma, \lambda)}_{t} \right] .</script><h2 id="8-参考文献和资料推荐"><a href="#8-参考文献和资料推荐" class="headerlink" title="8 参考文献和资料推荐"></a>8 参考文献和资料推荐</h2><p>主要参考了梁老师的slides，同时参考了梁老师推荐的<br>[1] Ideals, Varieties and Algorithms (Cox, Little and O’Shea)<br>[2] Mayr, E. W. and Meyer, A. R. The complexity of the word problems for commutative semigroups and polynomial ideals. Adv. in Math., 46(3):305–329, 1982.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/10/25/2023/10/2023-10-25-SW-AI4Math/">https://hrjtju.github.io/2023/10/25/2023/10/2023-10-25-SW-AI4Math/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Swarma/">Swarma</a></div><div class="post_share"><div class="social-share" data-image="/img/header/CAG.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/10/25/2023/10/2023-10-21-CompAlgGeo-1/" title="【Introduction to Computational Algebraic Geometry】1 Geometry, Algebra and Algorithms"><img class="cover" src="/img/header/CAG.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【Introduction to Computational Algebraic Geometry】1 Geometry, Algebra and Algorithms</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/20/2023/10/2023-10-20-Robotics-1/" title="【Modern Robotics】1 位形空间"><img class="cover" src="/img/header/robotics.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【Modern Robotics】1 位形空间</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="toc-text">1 多项式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%95%B0%E5%AD%A6%E5%92%8C%E7%89%A9%E7%90%86%E9%97%AE%E9%A2%98%E4%B8%AD%E7%9A%84%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="toc-text">1.1 数学和物理问题中的多项式方程组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%A4%9A%E5%85%83%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="toc-text">1.2 多元多项式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E5%8D%95%E9%A1%B9%E5%BC%8F-Mononomial"><span class="toc-text">1.2.1 单项式 (Mononomial)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E5%A4%9A%E9%A1%B9%E5%BC%8F-Polynomial"><span class="toc-text">1.2.2 多项式 (Polynomial)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9A%84%E5%8A%A0%E6%B3%95%E5%92%8C%E4%B9%98%E6%B3%95"><span class="toc-text">1.2.3 多项式的加法和乘法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%8E%AF%E5%92%8C%E7%90%86%E6%83%B3"><span class="toc-text">2 环和理想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%8E%AF-Ring"><span class="toc-text">2.1 环 (Ring)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%90%86%E6%83%B3-Ideal"><span class="toc-text">2.2 理想 (Ideal)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E5%9B%9E%E5%88%B0%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%BB%84"><span class="toc-text">2.2.1 回到多项式组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E7%90%86%E6%83%B3"><span class="toc-text">2.2.2 理想</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TODO-%E6%90%9E%E6%B8%85%E6%A5%9A%E6%AD%A3%E5%90%88%E5%88%97%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E4%BA%8B%EF%BC%8C%E7%84%B6%E5%90%8E%E8%A1%A5%E5%85%A8%E8%BF%99%E9%87%8C"><span class="toc-text">TODO 搞清楚正合列是怎么回事，然后补全这里</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E7%94%9F%E6%88%90%E7%90%86%E6%83%B3"><span class="toc-text">2.2.3 生成理想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-%E4%BB%8E%E7%90%86%E6%83%B3%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8B%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%BB%84"><span class="toc-text">2.2.4 从理想的角度看多项式组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E7%BE%8E%E5%A5%BD%E7%9A%84%E7%8E%B0%E5%AE%9E%EF%BC%9AHilbert-%E5%9F%BA%E5%AE%9A%E7%90%86"><span class="toc-text">2.2.5 美好的现实：Hilbert 基定理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Grobner-%E5%9F%BA%E5%92%8C-Buchberger-%E7%AE%97%E6%B3%95"><span class="toc-text">3 Gröbner 基和 Buchberger 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8D%95%E9%A1%B9%E5%BC%8F%E5%BA%8F"><span class="toc-text">3.1 单项式序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E5%AD%97%E5%85%B8%E5%BA%8F-Lexicographic-Order"><span class="toc-text">3.1.1 字典序 (Lexicographic Order)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E5%85%88%E6%AF%94%E8%BE%83%E6%AC%A1%E6%95%B0%E5%9C%A8%E5%80%92%E6%9F%A5%E5%AD%97%E5%85%B8%E5%BA%8F-Graded-Reverse-Lex-Order"><span class="toc-text">3.1.2 先比较次数在倒查字典序 (Graded Reverse Lex Order)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E9%A6%96%E9%A1%B9"><span class="toc-text">3.1.3 首项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%99%A4%E6%B3%95%E7%AE%97%E6%B3%95"><span class="toc-text">3.2 除法算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E5%8D%95%E9%A1%B9%E5%BC%8F%E7%9A%84%E6%95%B4%E9%99%A4"><span class="toc-text">3.2.1 单项式的整除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E9%99%A4%E6%B3%95%E7%AE%97%E6%B3%95"><span class="toc-text">3.2.2 除法算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Grobner-%E5%9F%BA"><span class="toc-text">3.3 Gröbner 基</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E9%A6%96%E9%A1%B9%E7%90%86%E6%83%B3"><span class="toc-text">3.3.1 首项理想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Grobner-%E5%9F%BA"><span class="toc-text">3.3.2 Gröbner 基</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-S-%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="toc-text">3.4 S-多项式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Buchberger-%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-text">3.5 Buchberger 判别法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Buchberger-%E7%AE%97%E6%B3%95%E7%9A%84%E4%BA%BA%E5%B7%A5%E6%94%B9%E8%BF%9B"><span class="toc-text">4 Buchberger 算法的人工改进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%B8%A6%E7%AD%BE%E5%90%8D%E7%9A%84-Grobner-%E5%9F%BA%E7%AE%97%E6%B3%95"><span class="toc-text">5 带签名的 Grobner 基算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E8%87%AA%E7%94%B1%E6%A8%A1"><span class="toc-text">5.1 自由模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E7%90%86%E6%83%B3%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">5.2 理想的表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E6%A8%A1%E5%8D%95%E9%A1%B9%E5%BC%8F%E5%BA%8F"><span class="toc-text">5.3 模单项式序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E7%AD%BE%E5%90%8D"><span class="toc-text">5.4 签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E5%B8%A6%E7%AD%BE%E5%90%8D%E7%9A%84-Grobner-%E5%9F%BA"><span class="toc-text">5.5 带签名的 Gröbner 基</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-%E9%87%8D%E5%9B%9E-Buchberger-%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-text">5.6 重回 Buchberger 判别法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84-Buchberger-%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B"><span class="toc-text">6 使用强化学习的 Buchberger 算法改进</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E7%A1%AE%E5%AE%9A-Markov-%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-text">6.1 确定 Markov 决策过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87"><span class="toc-text">6.2 优化目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E7%AD%96%E7%95%A5%E9%80%89%E6%8B%A9"><span class="toc-text">6.3 策略选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">6.4 计算复杂度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E5%92%8C%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B"><span class="toc-text">6.5 神经网络结构和训练过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-1-DRL%E6%A1%86%E6%9E%B6%E4%B8%8B%E7%9A%84MDP"><span class="toc-text">6.5.1 DRL框架下的MDP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-2-GAE"><span class="toc-text">6.5.2 GAE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%92%8C%E8%B5%84%E6%96%99%E6%8E%A8%E8%8D%90"><span class="toc-text">8 参考文献和资料推荐</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【DatawhalePT】 Pytorch Basics | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Datawhale开源学习社区深入浅出Pytorch项目笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【DatawhalePT】 Pytorch Basics">
+<meta property="og:url" content="https://hrjtju.github.io/2022/11/15/2022/2022-11-15-Pytorch-1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Datawhale开源学习社区深入浅出Pytorch项目笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/2016-11-19/bg.png">
+<meta property="article:published_time" content="2022-11-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T17:02:13.426Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Pytorch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/2016-11-19/bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2022/11/15/2022/2022-11-15-Pytorch-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【DatawhalePT】 Pytorch Basics',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 01:02:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2016-11-19/bg.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【DatawhalePT】 Pytorch Basics</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-11-14T16:00:00.000Z" title="Created 2022-11-15 00:00:00">2022-11-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-09T17:02:13.426Z" title="Updated 2023-08-10 01:02:13">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【DatawhalePT】 Pytorch Basics"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="2-Pytorch-Basics"><a href="#2-Pytorch-Basics" class="headerlink" title="2 Pytorch Basics"></a>2 Pytorch Basics</h2><h3 id="2-1-Tensor"><a href="#2-1-Tensor" class="headerlink" title="2.1 Tensor"></a>2.1 Tensor</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="comment"># randomly initialized tensor</span></span><br><span class="line">x = torch.rand(<span class="number">4</span>, <span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x = &quot;</span>, x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># zero tensor</span></span><br><span class="line">z = torch.zeros(<span class="number">4</span>, <span class="number">3</span>, dtype=torch.long)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;z = &quot;</span>, z)</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialized from a list</span></span><br><span class="line">t_l = torch.tensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;t_l = &quot;</span>, t_l)</span><br><span class="line"></span><br><span class="line"><span class="comment"># keep the new tensor&#x27;s shape like a previous tensor</span></span><br><span class="line">ts = torch.rand_like(x, dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;ts = &quot;</span>, ts)</span><br></pre></td></tr></table></figure>
+<pre><code>x =  tensor([[0.0036, 0.7979, 0.3057],
+        [0.3449, 0.9087, 0.3161],
+        [0.4880, 0.1389, 0.5088],
+        [0.1169, 0.0882, 0.2219]])
+z =  tensor([[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]])
+t_l =  tensor([1, 2, 3])
+ts =  tensor([[0.0823, 0.5508, 0.9419],
+        [0.7218, 0.2149, 0.4641],
+        [0.9534, 0.4842, 0.8112],
+        [0.6577, 0.3524, 0.2608]])
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># get the dumensions</span></span><br><span class="line"><span class="built_in">print</span>(x.size(), x.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># performing tuple operations on torch.size()</span></span><br><span class="line"><span class="built_in">print</span>(x.shape[<span class="number">0</span>], x.shape[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>torch.Size([4, 3]) torch.Size([4, 3])
+4 3
+</code></pre><h3 id="2-2-Performing-Matrix-Operations-and-Slicing"><a href="#2-2-Performing-Matrix-Operations-and-Slicing" class="headerlink" title="2.2 Performing Matrix Operations and Slicing"></a>2.2 Performing Matrix Operations and Slicing</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = torch.ones(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">y = torch.randn(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x = &quot;</span>, x, <span class="string">&quot;\ny = &quot;</span>, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># matrix addition</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x + y = &quot;</span>, x + y)                            <span class="comment"># adding using operator</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;torch.add(x, y) = &quot;</span>, torch.add(x, y))        <span class="comment"># adding using adding function</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;y.add_(x) = &quot;</span>, y.add_(x))                    <span class="comment"># inplace adding: y = y + x</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>x =  tensor([[1., 1., 1., 1.],
+        [1., 1., 1., 1.],
+        [1., 1., 1., 1.]]) 
+y =  tensor([[ 6.9944e-01, -1.2101e+00,  1.6610e+00, -1.0896e+00],
+        [ 1.9741e-01,  5.3173e-01, -1.2845e+00, -1.8685e+00],
+        [ 2.1947e+00,  2.7464e-01, -3.1271e-01,  1.5261e-03]])
+x + y =  tensor([[ 1.6994, -0.2101,  2.6610, -0.0896],
+        [ 1.1974,  1.5317, -0.2845, -0.8685],
+        [ 3.1947,  1.2746,  0.6873,  1.0015]])
+torch.add(x, y) =  tensor([[ 1.6994, -0.2101,  2.6610, -0.0896],
+        [ 1.1974,  1.5317, -0.2845, -0.8685],
+        [ 3.1947,  1.2746,  0.6873,  1.0015]])
+y.add_(x) =  tensor([[ 1.6994, -0.2101,  2.6610, -0.0896],
+        [ 1.1974,  1.5317, -0.2845, -0.8685],
+        [ 3.1947,  1.2746,  0.6873,  1.0015]])
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># y refers to the same area of memory of x[0, :] if assigned without using the methos clone()</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Without using clone()&quot;</span>)</span><br><span class="line">y = x[<span class="number">0</span>, :]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;before inplace addition: \ny = &quot;</span>, y)</span><br><span class="line">y += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;after inplace addition: \ny = &quot;</span>, y, <span class="string">&quot;\tx[0, :] = &quot;</span>, x[<span class="number">0</span>, :])</span><br><span class="line"></span><br><span class="line"><span class="comment"># x[0, :] stays the same if using clone()</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\nUsing clone()&quot;</span>)</span><br><span class="line">y = x.clone()[<span class="number">0</span>, :]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;before inplace addition: \ny = &quot;</span>, y)</span><br><span class="line">y += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;after inplace addition: \ny = &quot;</span>, y, <span class="string">&quot;\tx[0, :] = &quot;</span>, x[<span class="number">0</span>, :])</span><br></pre></td></tr></table></figure>
+<pre><code>Without using clone()
+before inplace addition: 
+y =  tensor([18., 18., 18., 18.])
+after inplace addition: 
+y =  tensor([19., 19., 19., 19.])     x[0, :] =  tensor([19., 19., 19., 19.])
+
+Using clone()
+before inplace addition: 
+y =  tensor([19., 19., 19., 19.])
+after inplace addition: 
+y =  tensor([20., 20., 20., 20.])     x[0, :] =  tensor([19., 19., 19., 19.])
+</code></pre><h3 id="2-3-Reshaping"><a href="#2-3-Reshaping" class="headerlink" title="2.3 Reshaping"></a>2.3 Reshaping</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = torch.arange(<span class="number">0</span>, <span class="number">100</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x = &quot;</span>, x)</span><br><span class="line">x = x.reshape(<span class="number">2</span>, -<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x.reshape(2, -1)&quot;</span>, x)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x.view(x.T.shape)&quot;</span>, x.view(x.T.shape))</span><br><span class="line"><span class="comment"># torch.view() only changes the observation perspective of the tensor, which means it doesnot yield a copy of the tensor</span></span><br></pre></td></tr></table></figure>
+<pre><code>x =  tensor([ 0,  5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85,
+        90, 95])
+x.reshape(2, -1) tensor([[ 0,  5, 10, 15, 20, 25, 30, 35, 40, 45],
+        [50, 55, 60, 65, 70, 75, 80, 85, 90, 95]])
+x.view(x.T.shape) tensor([[ 0,  5],
+        [10, 15],
+        [20, 25],
+        [30, 35],
+        [40, 45],
+        [50, 55],
+        [60, 65],
+        [70, 75],
+        [80, 85],
+        [90, 95]])
+</code></pre><h3 id="2-4-Fetching-Value-of-Tensor"><a href="#2-4-Fetching-Value-of-Tensor" class="headerlink" title="2.4 Fetching Value of Tensor"></a>2.4 Fetching Value of Tensor</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># for one item tensor, we can use .item() method to get the value</span></span><br><span class="line"></span><br><span class="line">x = torch.randn(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(x, x.item())</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([0.5227]) 0.5227316617965698
+</code></pre><h3 id="2-5-Broadcasting"><a href="#2-5-Broadcasting" class="headerlink" title="2.5 Broadcasting"></a>2.5 Broadcasting</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = torch.Tensor([<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">y = torch.Tensor([[<span class="number">1</span>], [<span class="number">2</span>], [<span class="number">3</span>]])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;x = <span class="subst">&#123;x&#125;</span>\ny = <span class="subst">&#123;y&#125;</span>\nx + y = <span class="subst">&#123;x + y&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>x = tensor([1., 2.])
+y = tensor([[1.],
+        [2.],
+        [3.]])
+x + y = tensor([[2., 3.],
+        [3., 4.],
+        [4., 5.]])
+</code></pre><h3 id="2-6-Audograd"><a href="#2-6-Audograd" class="headerlink" title="2.6 Audograd"></a>2.6 Audograd</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"></span><br><span class="line">x = torch.ones(<span class="number">3</span>, <span class="number">3</span>, requires_grad=<span class="literal">True</span>)        <span class="comment"># requires_grad is False by default</span></span><br><span class="line"><span class="built_in">print</span>(x.grad_fn)                                <span class="comment"># None.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x = &quot;</span>, x)</span><br><span class="line">y = x ** <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;y = &quot;</span>, y)</span><br><span class="line">z = y * y * <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;z = &quot;</span>, z)</span><br><span class="line">w= z.mean()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;w = &quot;</span>, w)</span><br></pre></td></tr></table></figure>
+<pre><code>None
+x =  tensor([[1., 1., 1.],
+        [1., 1., 1.],
+        [1., 1., 1.]], requires_grad=True)
+y =  tensor([[1., 1., 1.],
+        [1., 1., 1.],
+        [1., 1., 1.]], grad_fn=&lt;PowBackward0&gt;)
+z =  tensor([[3., 3., 3.],
+        [3., 3., 3.],
+        [3., 3., 3.]], grad_fn=&lt;MulBackward0&gt;)
+w =  tensor(3., grad_fn=&lt;MeanBackward0&gt;)
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># gradient accumulates if not set to zero before next backward()</span></span><br><span class="line">out = z.<span class="built_in">sum</span>()</span><br><span class="line">out.backward(retain_graph=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(x.grad, end = <span class="string">&quot;\n\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">out1 = z.<span class="built_in">sum</span>()</span><br><span class="line">x.grad.data.zero_()</span><br><span class="line">out1.backward(retain_graph=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(x.grad)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[24., 24., 24.],
+        [24., 24., 24.],
+        [24., 24., 24.]])
+
+tensor([[12., 12., 12.],
+        [12., 12., 12.],
+        [12., 12., 12.]])
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = torch.randn(<span class="number">3</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(x)</span><br><span class="line"></span><br><span class="line">y = x * <span class="number">2</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> y.data.norm() &lt; <span class="number">1000</span>:</span><br><span class="line">    y = y * <span class="number">2</span></span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(y)</span><br><span class="line">y.backward(torch.tensor([<span class="number">0.1</span>, <span class="number">1.0</span>, <span class="number">0.0001</span>]))</span><br><span class="line"><span class="built_in">print</span>(x.grad)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([-1.0359,  0.5815, -0.2381], requires_grad=True)
+tensor([-1060.7622,   595.4866,  -243.8183], grad_fn=&lt;MulBackward0&gt;)
+tensor([1.0240e+02, 1.0240e+03, 1.0240e-01])
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># we cam stop autograd by assigning &quot;with torch.no_grad()&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    <span class="built_in">print</span>(x.requires_grad, (x ** <span class="number">2</span>).requires_grad)</span><br></pre></td></tr></table></figure>
+<pre><code>True False
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># if we want to change the value of a tensor while donot affet the computation graph, consider data()</span></span><br><span class="line"></span><br><span class="line">x = torch.ones(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">t = x * <span class="number">3</span></span><br><span class="line">x.data *= <span class="number">100</span></span><br><span class="line"></span><br><span class="line">t.backward()</span><br><span class="line"><span class="built_in">print</span>(x, x.grad)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([100.], requires_grad=True) tensor([3.])
+</code></pre><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>tensor([100.], requires_grad=True) tensor([600.])
+</code></pre></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2022/11/15/2022/2022-11-15-Pytorch-1/">https://hrjtju.github.io/2022/11/15/2022/2022-11-15-Pytorch-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pytorch/">Pytorch</a></div><div class="post_share"><div class="social-share" data-image="/img/2016-11-19/bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/11/18/2022/2022-11-18-Pytorch-2/" title="【DatawhalePT】 Introduction to Basic Pytorch Modules"><img class="cover" src="/img/2016-11-19/bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【DatawhalePT】 Introduction to Basic Pytorch Modules</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/27/2022/2022-10-27-DatawhaleDS-2/" title="【DatawhaleDS】 2 算法"><img class="cover" src="/img/2016-11-19/V-5_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【DatawhaleDS】 2 算法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/11/18/2022/2022-11-18-Pytorch-2/" title="【DatawhalePT】 Introduction to Basic Pytorch Modules"><img class="cover" src="/img/2016-11-19/bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-18</div><div class="title">【DatawhalePT】 Introduction to Basic Pytorch Modules</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">64</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Pytorch-Basics"><span class="toc-text">2 Pytorch Basics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Tensor"><span class="toc-text">2.1 Tensor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Performing-Matrix-Operations-and-Slicing"><span class="toc-text">2.2 Performing Matrix Operations and Slicing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Reshaping"><span class="toc-text">2.3 Reshaping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Fetching-Value-of-Tensor"><span class="toc-text">2.4 Fetching Value of Tensor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Broadcasting"><span class="toc-text">2.5 Broadcasting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-Audograd"><span class="toc-text">2.6 Audograd</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】1 Entropy"/></a><div class="content"><a class="title" href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy">【Information Theory】1 Entropy</a><time datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img src="/img/header/hpc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"/></a><div class="content"><a class="title" href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</a><time datetime="2023-11-26T16:00:00.000Z" title="Created 2023-11-27 00:00:00">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】3 引用类型"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-23-CPP-03/" title="【现代C++】3 引用类型">【现代C++】3 引用类型</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img src="/img/header/modern_cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【现代C++】4 对象的生命周期"/></a><div class="content"><a class="title" href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期">【现代C++】4 对象的生命周期</a><time datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
