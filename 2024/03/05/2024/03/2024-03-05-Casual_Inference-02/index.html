@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hrjtju.github.io/img/header/CasualInference.png">
 <meta property="article:published_time" content="2024-03-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-05T14:47:29.732Z">
+<meta property="article:modified_time" content="2024-03-05T14:52:44.089Z">
 <meta property="article:author" content="Ruijie He">
 <meta property="article:tag" content="Casual_Inference">
 <meta property="article:tag" content="Probablistic_Graph_Models">
@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-03-05 22:47:29'
+  postUpdate: '2024-03-05 22:52:44'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -163,7 +163,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/CasualInference.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【基于图模型的因果推断】2 数学基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-05T14:47:29.732Z" title="Updated 2024-03-05 22:47:29">2024-03-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>11min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【基于图模型的因果推断】2 数学基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-随机变量和随机事件"><a href="#1-随机变量和随机事件" class="headerlink" title="1 随机变量和随机事件"></a>1 随机变量和随机事件</h1><h2 id="1-1-随机变量"><a href="#1-1-随机变量" class="headerlink" title="1.1 随机变量"></a>1.1 随机变量</h2><blockquote>
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/CasualInference.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【基于图模型的因果推断】2 数学基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-05T14:52:44.089Z" title="Updated 2024-03-05 22:52:44">2024-03-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>11min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【基于图模型的因果推断】2 数学基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-随机变量和随机事件"><a href="#1-随机变量和随机事件" class="headerlink" title="1 随机变量和随机事件"></a>1 随机变量和随机事件</h1><h2 id="1-1-随机变量"><a href="#1-1-随机变量" class="headerlink" title="1.1 随机变量"></a>1.1 随机变量</h2><blockquote>
 <p>我们将具有以下特点的试验称为<em>随机试验</em>：</p>
 <ul>
 <li>可以在相同条件下重复进行</li>
@@ -219,7 +219,7 @@
 </tr>
 <tr>
 <td>差事件</td>
-<td>$A \textbackslash B := { \omega: \omega \in A, \omega \notin B}$</td>
+<td>$A - B := { \omega: \omega \in A, \omega \notin B}$</td>
 <td>事件$A$发生但事件$B$不发生</td>
 </tr>
 </tbody>
@@ -239,15 +239,15 @@
 <tbody>
 <tr>
 <td>交换律</td>
-<td style="text-align:center"><script type="math/tex">\begin{align}A \cup B &= B \cup A\\ AB &= BA\end{align}</script></td>
+<td style="text-align:center"><script type="math/tex">\begin{align*}A \cup B &= B \cup A\\ AB &= BA\end{align*}</script></td>
 </tr>
 <tr>
 <td>结合律</td>
-<td style="text-align:center"><script type="math/tex">\begin{align}(A \cup B) \cup C &= A \cup (B \cup C)\\(AB)C &= A(BC)\end{align}</script></td>
+<td style="text-align:center"><script type="math/tex">\begin{align*}(A \cup B) \cup C &= A \cup (B \cup C)\\(AB)C &= A(BC)\end{align*}</script></td>
 </tr>
 <tr>
 <td>分配律</td>
-<td style="text-align:center"><script type="math/tex">\begin{align}A(B \cup C) &= (AB) \cup (AC) \\ A\cup (B \cap C) &= (A\cup B)\cap(A \cup C)\\A(B-C) &= (AB) - (AC)\end{align}</script></td>
+<td style="text-align:center"><script type="math/tex">\begin{align*}A(B \cup C) &= (AB) \cup (AC) \\ A\cup (B \cap C) &= (A\cup B)\cap(A \cup C)\\A(B-C) &= (AB) - (AC)\end{align*}</script></td>
 </tr>
 <tr>
 <td>吸收律</td>
@@ -255,7 +255,7 @@
 </tr>
 <tr>
 <td>De Morgan 公式</td>
-<td style="text-align:center"><script type="math/tex">\begin{align}\overline{A \cup B} &= \overline{A} \cap \overline{B}\\ \overline{A\cap B} &= \overline{A}\cup \overline{B}\end{align}</script></td>
+<td style="text-align:center"><script type="math/tex">\begin{align*}\overline{A \cup B} &= \overline{A} \cap \overline{B}\\ \overline{A\cap B} &= \overline{A}\cup \overline{B}\end{align*}</script></td>
 </tr>
 </tbody>
 </table>
@@ -351,17 +351,17 @@ y = f(x) + \varepsilon</script><p>其中$\varepsilon$是一个和$X$无关的随
 <script type="math/tex; mode=display">
 y = a + bx + \varepsilon</script><p><strong>一方面</strong>，两边对$x$求协方差，有</p>
 <script type="math/tex; mode=display">
-\begin{align}
+\begin{align*}
 \text{cov}(y, x) &= \text{cov}(a, x) + b \text{Var}[x] + \text{cov}(\varepsilon, x)\\
 &= b\text{Var}[x],
-\end{align}</script><p>于是回归直线的截距为</p>
+\end{align*}</script><p>于是回归直线的截距为</p>
 <script type="math/tex; mode=display">
 R_{YX} = b = \frac{\text{cov}(y, x)}{\text{Var}[x]}.</script><p><strong>另一方面</strong>，两边求期望，有</p>
 <script type="math/tex; mode=display">
-\begin{align}
+\begin{align*}
 \mathbb{E}_{y}[y] &= \mathbb{E}[a] + \mathbb{E}_{x}[bx] + \mathbb{E}_{\varepsilon}[\varepsilon]\\
 &= a + b\mathbb{E}[x],
-\end{align}</script><p>所以可以得到“截距”</p>
+\end{align*}</script><p>所以可以得到“截距”</p>
 <script type="math/tex; mode=display">
 a = \mathbb{E}_{y}[y] - b \mathbb{E}_{x}[x]</script><h2 id="6-2-多元线性回归"><a href="#6-2-多元线性回归" class="headerlink" title="6.2 多元线性回归"></a>6.2 多元线性回归</h2><p>对于多元线性回归的情形，预测式写为</p>
 <script type="math/tex; mode=display">
