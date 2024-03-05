@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【大模型基础教程】1 大模型基础 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="参考 Datawhale 大模型原理教程的学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【大模型基础教程】1 大模型基础">
+<meta property="og:url" content="https://hrjtju.github.io/2024/01/16/2024/01/2024-01-16-LLM-01/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="参考 Datawhale 大模型原理教程的学习笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/LLM.png">
+<meta property="article:published_time" content="2024-01-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-17T04:18:44.595Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/LLM.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2024/01/16/2024/01/2024-01-16-LLM-01/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【大模型基础教程】1 大模型基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-17 12:18:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/LLM.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【大模型基础教程】1 大模型基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-17T04:18:44.595Z" title="Updated 2024-01-17 12:18:44">2024-01-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【大模型基础教程】1 大模型基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-什么是语言模型"><a href="#1-什么是语言模型" class="headerlink" title="1 什么是语言模型"></a>1 什么是语言模型</h2><ul>
+<li>语言模型（LM）的经典定义是一种对词符序列(token)的概率分布。假设我们有一个词符集的词汇表$V$。语言模型$p$为每个词元序列分配一个概率<script type="math/tex">p(x_{1}, x_{2}, \dots, x_{n})</script></li>
+</ul>
+<blockquote>
+<p>此处<script type="math/tex">x_{1}, \dots, x_{n}</script>的序列其中蕴含了先后关系，这可以使用一个非交换的字符串连接运算来表示，进一步地，字母表<script type="math/tex">\Sigma</script>构成的语言<script type="math/tex">\mathcal{L}</script>及关于其上的字符串连接运算<script type="math/tex">\wedge</script>形成一个<em>幺半群</em>：</p>
+<ol>
+<li>存在一个元素，称之为空字符串$\varepsilon$，对于任意字符串$s \in \mathcal{L}$，满足$\varepsilon \wedge a = a \wedge \varepsilon = \alpha$</li>
+<li>连接运算$\wedge$具有结合律</li>
+</ol>
+<p>因此我认为严谨起见，$p(x<em>{1}, \dots, x</em>{n})$可以写为$p(x<em>{1}\wedge \cdots\wedge x</em>{n})$，而显然该项与各词元的一个重排不同</p>
+</blockquote>
+<ul>
+<li>LM 需要给可能的序列分配一个合理的“概率”，这需要模型对语言有所“理解”，即对其特征进行建模。我们希望模型给“合乎常理”的句子分配“高概率”，而对于“不合逻辑”的句子则分配“低概率”</li>
+</ul>
+<blockquote>
+<p>对于像“老鼠吃了奶酪”这样的句子，希望模型输出“老鼠吃了奶酪”而不是“奶酪吃了老鼠”这一事实，其实说明人类语言的一部分对现实世界中的<em>因果</em>进行建模</p>
+</blockquote>
+<ul>
+<li>语言模型可以用来<em>判别</em>，例如给定一个句子，模型可以判定其“是好是坏”，其本质上是判定模型在给定训练的数据集中是否处在分布密度较高的区域</li>
+<li>语言模型也可以用来<em>生成</em>，给定一个词元序列<script type="math/tex">x_{1:L}=x_{1}\wedge x_{2}\wedge\cdots\wedge{x_{L}}</script>，模型预测下一个词元<script type="math/tex">x_{L+1}</script>的概率。宏观上，模型从无到有输出了一个词元序列，其对应为整个词元序列的采样概率<script type="math/tex">p(x_{1:L})</script></li>
+</ul>
+<h2 id="2-自回归语言模型"><a href="#2-自回归语言模型" class="headerlink" title="2 自回归语言模型"></a>2 自回归语言模型</h2><p>利用已知的词元序列预测下一个词元的 LM 被称为<em>自回归语言模型 (Auto-regressive LM, ALM)</em>。其基础是利用概率链式法则：</p>
+<script type="math/tex; mode=display">
+p(x_{1:L}) = p(x_{1})\prod\limits_{i=2}^{L}p(x_{i}|x_{1:i})</script><p>在 ALM 向前生成的每一步，基于如前馈神经网络的模型如此循环地采样生成下一个词元：</p>
+<script type="math/tex; mode=display">
+x_{i} \sim \frac{1}{c} p(x_{i}|x_{1:i-1})^{1/T},\,\,i=1,2,\dots L</script><p>其中</p>
+<ul>
+<li>$T$是非负数，称为<em>温度参数</em>，温度参数越高，分布曲线越平缓，采样的随机性越大。（类比模拟退火算法中的温度，温度越高，粒子活动性越强）<ul>
+<li>$T=0$时，条件分布退化为冲激函数，模型只采样概率最大的那一个词元，其可以理解为$T\rightarrow 0$的过程，而该操作等价于考虑分布密度函数的无穷范数</li>
+<li>$T=1$时，温度参数对分布没有影响</li>
+<li>$T = \infty$时，分布变为均匀分布</li>
+</ul>
+</li>
+<li>$c$是归一化因子</li>
+</ul>
+<h3 id="3-条件生成"><a href="#3-条件生成" class="headerlink" title="3 条件生成"></a>3 条件生成</h3><p>不同于自回归生成，条件生成制定一个前缀序列$x<em>{1:i}$，模型输出其余的部分$x</em>{i+1:L}$。在 NLP 中，前缀序列被称为<em>提示（prompt）</em></p>
+<h2 id="X-大语言模型相关的历史回顾"><a href="#X-大语言模型相关的历史回顾" class="headerlink" title="X 大语言模型相关的历史回顾"></a>X 大语言模型相关的历史回顾</h2><h3 id="X-1-熵"><a href="#X-1-熵" class="headerlink" title="X.1 熵"></a>X.1 熵</h3><p>对于单词表$\mathcal{X}$，可以在其上构造分布$p(x)$，则分布$p(x)$的<em>熵</em>定义为</p>
+<script type="math/tex; mode=display">
+H(p):= \sum\limits_{x \in \mathcal{X}} -p(x)\log p(x)</script><p>当对数的底为$2$时，可以将熵理解为二进制编码的长度。</p>
+<blockquote>
+<p>对于熵的意义，可以这样考虑：对于一个事物，我们需要问一个或几个问题来确定它。我们假设每个问题的回答只能是是或否，这样就形成了一个判定的二叉树。熵衡量从二叉树根部走到叶节点（也就是从开始提问之前到完全提问完毕）的平均路径（path）长度。对于一个编码问题的<em>编码</em>就是<em>提问的方法</em>。</p>
+</blockquote>
+<h3 id="X-2-交叉熵"><a href="#X-2-交叉熵" class="headerlink" title="X.2 交叉熵"></a>X.2 交叉熵</h3><p>给定两个字母表上的分布$p$和$q$，交叉熵$H(p,q)$定义为</p>
+<script type="math/tex; mode=display">
+H(p,q) = -\sum\limits_{x \in \mathcal{X}} p(x) \log q(x)</script><p>注意$H(p,q) \ne H(q,p)$。交叉熵刻画给定编码方案，描述给定编码体系$q$下，建模分布$p$所需的位数。</p>
+<blockquote>
+<h3 id="关于交叉熵的理解"><a href="#关于交叉熵的理解" class="headerlink" title="关于交叉熵的理解"></a>关于交叉熵的理解</h3><p>交叉熵也可以看作是对于一个事物的不断提问。以底数为$2$的交叉熵定义为例，$\log q(x)$可看作是提问的次数（假设每一个问题被回答‘是’或‘否’的概率相同），而$p(x)$则是对应答案的真实概率。对所有$x$求期望就得到了交叉熵的定义。从交叉熵的观点看信息熵，可见$H(p) = H(p,p)$，可见信息熵是一个通过$n$叉树对目标概率分布的完全建模——这是看起来一个极其理想的情况，而其最优性则由负对数函数的凸性保证：</p>
+<script type="math/tex; mode=display">
+ \begin{align} H(p,q) &= -\sum\limits_{x \in \mathcal{X}} p(x) \log q(x) \\&= -\sum\limits_{x \in \mathcal{X}} p(x)\log p(x) - \underbrace{\left( \sum\limits_{x \in \mathcal{X}} p(x) \log \frac{q(x)}{p(x)}   \right)}_{-D_{\mathrm{KL}}[p\|q]}\\ &\geqslant -\sum\limits_{x \in \mathcal{X}}p(x) \log p(x) -  \log \left[ \sum\limits_{x \in \mathcal{X}} \frac{p(x)q(x)}{p(x)} \right] \\ &= H(p) - \log \left[ \sum\limits_{x \in \mathcal{X}- A}q(x) \right] \\ &\geqslant H(p) \end{align}</script><p>需要注意的是，这里的最后一步依然是小于号，这是因为如果$p(x)$在某些点等于零，则这些点对应的$q(x)$将会丢失，于是有$\displaystyle \sum\limits_{x \in \mathcal{X}-A} q(x) \leqslant 1$.</p>
+</blockquote>
+<h3 id="X-3-N-gram-模型"><a href="#X-3-N-gram-模型" class="headerlink" title="X.3 N-gram 模型"></a>X.3 N-gram 模型</h3><p>N-gram 模型可看做对存储有限性的妥协：相较于考虑整个先前序列<script type="math/tex">x_{1:i}</script>，N-gram 模型仅考虑前面的<script type="math/tex">N</script>个词元，即<script type="math/tex">x_{i-N: i}</script>。如果 $N$ 太小，则无法捕捉较长上下文的信息，若 $N$ 太长，则在大语料库中，每个合理的长序列由于相乘项数过多导致出现概率逼近<script type="math/tex">0</script>.</p>
+<h3 id="X-4-神经语言模型"><a href="#X-4-神经语言模型" class="headerlink" title="X.4 神经语言模型"></a>X.4 神经语言模型</h3><ul>
+<li>2003 年，Bengio 等人首次使用神经网络给出 N-gram 模型的条件概率。</li>
+</ul>
+<h3 id="X-5-LLM-的能力"><a href="#X-5-LLM-的能力" class="headerlink" title="X.5 LLM 的能力"></a>X.5 LLM 的能力</h3><ul>
+<li>完形填空</li>
+<li>词义类比</li>
+<li>生成特定风格的文字</li>
+<li>上下文学习</li>
+<li>通过人类反馈学习（RLHF）</li>
+</ul>
+<h3 id="X-6-LLM-的风险"><a href="#X-6-LLM-的风险" class="headerlink" title="X.6 LLM 的风险"></a>X.6 LLM 的风险</h3><ul>
+<li>可靠性</li>
+<li>偏见</li>
+<li>生成有害信息</li>
+<li>数据安全</li>
+<li>训练成本</li>
+<li>获取模型</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/so-large-lm/wiki/%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80">so-large-llm 第一章：大模型基础</a></li>
+<li><a target="_blank" rel="noopener" href="https://pattern.swarma.org/study_group_issue/563">【集智斑图-因果涌现第四季：新信息论】第二讲：信息论领域发展回顾</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2024/01/16/2024/01/2024-01-16-LLM-01/">https://hrjtju.github.io/2024/01/16/2024/01/2024-01-16-LLM-01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LLM/">LLM</a><a class="post-meta__tags" href="/tags/NLP/">NLP</a></div><div class="post_share"><div class="social-share" data-image="/img/header/LLM.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img class="cover" src="/img/header/InfoTh.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【Information Theory】2 Relative, Conditional Entropy and Related Properties</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/10/2024/01/2024-01-10-InfoTh-01/" title="【Information Theory】1 Entropy"><img class="cover" src="/img/header/InfoTh.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【Information Theory】1 Entropy</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img class="cover" src="/img/header/LLM.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-17</div><div class="title">【大模型基础教程】2 大模型能力</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-text">1 什么是语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%87%AA%E5%9B%9E%E5%BD%92%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-text">2 自回归语言模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9D%A1%E4%BB%B6%E7%94%9F%E6%88%90"><span class="toc-text">3 条件生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#X-%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%8E%86%E5%8F%B2%E5%9B%9E%E9%A1%BE"><span class="toc-text">X 大语言模型相关的历史回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#X-1-%E7%86%B5"><span class="toc-text">X.1 熵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X-2-%E4%BA%A4%E5%8F%89%E7%86%B5"><span class="toc-text">X.2 交叉熵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%A4%E5%8F%89%E7%86%B5%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">关于交叉熵的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X-3-N-gram-%E6%A8%A1%E5%9E%8B"><span class="toc-text">X.3 N-gram 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X-4-%E7%A5%9E%E7%BB%8F%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-text">X.4 神经语言模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X-5-LLM-%E7%9A%84%E8%83%BD%E5%8A%9B"><span class="toc-text">X.5 LLM 的能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X-6-LLM-%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="toc-text">X.6 LLM 的风险</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

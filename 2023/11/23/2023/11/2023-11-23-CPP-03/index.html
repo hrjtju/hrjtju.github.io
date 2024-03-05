@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【现代C++】3 引用类型 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="现代C++读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【现代C++】3 引用类型">
+<meta property="og:url" content="https://hrjtju.github.io/2023/11/23/2023/11/2023-11-23-CPP-03/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="现代C++读书笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/modern_cpp.png">
+<meta property="article:published_time" content="2023-11-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-23T14:10:54.931Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="C_CPP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/modern_cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/11/23/2023/11/2023-11-23-CPP-03/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【现代C++】3 引用类型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-23 22:10:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/modern_cpp.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【现代C++】3 引用类型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-22T16:00:00.000Z" title="Created 2023-11-23 00:00:00">2023-11-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-23T14:10:54.931Z" title="Updated 2023-11-23 22:10:54">2023-11-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>9min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【现代C++】3 引用类型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-指针"><a href="#1-指针" class="headerlink" title="1 指针"></a>1 指针</h1><ul>
+<li>引用类型的存储变量是<em>内存地址</em></li>
+<li>指针将对象的<em>类型</em>和<em>地址</em>进行编码</li>
+<li>可以通过在目标类型后添加星号<code>*</code>来声明指向对应类型的指针</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* my_ptr;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指针的格式指定符是<code>%p</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;The value of my_ptr is %p\n&quot;</span>, my_ptr);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>C++提供了更高级、更有效的结构，避免直接处理内存地址这种较为危险的行为</li>
+</ul>
+<h2 id="1-1-寻址变量"><a href="#1-1-寻址变量" class="headerlink" title="1.1 寻址变量"></a>1.1 寻址变量</h2><ul>
+<li>我们给变量前面加<code>&amp;</code>符号来获取其地址</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a&#123;&#125;;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The value of a is %d\n&quot;</span>, a);</span><br><span class="line">    <span class="type">int</span>* ptr_a = &amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The address of a is %p\n&quot;</span>, ptr_a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这段代码在同一机器上运行多次，将得到不同的结果，这是因为<em>地址空间随机化</em>以避免黑客使用<em>面向返回地址程序</em>的攻击</li>
+</ul>
+<h2 id="1-2-指针解引用"><a href="#1-2-指针解引用" class="headerlink" title="1.2 指针解引用"></a>1.2 指针解引用</h2><ul>
+<li>指针解引用使用一元运算符<code>*</code></li>
+<li><code>*ptr</code>出现在等号的左侧，于是该指令的作用会修改指针<code>ptr</code>所指向的内存地址</li>
+<li>除等号以外任何地方使用<code>*ptr</code>表示从该地址读取内容</li>
+</ul>
+<h2 id="1-3-成员指针运算符"><a href="#1-3-成员指针运算符" class="headerlink" title="1.3 成员指针运算符"></a>1.3 成员指针运算符</h2><ul>
+<li>使用指向对象的指针访问对象的成员时，我们使用箭头运算符<code>-&gt;</code></li>
+<li>不使用<code>.</code>运算符的原因是减少<em>符号摩擦</em>：<code>obj-&gt;method</code>可读性比<code>(*obj).method</code>的可读性好</li>
+<li>箭头运算符执行两个功能<ol>
+<li>对指针进行解引用</li>
+<li>访问被指向对象中的成员</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-4-指针和数组"><a href="#1-4-指针和数组" class="headerlink" title="1.4 指针和数组"></a>1.4 指针和数组</h2><ul>
+<li>数组对一片连续的存储空间进行编码</li>
+<li>数组稍加操作后将会退化成指针，指针指向数组第一个元素，且失去数组的长度信息</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> arr[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="type">int</span>* prt_arr = arr; <span class="comment">// ptr_arr points to &quot;1&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-4-1-处理退化问题"><a href="#1-4-1-处理退化问题" class="headerlink" title="1.4.1 处理退化问题"></a>1.4.1 处理退化问题</h3><ul>
+<li>通常可以将指针本身和数组长度作为两个参数传入函数中，以避免退化问题</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">College</span>&#123;</span><br><span class="line">    <span class="type">char</span> name[<span class="number">256</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_name</span><span class="params">(College* college_ptr, <span class="type">size_t</span> n_colleges)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n_colleges; i++)&#123;</span><br><span class="line">        <span class="comment">// colleges[i] == *(colleges + i)</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s College\n&quot;</span>, colleges[i].name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    College oxford[] = &#123; <span class="string">&quot;Magdalen&quot;</span>, <span class="string">&quot;Nuffield&quot;</span>, <span class="string">&quot;Kellogg&quot;</span> &#125;;</span><br><span class="line">    <span class="built_in">print_names</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-2-指针算术"><a href="#1-4-2-指针算术" class="headerlink" title="1.4.2 指针算术"></a>1.4.2 指针算术</h3><p>在上一个代码中已经出现了指针算术。这里主要指获取数组的第<code>i</code>个元素的地址：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// int i; int arr[];</span></span><br><span class="line"><span class="type">int</span>* ptr_arr_i = &amp;arr[i];</span><br><span class="line"><span class="type">int</span>* ptr_arr_i = arr + i;</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-指针很危险"><a href="#1-5-指针很危险" class="headerlink" title="1.5 指针很危险"></a>1.5 指针很危险</h2><ul>
+<li>稍有不慎，指针就会越界。操纵越界的指针并尝试改变所指的内存，会产生意想不到的后果</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">College</span>&#123;</span><br><span class="line">    <span class="type">char</span> name[<span class="number">256</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_name</span><span class="params">(College* college_ptr, <span class="type">size_t</span> n_colleges)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n_colleges; i++)&#123;</span><br><span class="line">        <span class="comment">// colleges[i] == *(colleges + i)</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s College\n&quot;</span>, colleges[i].name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    College oxford[] = &#123; <span class="string">&quot;Magdalen&quot;</span>, <span class="string">&quot;Nuffield&quot;</span>, <span class="string">&quot;Kellogg&quot;</span> &#125;;</span><br><span class="line">    <span class="built_in">print_names</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-6-void指针和std-byte指针"><a href="#1-6-void指针和std-byte指针" class="headerlink" title="1.6 void指针和std::byte指针"></a>1.6 <code>void</code>指针和<code>std::byte</code>指针</h2><ul>
+<li>有时候指针所指向的对象类型是不确定的，于是使用空指针<code>void*</code>类型</li>
+<li>由于所指向的内存已被擦除，所以不能对空指针进行解引用操作</li>
+<li>在字节级别和内存进行交互时，可以使用<code>std::byte</code>指针</li>
+</ul>
+<h2 id="1-7-nullptr和布尔表达式"><a href="#1-7-nullptr和布尔表达式" class="headerlink" title="1.7 nullptr和布尔表达式"></a>1.7 <code>nullptr</code>和布尔表达式</h2><ul>
+<li><code>nullptr</code>是一个特殊的字面量，等于<code>nullptr</code>的指针不指向任何东西</li>
+<li>可以使用<code>nullptr</code>表示内存不足或发生错误</li>
+</ul>
+<h1 id="2-引用"><a href="#2-引用" class="headerlink" title="2 引用"></a>2 引用</h1><ul>
+<li>引用比指针更加安全</li>
+<li>在类型名后添加<code>&amp;</code>即可声明对应类型变量的引用</li>
+<li>不必担心像指针运算符和解引用的麻烦，我们可以将应用看作是一般的目标类型来使用</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ClockOfTheLongNow</span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add_year</span><span class="params">(ClockOfTheLongNow&amp; clock)</span></span>&#123;</span><br><span class="line">    clock.<span class="built_in">set_year</span>(clock.<span class="built_in">get_year</span>() + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ClockOfTheLongNow clock;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The year is %d\n&quot;</span>, clock.<span class="built_in">get_year</span>());</span><br><span class="line">    <span class="built_in">add_year</span>(clock); <span class="comment">// 隐式传入变量 clock 的引用</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The year is %d\n&quot;</span>, clock.<span class="built_in">get_year</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-指针和引用的使用"><a href="#3-指针和引用的使用" class="headerlink" title="3 指针和引用的使用"></a>3 指针和引用的使用</h1><ul>
+<li>指针和引用各有利弊</li>
+<li>又是需要改变引用类型的值，就需要使用指针</li>
+<li>很多数据结构要求指针的值可以改变</li>
+<li>引用不能被重新定位，且不应该被赋值为<code>nullptr</code></li>
+</ul>
+<h2 id="3-1-前向链表"><a href="#3-1-前向链表" class="headerlink" title="3.1 前向链表"></a>3.1 前向链表</h2><ul>
+<li>在前向链表中，每个元素拥有指向下一个元素的指针</li>
+<li>链表的最后一个元素的指针是<code>nullptr</code></li>
+<li>在链表中插入数据非常有效</li>
+<li>链表中的元素在存储中可以是不连续的</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Element</span>&#123;</span><br><span class="line">    Element* next&#123;&#125;;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">insert_after</span><span class="params">(Element* new_element)</span></span>&#123;</span><br><span class="line">        new_element-&gt;next = next;</span><br><span class="line">        next = new_element;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">char</span> prefix[<span class="number">2</span>];</span><br><span class="line">    <span class="type">short</span> operating_number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是使用链表的一个例子</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Element</span>&#123;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Element trooper1, trooper2, trooper3;</span><br><span class="line">  	trooper1.prefix[<span class="number">0</span>] = <span class="string">&#x27;T&#x27;</span>;</span><br><span class="line">    trooper1.prefix[<span class="number">1</span>] = <span class="string">&#x27;K&#x27;</span>;</span><br><span class="line">    trooper1.operating_number = <span class="number">421</span>;</span><br><span class="line">    trooper1.<span class="built_in">insert_after</span>(&amp;trooper2);</span><br><span class="line">    </span><br><span class="line">	trooper2.prefix[<span class="number">0</span>] = <span class="string">&#x27;F&#x27;</span>;</span><br><span class="line">    trooper2.prefix[<span class="number">1</span>] = <span class="string">&#x27;N&#x27;</span>;</span><br><span class="line">    trooper2.operating_number = <span class="number">421</span>;</span><br><span class="line">    trooper2.<span class="built_in">insert_after</span>(&amp;trooper3);</span><br><span class="line">    </span><br><span class="line">	trooper3.prefix[<span class="number">0</span>] = <span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">    trooper3.prefix[<span class="number">1</span>] = <span class="string">&#x27;S&#x27;</span>;</span><br><span class="line">    trooper3.operating_number = <span class="number">421</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历链表</span></span><br><span class="line">    <span class="keyword">for</span>(Element* cursor = &amp;trooper1; cursor; cursor = cursor-&gt;next)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Stormtrooper %c%c-%d\n&quot;</span>, </span><br><span class="line">               cursor-&gt;prefix[<span class="number">0</span>], </span><br><span class="line">               cursor-&gt;prefix[<span class="number">1</span>],</span><br><span class="line">               cursor-&gt;operating_number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-使用引用"><a href="#3-2-使用引用" class="headerlink" title="3.2 使用引用"></a>3.2 使用引用</h2><ul>
+<li>若不需要指针的灵活应用和<code>nullptr</code>，引用是最常用的类型</li>
+<li>引用不能被重新定位</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> original = <span class="number">100</span>;</span><br><span class="line">    <span class="type">int</span>&amp; original_ref = original;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Original: %d\n&quot;</span>, original);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Reference: %d\n&quot;</span>, original_ref);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> new_value = <span class="number">200</span>;</span><br><span class="line">    original_ref = new_value;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Original: %d\n&quot;</span>, original);         <span class="comment">// 200</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;New Value: %d\n&quot;</span>, new_value);       <span class="comment">// 200</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Reference: %d\n&quot;</span>, original_ref);    <span class="comment">// 200</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-this指针"><a href="#3-3-this指针" class="headerlink" title="3.3 this指针"></a>3.3 <code>this</code>指针</h2><ul>
+<li>我们可以用<code>this</code>指针访问当前对象</li>
+<li>访问成员时，<code>this</code>是隐式指定的，但有时为了消除歧义会显示地写出<code>this</code></li>
+</ul>
+<h2 id="3-4-const的正确性"><a href="#3-4-const的正确性" class="headerlink" title="3.4 const的正确性"></a>3.4 <code>const</code>的正确性</h2><ul>
+<li><code>const</code>关键字是一种安全机制，可以防止变量被意外的修改</li>
+</ul>
+<h3 id="3-4-1-const参数"><a href="#3-4-1-const参数" class="headerlink" title="3.4.1 const参数"></a>3.4.1 <code>const</code>参数</h3><ul>
+<li>将参数标注为<code>const</code>可以防止在函数作用域内被修改</li>
+<li><code>const</code>指针或引用可以提供有效机制，保证传递到函数体重的对象是只读的</li>
+<li>尝试在<code>const</code>变量中写入会出发编译错误</li>
+</ul>
+<h3 id="3-4-2-const方法"><a href="#3-4-2-const方法" class="headerlink" title="3.4.2 const方法"></a>3.4.2 <code>const</code>方法</h3><ul>
+<li><code>const</code>方法表示承诺不会在<code>const</code>方法中修改对象的状态</li>
+<li>将方法标记为常量，需要将<code>const</code>关键字放在参数列表和方法体之间</li>
+<li>若尝试在<code>const</code>方法中修改对象的状态（比如对象的私有成员变量）将会触发编译错误</li>
+<li><code>const</code>引用和指针的持有者不能调用非常量标记的方法，避免篡改引用对象的值</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ClockOfTheLongNow</span>&#123;</span><br><span class="line">    <span class="comment">// .......</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">get_year</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> year;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    year;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-5-const成员变量"><a href="#3-5-const成员变量" class="headerlink" title="3.5 const成员变量"></a>3.5 <code>const</code>成员变量</h2><ul>
+<li><code>const</code>成员变量一旦被初始化后就不能更改</li>
+<li>即使是未被<code>const</code>修改的成员变量，也无法通过<code>const</code>修饰的引用或指针变量进行修改</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Avout</span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* name = <span class="string">&quot;Erasmas&quot;</span>;</span><br><span class="line">    ClockOfTheLongNow apert;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">does_not_compile</span><span class="params">(<span class="type">const</span> Avout&amp; avout)</span></span>&#123;</span><br><span class="line">    avout.apert.<span class="built_in">add_year</span>(); <span class="comment">// compile error: avout is const</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-6-成员初始化列表"><a href="#3-6-成员初始化列表" class="headerlink" title="3.6 成员初始化列表"></a>3.6 成员初始化列表</h2><ul>
+<li>声明成员初始化列表时，只需在构造函数中的参数列表后添加一个冒号，然后插入一个或多个逗号分隔的<strong>成员初始化器</strong></li>
+<li>成员初始化器允许在运行时设置带有<code>const</code>修饰的字段</li>
+<li><u>在使用成员初始化列表时，其顺序应该与类定义中成员的出现顺序一致</u></li>
+<li>使用成员初始化器的成员初始化过程在构造函数调用<strong>之前</strong>进行<ul>
+<li>可以在构造函数被执行前确保所有成员的有效性</li>
+<li>成员只初始化一次，如果在构造函数体中进行初始化操作会产生额外的工作量</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Avout</span>&#123;</span><br><span class="line">    <span class="built_in">Avout</span>(<span class="type">const</span> cahr* name, <span class="type">long</span> year_of_apert):</span><br><span class="line">    	name&#123; name &#125;, apert&#123; year_of_apert &#125; &#123;&#125;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Avout raz&#123; <span class="string">&quot;Erasmas&quot;</span>, <span class="number">3010</span> &#125;;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4-auto类型推断"><a href="#4-auto类型推断" class="headerlink" title="4 auto类型推断"></a>4 <code>auto</code>类型推断</h1><ul>
+<li>当初始化元素或返回函数值时，编译器可以根据上下文推断变量的类型</li>
+<li><code>auto</code>关键字告诉编译器执行类型推断，这样我们不用输入多余的类型信息</li>
+</ul>
+<h2 id="4-1-使用auto进行初始化"><a href="#4-1-使用auto进行初始化" class="headerlink" title="4.1 使用auto进行初始化"></a>4.1 使用<code>auto</code>进行初始化</h2><ul>
+<li>几乎在所有情况下，编译器可以通过变量的初始值推断变量的类型</li>
+<li>当类型变得更加复杂时（例如处理标准库的迭代器时），<code>auto</code>可以节省不少输入字符</li>
+<li><code>auto</code>也可以让代码<strong>重构</strong>时变得更加灵活</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> the_answer &#123; <span class="number">42</span> &#125;;            <span class="comment">// int</span></span><br><span class="line"><span class="keyword">auto</span> foot &#123; <span class="number">12L</span> &#125;;                 <span class="comment">// long</span></span><br><span class="line"><span class="keyword">auto</span> rootbeer &#123; <span class="number">5.0F</span> &#125;;            <span class="comment">// float</span></span><br><span class="line"><span class="keyword">auto</span> cheeseburger &#123; <span class="number">10.0</span> &#125;;        <span class="comment">// double</span></span><br><span class="line"><span class="keyword">auto</span> politifact_claims &#123; <span class="literal">false</span> &#125;;  <span class="comment">// bool</span></span><br><span class="line"><span class="keyword">auto</span> cheese &#123; <span class="string">&quot;string&quot;</span> &#125;;          <span class="comment">// char[7]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用括号初始化时，<code>auto</code>关键字依然适用（不做赘述）</li>
+</ul>
+<h2 id="4-2-auto和引用类型"><a href="#4-2-auto和引用类型" class="headerlink" title="4.2 auto和引用类型"></a>4.2 <code>auto</code>和引用类型</h2><ul>
+<li>在<code>auto</code>关键字的前后添加修饰符<code>*</code>，<code>&amp;</code>和<code>const</code>时，会增加特定的含义</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> the_answer &#123; <span class="number">42</span> &#125;;            <span class="comment">// int</span></span><br><span class="line"><span class="keyword">auto</span>* answer_ptr = &amp;answer;        <span class="comment">// int*</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span>* answer_ptr = &amp;answer;  <span class="comment">// const int*</span></span><br><span class="line"><span class="keyword">auto</span> rootbeer &#123; <span class="number">5.0F</span> &#125;;            <span class="comment">// float</span></span><br><span class="line"><span class="keyword">auto</span>&amp; rootbeer_ref = rootbeer;     <span class="comment">// float&amp;</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-3-auto和代码重构"><a href="#4-3-auto和代码重构" class="headerlink" title="4.3 auto和代码重构"></a>4.3 <code>auto</code>和代码重构</h2><p>如上文所述，<code>auto</code>会在代码重构时让维护人员节省不少功夫。考虑下面的例子：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Dwarf</span>&#123;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Dwarf dwarves[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Contract</span>&#123;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">const</span> Dwarf&amp; dwarf)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">form_company</span><span class="params">(Contract &amp;contract)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span>&amp; dwarf: dwarves)&#123;</span><br><span class="line">        contract.<span class="built_in">add</span>(dwarf);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果在维护过程中<code>dwarves</code>的类型发生了变化，<code>auto</code>关键字会让编译器自行推断<code>dwarf</code>的类型以适应环境的变化（原书作者注：中土世界的矮人则不会）</p>
+<ul>
+<li>注意，在 C++17 之前，使用带大括号初始化的<code>auto</code>会生成一个特殊对象，即<code>std::initializer_list</code>，这将会在后文进行介绍</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/11/23/2023/11/2023-11-23-CPP-03/">https://hrjtju.github.io/2023/11/23/2023/11/2023-11-23-CPP-03/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C-CPP/">C_CPP</a></div><div class="post_share"><div class="social-share" data-image="/img/header/modern_cpp.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img class="cover" src="/img/header/hpc.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</div></div></a></div><div class="next-post pull-right"><a href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img class="cover" src="/img/header/modern_cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【现代C++】4 对象的生命周期</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/11/12/2023/11/2023-11-12-CPP-01/" title="【现代C++】1 启动和运行"><img class="cover" src="/img/header/modern_cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-12</div><div class="title">【现代C++】1 启动和运行</div></div></a></div><div><a href="/2023/11/18/2023/11/2023-11-18-CPP-02/" title="【现代C++】2 类型"><img class="cover" src="/img/header/modern_cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-18</div><div class="title">【现代C++】2 类型</div></div></a></div><div><a href="/2023/11/23/2023/11/2023-11-27-CPP-04/" title="【现代C++】4 对象的生命周期"><img class="cover" src="/img/header/modern_cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-23</div><div class="title">【现代C++】4 对象的生命周期</div></div></a></div><div><a href="/2023/11/23/2023/11/2023-11-27-PyLi-01/" title="【Pytorch Lightening】1 Pytorch Lightening 的基本技巧"><img class="cover" src="/img/header/modern_cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-23</div><div class="title">【Pytorch Lightening】1 Pytorch Lightening 的基本技巧</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%8C%87%E9%92%88"><span class="toc-text">1 指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%AF%BB%E5%9D%80%E5%8F%98%E9%87%8F"><span class="toc-text">1.1 寻址变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E6%8C%87%E9%92%88%E8%A7%A3%E5%BC%95%E7%94%A8"><span class="toc-text">1.2 指针解引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E6%88%90%E5%91%98%E6%8C%87%E9%92%88%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.3 成员指针运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E6%8C%87%E9%92%88%E5%92%8C%E6%95%B0%E7%BB%84"><span class="toc-text">1.4 指针和数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-1-%E5%A4%84%E7%90%86%E9%80%80%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-text">1.4.1 处理退化问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-2-%E6%8C%87%E9%92%88%E7%AE%97%E6%9C%AF"><span class="toc-text">1.4.2 指针算术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E6%8C%87%E9%92%88%E5%BE%88%E5%8D%B1%E9%99%A9"><span class="toc-text">1.5 指针很危险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-void%E6%8C%87%E9%92%88%E5%92%8Cstd-byte%E6%8C%87%E9%92%88"><span class="toc-text">1.6 void指针和std::byte指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-7-nullptr%E5%92%8C%E5%B8%83%E5%B0%94%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">1.7 nullptr和布尔表达式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%BC%95%E7%94%A8"><span class="toc-text">2 引用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">3 指针和引用的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%89%8D%E5%90%91%E9%93%BE%E8%A1%A8"><span class="toc-text">3.1 前向链表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%BD%BF%E7%94%A8%E5%BC%95%E7%94%A8"><span class="toc-text">3.2 使用引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-this%E6%8C%87%E9%92%88"><span class="toc-text">3.3 this指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-const%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="toc-text">3.4 const的正确性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-1-const%E5%8F%82%E6%95%B0"><span class="toc-text">3.4.1 const参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-2-const%E6%96%B9%E6%B3%95"><span class="toc-text">3.4.2 const方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-const%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="toc-text">3.5 const成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E6%88%90%E5%91%98%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8"><span class="toc-text">3.6 成员初始化列表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-auto%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="toc-text">4 auto类型推断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BD%BF%E7%94%A8auto%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">4.1 使用auto进行初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-auto%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">4.2 auto和引用类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-auto%E5%92%8C%E4%BB%A3%E7%A0%81%E9%87%8D%E6%9E%84"><span class="toc-text">4.3 auto和代码重构</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

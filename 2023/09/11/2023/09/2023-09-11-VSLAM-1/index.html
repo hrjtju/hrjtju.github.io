@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【Datawhale Smoothly-SLAM】1 相机模型、畸变和标定 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Datawhale Smoothly SLAM 视觉SLAM学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Datawhale Smoothly-SLAM】1 相机模型、畸变和标定">
+<meta property="og:url" content="https://hrjtju.github.io/2023/09/11/2023/09/2023-09-11-VSLAM-1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Datawhale Smoothly SLAM 视觉SLAM学习笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/SLAM.png">
+<meta property="article:published_time" content="2023-09-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-12T16:48:16.456Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="SLAM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/SLAM.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/09/11/2023/09/2023-09-11-VSLAM-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Datawhale Smoothly-SLAM】1 相机模型、畸变和标定',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-13 00:48:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/SLAM.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Datawhale Smoothly-SLAM】1 相机模型、畸变和标定</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-09-10T16:00:00.000Z" title="Created 2023-09-11 00:00:00">2023-09-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-09-12T16:48:16.456Z" title="Updated 2023-09-13 00:48:16">2023-09-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/todo/">todo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>7min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Datawhale Smoothly-SLAM】1 相机模型、畸变和标定"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>封面来源：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping">Simultaneous localization and mapping - Wikipedia</a></p>
+<h3 id="1-相机模型"><a href="#1-相机模型" class="headerlink" title="1 相机模型"></a>1 相机模型</h3><p>相机的一个最简单的模型是小孔成像模型。现实世界的物体的反射光透过小孔，在黑盒中的成像平面上。在理想化的小孔成像模型中，我们常常假设小孔退化为一个点；而实际上该小孔拥有一定的直径。这导致成像平面上的图案并不完全清晰。自然地，<strong>当这个小孔越小，图像就越清晰，但这也导致进入黑箱的光较少，因此图像越暗；反之图像越亮、越模糊，</strong>如下图所示。</p>
+<p><img src="/img/1683986390812-026c7e81-0397-4ec3-90b3-383c00d74fb1.png" alt="img" style="zoom:50%;" /></p>
+<p>为了弥补这一不足，现代相机使用<strong>透镜</strong>聚焦光线至焦点，使得图像亮而清晰。同样地，实际操作中我们也很难恰好使得成像平面与焦平面完全重合，但在一定的范围内，我们依然可以认为成像是清晰的。另外，透镜的聚焦能力有限，位于一定距离范围内的物体通过透镜才能被聚焦，这个距离范围称为<strong>景深</strong>。</p>
+<p>物体发出 / 反射的光需要落在<strong>电子感光元件</strong>上才能转换为对应的电信号。常用的图像传感器有<strong>CCD</strong>、<strong>CMOS</strong>。这些感光元件接受光辐射后产生<strong>模拟信号</strong>，随后经过<strong>数模转换</strong>得到数字图像，最后经过若干<strong>数字图像处理</strong>和<strong>压缩编码算法</strong>存储于机器的存储单元。</p>
+<h3 id="2-相机成像坐标系"><a href="#2-相机成像坐标系" class="headerlink" title="2 相机成像坐标系"></a>2 相机成像坐标系</h3><p>我们沿着光路考察获取物体的图像时坐标系的变化。</p>
+<ul>
+<li>物体位于<strong>世界坐标系</strong><script type="math/tex">(\mathrm{x_w, y_w, z_w})</script>中</li>
+<li>光路从物体射入相机，我们想知道<em>物体相对于相机</em>的位置，于是世界坐标系中的物体经过所谓<strong>刚体变换</strong>到<strong>相机坐标系</strong><script type="math/tex">(\mathrm{x_c, y_c, z_c})</script></li>
+<li>在相机坐标系中，使用简化的小孔成像模型，物体经过<strong>投影变换</strong>得到它在成像平面上的坐标，即从相机坐标系变换到<strong>图像坐标系</strong><script type="math/tex">(\mathrm{x, y})</script></li>
+<li>由于感光元件被分为若干个单元，图像坐标系中的投影被<strong>离散化</strong>，得到最终的<strong>像素坐标系</strong><script type="math/tex">(\mathrm{u, v})</script></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">世界坐标系 --刚体变换--&gt; 相机坐标系 --投影--&gt; 图像坐标系 --离散化--&gt; 像素坐标系</span><br></pre></td></tr></table></figure>
+<p>下面我们对这个全过程进行计算。</p>
+<h4 id="2-1-世界坐标系到相机坐标系"><a href="#2-1-世界坐标系到相机坐标系" class="headerlink" title="2.1 世界坐标系到相机坐标系"></a>2.1 世界坐标系到相机坐标系</h4><p>考虑物体上的某一点<script type="math/tex">(x_w, y_w, z_w)</script>，的齐次坐标<script type="math/tex">[x_w, y_w, z_w, 1]^\top</script>，左乘刚体变换矩阵后得到改点在相机坐标系上的坐标：</p>
+<script type="math/tex; mode=display">
+\left[\begin{matrix}
+x_c\\y_c\\z_c\\1
+\end{matrix}\right]
+ =
+\left[\begin{matrix}
+\boldsymbol R_{3\times 3} & \boldsymbol t_{3\times 1}\\
+\boldsymbol 0_{1 \times 3} & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+x_w\\y_w\\z_w\\1
+\end{matrix}\right]</script><p>关于刚体变换的进一步讨论我们会在接下来几期进行详细描述。</p>
+<h4 id="2-2-相机坐标系到像素坐标系"><a href="#2-2-相机坐标系到像素坐标系" class="headerlink" title="2.2 相机坐标系到像素坐标系"></a>2.2 相机坐标系到像素坐标系</h4><p><img src="/imgs/1683986391785-d7c5d2c5-1a31-4690-839d-ea1187575387.png" alt="img" style="zoom:50%;" /></p>
+<p>如上图所示，假设物体距离理想的光心距离为<script type="math/tex">z_c</script>，相机焦距为<script type="math/tex">f</script>，根据相似三角形的规律，得到</p>
+<script type="math/tex; mode=display">
+\frac {f}{z_c} = -\frac {x}{x_c} = -\frac{y}{y_c}</script><p>其中<script type="math/tex">(x_c, y_c, z_c)</script>是该点在相机坐标系中的坐标，<script type="math/tex">(x, y)</script>是该点投影后在图像坐标系下的坐标。</p>
+<p>进一步，假设$f_x$和$f_y$是成像平面上两轴方向的像素个数，$c_x$，$c_y$分别是感光元件在两轴向像素个数的一半，于是</p>
+<script type="math/tex; mode=display">
+\left[\begin{matrix}
+u\\v\\1
+\end{matrix}\right]
+ =
+ \frac 1{z_c}
+\underbrace{
+\left[\begin{matrix}
+f_x &  &c_x\\
+& f_y & c_y\\
+ &  &1
+\end{matrix}\right]
+}_{\boldsymbol K}
+
+\left[\begin{matrix}
+x\\y\\1
+\end{matrix}\right]\tag{$\star$}</script><p>其中<script type="math/tex">\boldsymbol K</script>称为相机的<strong>内参矩阵</strong>。</p>
+<h3 id="3-图像畸变"><a href="#3-图像畸变" class="headerlink" title="3 图像畸变"></a>3 图像畸变</h3><p>图像畸变是实际所得的图像与按照理论计算得到的图像不一致的现象。这往往由以下两个原因导致</p>
+<ul>
+<li>若不考虑折射率，理想凸透镜曲面为<strong>双曲面</strong>，而双曲面较难加工（常用铣和磨）。因此透镜曲面往往被加工成球面的一部分</li>
+<li>在安装凸透镜时，其位置不可能与理论位置完美重合</li>
+</ul>
+<p>这两个原因分别导致了<strong>径向畸变</strong>和<strong>切向畸变</strong>。</p>
+<h4 id="3-1-径向畸变"><a href="#3-1-径向畸变" class="headerlink" title="3.1 径向畸变"></a>3.1 径向畸变</h4><p>顾名思义，径向畸变就是图像中的点距离图像中心与理论计算值有偏差。若小于理论值，图像看起来缩向中心，这称为<strong>枕形畸变</strong>（下图左）；反之，图像看起来被推向四周，这称为<strong>桶形畸变</strong>（下图右）：</p>
+<p><img src="/img/20161027212922016.jpeg" alt="img" style="zoom: 67%;" /></p>
+<p>对于这样的畸变，可以将图像中心，即主点周围的曲面使用Taylor级数展开至六阶进行校正</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+x_0 &= (1 + k_1 r^2 + k_2r^4 + k_3 r^6) x,\\
+y_0 &= (1 + k_1 r^2 + k_2r^4 + k_3 r^6) y.\\
+\end{align*}</script><h4 id="3-2-切向畸变"><a href="#3-2-切向畸变" class="headerlink" title="3.2 切向畸变"></a>3.2 切向畸变</h4><p>切向畸变常常是透镜与成像平面的安装平行度不高导致的。可以使用几个额外的参数进行校正：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+x_0 &= x + \big[ 2p_1y +p_2(r^2 + 2x^2) \big],\\
+y_0 &= y + \big[ 2p_2x +p_1(r^2 + 2y^2) \big].\\
+\end{align*}</script><h3 id="4-相机标定"><a href="#4-相机标定" class="headerlink" title="4 相机标定"></a>4 相机标定</h3><p>相机标定可以归结为两个过程：相机投影和畸变消除；以计算相机内参和畸变校正系数。常用OpenCV中的函数来进行相机标定。标定的常用方法是借助棋盘格标定板，在多个角度下拍摄标定板最后计算得到相机内参等参数。</p>
+<h3 id="5-问题与思考"><a href="#5-问题与思考" class="headerlink" title="5 问题与思考"></a>5 问题与思考</h3><ol>
+<li><p>内参的物理意义是什么？若一部相机分辨率变为原来的两倍，其内参会如何变化？</p>
+<p><strong>一方面</strong>，内参刻画了镜头在$x$，$y$轴方向上的焦距和感光元件的大小。若将分辨率变为原来的两倍，注意到这样的变化只会影响到最后一步，即图像坐标系转换为像素坐标系的步骤，所以$(\star)$式变为</p>
+<script type="math/tex; mode=display">
+\left[\begin{matrix}
+u'\\v'\\1
+\end{matrix}\right]
+ =
+\frac 1{z_c}
+\underbrace{
+\left[\begin{matrix}
+2f_x &  & 2c_x\\
+& 2f_y & 2c_y\\
+ &  &1
+\end{matrix}\right]
+}_{\boldsymbol K'}
+
+\left[\begin{matrix}
+x\\y\\1
+\end{matrix}\right]</script><p><strong>另一方面</strong>，增大分辨率相当于进行如下的变换：</p>
+<script type="math/tex; mode=display">
+\left[\begin{matrix}
+u'\\v'\\1
+\end{matrix}\right]
+ =
+\underbrace{
+\left[\begin{matrix}
+2 &  & \\
+& 2 & \\
+ &  &1
+\end{matrix}\right]
+}_{\boldsymbol A}
+
+\left[\begin{matrix}
+u\\v\\1
+\end{matrix}\right]</script><p>于是显然有<script type="math/tex">\boldsymbol {AK} = \boldsymbol {K}'</script></p>
+</li>
+<li><p><strong>全局快门（Global Shutter）相机</strong>和<strong>卷帘快门（Rolling Shutter）相机</strong>有什么不同？它们在SLAM中有什么优缺点？</p>
+<p>全局快门<strong>一次性</strong>曝光所有感光单元，而卷帘快门像卷帘一样<strong>逐行</strong>曝光感光单元。在实际使用中卷帘快门在曝光时需要的时间更长，所得到的图像虽然噪声较低，但在视域中有物体快速移动时会产生较大的畸变，被称为<strong>果冻效应</strong>。全局快门所需曝光时间短，但容易出现瑕疵。在SLAM中，全局快门适合在移速较快时使用，卷帘快门适合在移动速度较慢时使用。</p>
+</li>
+</ol>
+<h3 id="6-补充"><a href="#6-补充" class="headerlink" title="6 补充"></a>6 补充</h3><h4 id="6-1-深度相机"><a href="#6-1-深度相机" class="headerlink" title="6.1 深度相机"></a>6.1 深度相机</h4><p>顾名思义，深度相机除了输出RGB三通道以外还输出一个深度通道。在SLAM中也有应用。有多种方法可以测算物体与相机之间的距离，在此进行简要介绍</p>
+<h5 id="6-1-1-飞行时间法-Time-of-Flight"><a href="#6-1-1-飞行时间法-Time-of-Flight" class="headerlink" title="6.1.1 飞行时间法 (Time of Flight)"></a>6.1.1 飞行时间法 (Time of Flight)</h5><p>通过连续发送光脉冲至物体，再接收物体反射的光脉冲，通过计算其往返时间获取观测物体与相机的距离。</p>
+<h5 id="6-1-2-结构光法"><a href="#6-1-2-结构光法" class="headerlink" title="6.1.2 结构光法"></a>6.1.2 结构光法</h5><p>使用特殊设计的结构光投影到观测物体，然后根据另一个相机观察到的畸变图案计算物体的三维形状</p>
+<h5 id="6-1-3-双目视觉法"><a href="#6-1-3-双目视觉法" class="headerlink" title="6.1.3 双目视觉法"></a>6.1.3 双目视觉法</h5><p>模拟人的双目视觉，利用三角关系得到物体与相机之间的距离。</p>
+<h4 id="6-2-事件相机-Event-Camera"><a href="#6-2-事件相机-Event-Camera" class="headerlink" title="6.2 事件相机 (Event Camera)"></a>6.2 事件相机 (Event Camera)</h4><h5 id="6-2-1-传统相机的问题"><a href="#6-2-1-传统相机的问题" class="headerlink" title="6.2.1 传统相机的问题"></a>6.2.1 传统相机的问题</h5><ul>
+<li><strong>运动模糊 (Motion Blur)</strong>：场景中物体的运动速率超过相机的采样速率时，会产生运动模糊。虽然可以采用算法进行后处理，但计算开销大，耗时长</li>
+<li><strong>曝光问题</strong>：环境光线变化时可能导致传统相机的过曝或曝光不足</li>
+</ul>
+<h5 id="6-2-2-事件相机的特点"><a href="#6-2-2-事件相机的特点" class="headerlink" title="6.2.2 事件相机的特点"></a>6.2.2 事件相机的特点</h5><p>事件相机捕捉场景中的亮度变化 (Event) 并标注其极性（即是亮度升高还是亮度降低）。其理论时间分辨率高延迟很低。</p>
+<p><img src="/img/image-20230911225047242.png" alt="image-20230911225047242" style="zoom:50%;" /></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1] 一幅图像的诞生：相机投影及相机畸变 – <a target="_blank" rel="noopener" href="https://www.yuque.com/u1507140/vslam-hmh/ogc8v31hbzb6efy8">https://www.yuque.com/u1507140/vslam-hmh/ogc8v31hbzb6efy8</a></p>
+<p>[2] 透镜畸变及校正模型<em>径向畸变</em>-牧野-的博客-CSDN博客 – <a target="_blank" rel="noopener" href="https://blog.csdn.net/dcrmg/article/details/52950141">https://blog.csdn.net/dcrmg/article/details/52950141</a></p>
+<p>[3] SLAM传感器篇:深度相机_slamml的博客-CSDN博客 – <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42576673/article/details/106975673">https://blog.csdn.net/weixin_42576673/article/details/106975673</a></p>
+<p>[4] 干货文章 | 基于事件相机的SLAM/VO – <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/335733562">https://zhuanlan.zhihu.com/p/335733562</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/09/11/2023/09/2023-09-11-VSLAM-1/">https://hrjtju.github.io/2023/09/11/2023/09/2023-09-11-VSLAM-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SLAM/">SLAM</a></div><div class="post_share"><div class="social-share" data-image="/img/header/SLAM.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/09/13/2023/09/2023-09-13-VSLAM-2/" title="【Datawhale Smoothly-SLAM】2 坐标系变换和外参标定"><img class="cover" src="/img/header/SLAM.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【Datawhale Smoothly-SLAM】2 坐标系变换和外参标定</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/30/2023/08/2023-08-30-PySciPlot-3/" title="【Datawhale 科研绘图】3 单变量图形绘制"><img class="cover" src="/img/header/sciplot.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【Datawhale 科研绘图】3 单变量图形绘制</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/09/13/2023/09/2023-09-13-VSLAM-2/" title="【Datawhale Smoothly-SLAM】2 坐标系变换和外参标定"><img class="cover" src="/img/header/SLAM.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-13</div><div class="title">【Datawhale Smoothly-SLAM】2 坐标系变换和外参标定</div></div></a></div><div><a href="/2023/09/15/2023/09/2023-09-15-VSLAM-3/" title="【Datawhale Smoothly-SLAM】3 三维空间中的刚体运动"><img class="cover" src="/img/header/SLAM.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-15</div><div class="title">【Datawhale Smoothly-SLAM】3 三维空间中的刚体运动</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="toc-text">1 相机模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%9B%B8%E6%9C%BA%E6%88%90%E5%83%8F%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="toc-text">2 相机成像坐标系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E4%B8%96%E7%95%8C%E5%9D%90%E6%A0%87%E7%B3%BB%E5%88%B0%E7%9B%B8%E6%9C%BA%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="toc-text">2.1 世界坐标系到相机坐标系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E7%9B%B8%E6%9C%BA%E5%9D%90%E6%A0%87%E7%B3%BB%E5%88%B0%E5%83%8F%E7%B4%A0%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="toc-text">2.2 相机坐标系到像素坐标系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%9B%BE%E5%83%8F%E7%95%B8%E5%8F%98"><span class="toc-text">3 图像畸变</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E5%BE%84%E5%90%91%E7%95%B8%E5%8F%98"><span class="toc-text">3.1 径向畸变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E5%88%87%E5%90%91%E7%95%B8%E5%8F%98"><span class="toc-text">3.2 切向畸变</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="toc-text">4 相机标定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%9D%E8%80%83"><span class="toc-text">5 问题与思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%A1%A5%E5%85%85"><span class="toc-text">6 补充</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA"><span class="toc-text">6.1 深度相机</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-1-%E9%A3%9E%E8%A1%8C%E6%97%B6%E9%97%B4%E6%B3%95-Time-of-Flight"><span class="toc-text">6.1.1 飞行时间法 (Time of Flight)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-2-%E7%BB%93%E6%9E%84%E5%85%89%E6%B3%95"><span class="toc-text">6.1.2 结构光法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-3-%E5%8F%8C%E7%9B%AE%E8%A7%86%E8%A7%89%E6%B3%95"><span class="toc-text">6.1.3 双目视觉法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-%E4%BA%8B%E4%BB%B6%E7%9B%B8%E6%9C%BA-Event-Camera"><span class="toc-text">6.2 事件相机 (Event Camera)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-1-%E4%BC%A0%E7%BB%9F%E7%9B%B8%E6%9C%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">6.2.1 传统相机的问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-2-%E4%BA%8B%E4%BB%B6%E7%9B%B8%E6%9C%BA%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">6.2.2 事件相机的特点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

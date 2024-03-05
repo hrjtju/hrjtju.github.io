@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【UCBerkley DRL】 6 Actor Critic | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="UCB Deep Reinforcement Learning Seminar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【UCBerkley DRL】 6 Actor Critic">
+<meta property="og:url" content="https://hrjtju.github.io/2023/07/17/2023/07/2023-07-17-DRL-6-Actor-Critic/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="UCB Deep Reinforcement Learning Seminar">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/2023/headers/drl.png">
+<meta property="article:published_time" content="2023-07-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-26T03:36:26.254Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Reinforcement Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/2023/headers/drl.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/07/17/2023/07/2023-07-17-DRL-6-Actor-Critic/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【UCBerkley DRL】 6 Actor Critic',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-26 11:36:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2023/headers/drl.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【UCBerkley DRL】 6 Actor Critic</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-07-16T16:00:00.000Z" title="Created 2023-07-17 00:00:00">2023-07-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-26T03:36:26.254Z" title="Updated 2023-08-26 11:36:26">2023-08-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/todo/">todo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>11min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【UCBerkley DRL】 6 Actor Critic"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Lecture-6-Actor-Critic"><a href="#Lecture-6-Actor-Critic" class="headerlink" title="Lecture 6 Actor-Critic"></a>Lecture 6 Actor-Critic</h2><h2 id="1-Recap-Policy-Gradients"><a href="#1-Recap-Policy-Gradients" class="headerlink" title="1 Recap: Policy Gradients"></a>1 Recap: Policy Gradients</h2><h3 id="1-1-Policy-gradients"><a href="#1-1-Policy-gradients" class="headerlink" title="1.1 Policy gradients"></a>1.1 Policy gradients</h3><p><strong>Policy gradients serves as a generalized form of maximum likelihood estimation given the weight of each trajectory</strong>. The expression of policy gradient is shown below</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\nabla_{\theta}J(\theta) &\approx \sum\limits_{i} \left( \sum\limits_{t=1}^{T} \nabla_{\theta}\log \pi_{\theta} (\boldsymbol a_{t}^{i} | \boldsymbol s_{t}^{i}) \left( {\color{red}\sum\limits_{t'=t}^{T} r(\boldsymbol s_{t'}^{i}, \boldsymbol a_{t'}^{i}) }
+\right) \right) \\
+
+&\approx \frac{1}{N}\sum\limits_{i=1}^{N} \sum\limits_{t=1}^{T} \nabla_{\theta} \log \pi_{\theta} (\boldsymbol a_{t}^{i} | \boldsymbol s_{t}^{i}) \color{red}\hat{Q}_{i,t}^{\pi}
+\end{align} \tag{1.1}</script><p>in which $\hat{Q}<em>{i,t}^\pi$ is the <em>estimate of expected future reward</em> given action $\boldsymbol a</em>{i,t}$ and $\boldsymbol s<em>{i,t}$. As $\hat{Q}</em>{i,t}^{\pi}$ refers to s sum of returns of future events of one track, <strong>the variance of this term is high</strong>.</p>
+<p>Recall that the TRUE expected reward to go is shown as follows</p>
+<script type="math/tex; mode=display">
+Q(\boldsymbol s_{t}, \boldsymbol a_{t}) = \sum\limits_{t=t'}^{T} \mathbb{E}_{\pi_{\theta}} \left[ r(\boldsymbol s_{t'}, \boldsymbol a_{t'}) | \boldsymbol s_{t}, \boldsymbol a_{t}\right].
+\tag{1.2}</script><p>we can see that the difference of $Q$ and $\hat{Q}$ is whether we consider a result from one trajectory as the estimate of expected return, as picture shown below, and the expected term significantly reduces the variation.<br>![[attachments/Pasted image 20230711133056.png|200]]<br>Thus we can replace the one-trajectory term to the (numerical) expectation</p>
+<script type="math/tex; mode=display">
+\nabla_{\theta}J(\theta) &\approx \frac{1}{N}\sum\limits_{i=1}^{N} \sum\limits_{t=1}^{T} \nabla_{\theta} \log \pi_{\theta} 
+(\boldsymbol a_{t}^{i} | \boldsymbol s_{t}^{i}) \color{red} Q_{i,t}^{\pi} \tag{1.3}</script><h3 id="1-2-Baselines"><a href="#1-2-Baselines" class="headerlink" title="1.2 Baselines"></a>1.2 Baselines</h3><p>Recall that we introduced <em>baseline</em> into policy gradient algorithm with an aim to reduce the variance of term $r(\tau)$, in which $\tau$ is a sampled trajectory. Furthermore, we have shown that <strong>rewards with baseline offers us an unbiased estimate of policy gradient</strong>:</p>
+<script type="math/tex; mode=display">
+\mathbb{E}\left[ \nabla_{\theta}\log p_{\theta}(\tau)\cdot b \right] = \int p_{\theta}(\tau)\nabla_{\theta}\log p_{\theta}(\tau)\cdot b \, \mathrm d\tau = b\cdot\nabla_{\theta}\int p_{\theta}(\tau) \, \mathrm d\tau = 0  .\tag{1.4}</script><p>By analyzing the variance of the policy gradient with baseline $b$, we obtain that the optimal baseline that minimizes the variance is the weighted sum of expected rewards:</p>
+<script type="math/tex; mode=display">
+b^{*} = \frac{\mathbb{E}[g(\tau)^{2}r(\tau)]}{\mathbb{E}[g(\tau)^{2}]}\tag{1.5}</script><p>in which $g(\cdot)$ denotes the gradient.</p>
+<h3 id="1-3-State-amp-state-action-value-functions"><a href="#1-3-State-amp-state-action-value-functions" class="headerlink" title="1.3 State &amp; state-action value functions"></a>1.3 State &amp; state-action value functions</h3><p>Consider the <strong>advantage function</strong></p>
+<script type="math/tex; mode=display">A(\boldsymbol s_{t}, \boldsymbol a_{t}) = Q(\boldsymbol s_{t}, \boldsymbol a_{t}) - V(\boldsymbol s_{t})\tag{1.6}</script><p>as the substitute for the reward function $r()$ and $V(\boldsymbol s_{t})$ is the average of $Q$ functinos over all possible state-action pairs</p>
+<h1 id="FIX"><a href="#FIX" class="headerlink" title="FIX"></a>FIX</h1><script type="math/tex; mode=display">
+V(\boldsymbol s) = \mathbb{E}_{a \in \mathscr{A}} \left[ Q(\boldsymbol s_{t}, \boldsymbol a_{t})\pi(\boldsymbol a_{t}|\boldsymbol s_{t}) \right] \tag{1.7}</script><p>&gt;</p>
+<blockquote>
+<ul>
+<li>$Q^{\pi}(\boldsymbol s<em>{t}, \boldsymbol a</em>{t})$ — total reward from taking $\boldsymbol a<em>{t}$ in $\boldsymbol s</em>{t}$</li>
+<li>$V^{\pi}(\boldsymbol s<em>{t})$ — total reward from $\boldsymbol s</em>{t}$</li>
+<li>$A^{\pi}(\boldsymbol s<em>{t}, \boldsymbol a</em>{t})$ — discribes how much better $\boldsymbol a_{t}$ is</li>
+</ul>
+</blockquote>
+<h3 id="1-4-Fitting-advantage-with-value-functions"><a href="#1-4-Fitting-advantage-with-value-functions" class="headerlink" title="1.4 Fitting advantage with value functions"></a>1.4 Fitting advantage with value functions</h3><p>![[attachments/Pasted image 20230711155034.png|300]]<br>By the definition of advantage, $Q$ functions and $V$ functions, we can express the advantage with immediate reward and $V$ functions:</p>
+<script type="math/tex; mode=display">A^{\pi}(\boldsymbol s_{t}, \boldsymbol a_{t}) \approx r(\boldsymbol s_{t}, \boldsymbol a_{t}) + V^{\pi}(\boldsymbol s_{t+1}) - V^{\pi}(\boldsymbol s_{t}).\tag{1.8}</script><h3 id="1-5-Policy-Evaluation"><a href="#1-5-Policy-Evaluation" class="headerlink" title="1.5 Policy Evaluation"></a>1.5 Policy Evaluation</h3><p>We should evaluate the performance of policy $\pi$ before improving it, we usually use value function $V(\cdot)$ to achieve the goal:</p>
+<script type="math/tex; mode=display">
+J(\theta) = \mathbb{E}_{\boldsymbol s_{1}\sim p(\boldsymbol s_{1})} [V^{\pi}(s_{1})].\tag{1.9}</script><p>Since we cannot precisely “compute” the mathematical expectation in practice, we consider calculate the unbiased estmiation of $V^{\pi}$</p>
+<script type="math/tex; mode=display">
+V^{\pi}(\boldsymbol s_{t}) \approx \frac{1}{N} \sum\limits_{i=1}^{N} \sum\limits_{t'=t}^{T} r(\boldsymbol s_{t'}, \boldsymbol a_{t'})\tag{1.10}</script><blockquote>
+<p>Note that $(1.10)$ requires the sampled trajectories to have the same start point, which means we should reset the simulator each time we finish an episode.</p>
+</blockquote>
+<h3 id="1-6-MC-evaluation-with-funcion-approximation"><a href="#1-6-MC-evaluation-with-funcion-approximation" class="headerlink" title="1.6 MC evaluation with funcion approximation"></a>1.6 MC evaluation with funcion approximation</h3><p>![[attachments/Pasted image 20230711204317.png|300]]</p>
+<p>Instead of applying the aforementioned approach, consider using a neural network parametrized by $\boldsymbol\phi$ that takes in state<br>$\boldsymbol s<em>{t}$ and estimates the value $\hat{V}^{\pi}$ of the state. Then the evaluation problem has been transformed into an deep<br>learning task, where the states and reward pairs<br>$\left{ \left( \boldsymbol s</em>{i,t}, \sum\limits<em>{t’=t}^{T} r(\boldsymbol s</em>{i,t’}, \boldsymbol a<em>{i,t’}) \right) \right}$ is considered<br>as training data. As the neural network can be treated as a continuous map from state space<br>$\mathscr{S}=\mathbb{R}^{n</em>{s}}$ into $\mathbb{R}$, <strong>nearby states are expected to have similar outputs</strong>.</p>
+<p>Thus we can train the so-called “critic” network to learn how to judge whether a state is good or not by simply applying supervised regression</p>
+<script type="math/tex; mode=display">
+\mathcal{L}(\boldsymbol \phi) = \frac{1}{2}\sum\limits_{i} \left\| V^{\pi}_{\boldsymbol \phi}(\boldsymbol s_{i}) - y_{i} \right\|^{2} \tag{1.11}</script><h3 id="1-7-Further-improvements"><a href="#1-7-Further-improvements" class="headerlink" title="1.7 Further improvements"></a>1.7 Further improvements</h3><p>Consider the <em>bootstrap</em> trick, we rewrite the ideal target as follows</p>
+<script type="math/tex; mode=display">
+y_{i,t} = \sum\limits_{t'=t}^{T} \mathbb{E}_{\pi_{\boldsymbol \theta}}[r(\boldsymbol s_{t'}, \boldsymbol a_{t'})] \approx r(\boldsymbol s_{i,t}, \boldsymbol a_{i,t})+V^{\pi}(\boldsymbol s_{i,t+1}) \approx r(\boldsymbol s_{i,t}, \boldsymbol a_{i,t})+
+{\color{red}\hat{V}^{\pi}_{\boldsymbol \phi}(\boldsymbol s_{i,t+1}) }\tag{1.12}</script><p>we can regress the value function iteratively, this method have <strong>lower variance yet higher bias</strong>.</p>
+<h3 id="1-8-Examples-of-policy-examples"><a href="#1-8-Examples-of-policy-examples" class="headerlink" title="1.8 Examples of policy examples"></a>1.8 Examples of policy examples</h3><p>![[attachments/Pasted image 20230711210402.png|500]]</p>
+<h2 id="2-Actor-Critic"><a href="#2-Actor-Critic" class="headerlink" title="2 Actor-Critic"></a>2 Actor-Critic</h2><h3 id="2-1-Actor-critic-algorithm"><a href="#2-1-Actor-critic-algorithm" class="headerlink" title="2.1 Actor-critic algorithm"></a>2.1 Actor-critic algorithm</h3><hr>
+<p><strong>Batch actor-critic algorithm</strong></p>
+<hr>
+<p>repeat the following process until convergence:</p>
+<ol>
+<li>Sample ${\boldsymbol s<em>{i}, \boldsymbol a</em>{t}}$ from $\pi_{\boldsymbol\theta}(\boldsymbol a|\boldsymbol s)$ on a robot</li>
+<li>Fit $V^{\pi}_{\boldsymbol\phi}(\boldsymbol s)$</li>
+<li>Evaluate $A^{\pi}(\boldsymbol s<em>{i}, \boldsymbol a</em>{i}) = r(\boldsymbol s<em>{i}, \boldsymbol a</em>{i}) + \hat{V}^{\pi}(\boldsymbol s<em>{i}’) - \hat{V}^{\pi}(\boldsymbol s</em>{i})$</li>
+<li>Calculate policy gradient $\nabla_{\boldsymbol\theta} J(\boldsymbol\theta)$</li>
+<li>Update policy $\boldsymbol\theta \leftarrow \boldsymbol\theta + \alpha \nabla_{\boldsymbol\theta}J(\boldsymbol\theta)$</li>
+</ol>
+<hr>
+<h3 id="2-2-Discount-factors"><a href="#2-2-Discount-factors" class="headerlink" title="2.2 Discount factors"></a>2.2 Discount factors</h3><p>![[attachments/Pasted image 20230711211210.png|400]]<br>Consider the cases that run to infinite timesteps (as shown in the figure above) we apply an discount factor to restrict the value function of an episode to a finite real value</p>
+<script type="math/tex; mode=display">
+y_{i,t} \approx r(\boldsymbol s_{i,t}, \boldsymbol a_{i,t}) + {\color{red}\gamma}\hat{V}^{\pi}_{\boldsymbol \phi}(\boldsymbol s_{i,t+1}) < \infty\tag{1.13}</script><blockquote>
+<p>Note that $r(\cdot, \cdot)$ is bounded by some $M \in \mathbb{R}<em>{+}$, we have $$\sum\limits</em>{t=1}^{\infty} |r(\boldsymbol s<em>{t}, \boldsymbol a</em>{t})|\gamma^{t-1} \leqslant M’\tag{1.14}$$for some $M’&gt;0$.</p>
+</blockquote>
+<p>Applying the discount factor into policy gradient we get</p>
+<script type="math/tex; mode=display">
+\nabla_{\theta}J(\theta)
+\approx \frac{1}{N}\sum\limits_{i=1}^{N} \sum\limits_{t=1}^{T} \nabla_{\theta} \log \pi_{\theta} (\boldsymbol a_{t}^{i} | \boldsymbol s_{t}^{i}) 
+\left( r(\boldsymbol s_{i,t}, \boldsymbol a_{i,t}) + \gamma \hat{V}^{\pi}_{\boldsymbol \phi}(s_{i,t+1}) - \hat{V}^{\pi}_{\boldsymbol \phi}(\boldsymbol s_{i,t}) \right) 
+\tag{1.3}</script><p>Similarly, the Monte Carlo policy gradients changes to</p>
+<script type="math/tex; mode=display">
+\nabla_{\theta}J(\theta)
+\approx \frac{1}{N}\sum\limits_{i=1}^{N} \sum\limits_{t=1}^{T} \nabla_{\theta} \log \pi_{\theta} (\boldsymbol a_{t}^{i} | \boldsymbol s_{t}^{i}) 
+
+\left( 
+\sum\limits_{t=t'}^{T} \gamma^{\color{red}t'-t} r(\boldsymbol s_{i, t'}, \boldsymbol a_{i, t'})
+\right) 
+\tag{1.3}</script><h3 id="2-3-Online-actor-critic-algorithms-with-discount"><a href="#2-3-Online-actor-critic-algorithms-with-discount" class="headerlink" title="2.3 Online actor-critic algorithms with discount"></a>2.3 Online actor-critic algorithms with discount</h3><hr>
+<p><strong>Online actor-critic algorithm with discount</strong></p>
+<hr>
+<p>repeat the following process until convergence:</p>
+<ol>
+<li>Take action $\boldsymbol a \sim\pi_{\boldsymbol\theta}(\boldsymbol a|\boldsymbol s)$ and get $(\boldsymbol s, \boldsymbol a, \boldsymbol s’, r)$</li>
+<li>Update $V^{\pi}<em>{\boldsymbol\phi}(\boldsymbol s)$ using target $r + \hat{V}^{\pi}</em>{\boldsymbol\phi}(\boldsymbol s’)$</li>
+<li>Evaluate $A^{\pi}(\boldsymbol s<em>{i}, \boldsymbol a</em>{i}) = r(\boldsymbol s<em>{i}, \boldsymbol a</em>{i}) + \hat{V}^{\pi}(\boldsymbol s<em>{i}’) - \hat{V}^{\pi}(\boldsymbol s</em>{i})$</li>
+<li>Calculate policy gradient $\nabla_{\boldsymbol\theta} J(\boldsymbol\theta)$</li>
+<li>Update policy $\boldsymbol\theta \leftarrow \boldsymbol\theta + \alpha \nabla_{\boldsymbol\theta}J(\boldsymbol\theta)$</li>
+</ol>
+<hr>
+<h2 id="3-Actor-Critic-Design-Decisions"><a href="#3-Actor-Critic-Design-Decisions" class="headerlink" title="3 Actor-Critic Design Decisions"></a>3 Actor-Critic Design Decisions</h2><h3 id="3-1-Architecture"><a href="#3-1-Architecture" class="headerlink" title="3.1 Architecture"></a>3.1 Architecture</h3><p>![[attachments/Pasted image 20230711213208.png|250]]![[attachments/Pasted image 20230711213219.png|250]]<br>![[attachments/Pasted image 20230711213340.png|400]]</p>
+<ul>
+<li>Shared backbone and different heads</li>
+<li>Flow models that controls the correlation of network parameters</li>
+</ul>
+<h3 id="3-2-Online-actor-critic-in-practice"><a href="#3-2-Online-actor-critic-in-practice" class="headerlink" title="3.2 Online actor-critic in practice"></a>3.2 Online actor-critic in practice</h3><p>![[attachments/Pasted image 20230711213452.png|500]]<br>![[attachments/Pasted image 20230711213535.png|300]]</p>
+<h3 id="3-3-Fixing-the-value-function"><a href="#3-3-Fixing-the-value-function" class="headerlink" title="3.3 Fixing the value function"></a>3.3 Fixing the value function</h3><p>Examine the following algorithm</p>
+<hr>
+<p><strong>Broken actor-critic algorithm</strong></p>
+<hr>
+<p>repeat the following process until convergence:</p>
+<ol>
+<li>Take action $\boldsymbol a \sim\pi_{\boldsymbol\theta}(\boldsymbol a|\boldsymbol s)$ and get $(\boldsymbol s, \boldsymbol a, \boldsymbol s’, r)$ before store in replay buffer $\mathcal{R}$</li>
+<li>Sample a batch $(\boldsymbol s, \boldsymbol a, \boldsymbol s’, r)$ from $\mathcal{R}$</li>
+<li>—&gt; Update $V^{\pi}<em>{\boldsymbol\phi}(\boldsymbol s)$ using target $r + \hat{V}^{\pi}</em>{\boldsymbol\phi}(\boldsymbol s’)$</li>
+<li>Evaluate $A^{\pi}(\boldsymbol s<em>{i}, \boldsymbol a</em>{i}) = r(\boldsymbol s<em>{i}, \boldsymbol a</em>{i}) + \hat{V}^{\pi}(\boldsymbol s<em>{i}’) - \hat{V}^{\pi}(\boldsymbol s</em>{i})$</li>
+<li>—&gt; Calculate policy gradient $\nabla<em>{\boldsymbol\theta} J(\boldsymbol\theta)\approx \frac{1}{N}\sum\limits</em>{i}\nabla<em>{\boldsymbol\theta} \log \pi</em>{\boldsymbol\theta}(\boldsymbol a<em>{i}|\boldsymbol s</em>{i})\hat{A}^{\pi}$</li>
+<li>Update policy $\boldsymbol\theta \leftarrow \boldsymbol\theta + \alpha \nabla_{\boldsymbol\theta}J(\boldsymbol\theta)$</li>
+</ol>
+<hr>
+<h3 id="3-4-Fixing-the-policy-update"><a href="#3-4-Fixing-the-policy-update" class="headerlink" title="3.4 Fixing the policy update"></a>3.4 Fixing the policy update</h3><h3 id="3-5-Further-improvements"><a href="#3-5-Further-improvements" class="headerlink" title="3.5 Further improvements"></a>3.5 Further improvements</h3><h3 id="3-6-Implementation-details"><a href="#3-6-Implementation-details" class="headerlink" title="3.6 Implementation details"></a>3.6 Implementation details</h3><h2 id="4-Critics-as-Baselines"><a href="#4-Critics-as-Baselines" class="headerlink" title="4 Critics as Baselines"></a>4 Critics as Baselines</h2><h3 id="4-1-Critics-as-state-dependent-baselines"><a href="#4-1-Critics-as-state-dependent-baselines" class="headerlink" title="4.1 Critics as state-dependent baselines"></a>4.1 Critics as state-dependent baselines</h3><h3 id="4-2-Action-dependent-baselines"><a href="#4-2-Action-dependent-baselines" class="headerlink" title="4.2 Action-dependent baselines"></a>4.2 Action-dependent baselines</h3><h3 id="4-3-Eligibility-traces-amp-n-step-returns"><a href="#4-3-Eligibility-traces-amp-n-step-returns" class="headerlink" title="4.3 Eligibility traces &amp; n-step returns"></a>4.3 Eligibility traces &amp; n-step returns</h3><h3 id="4-4-Generalized-advantage-estimation"><a href="#4-4-Generalized-advantage-estimation" class="headerlink" title="4.4 Generalized advantage estimation"></a>4.4 Generalized advantage estimation</h3><h2 id="5-Reviews-Examples-and-Additional-Readings"><a href="#5-Reviews-Examples-and-Additional-Readings" class="headerlink" title="5 Reviews, Examples and Additional Readings"></a>5 Reviews, Examples and Additional Readings</h2><h3 id="5-1-Review"><a href="#5-1-Review" class="headerlink" title="5.1 Review"></a>5.1 Review</h3><h3 id="5-2-Actor-critic-examples"><a href="#5-2-Actor-critic-examples" class="headerlink" title="5.2 Actor-critic examples"></a>5.2 Actor-critic examples</h3><h3 id="5-3-Suggested-readings"><a href="#5-3-Suggested-readings" class="headerlink" title="5.3 Suggested readings"></a>5.3 Suggested readings</h3><h2 id="6-Reflections-and-Questions"><a href="#6-Reflections-and-Questions" class="headerlink" title="6 Reflections and Questions"></a>6 Reflections and Questions</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/07/17/2023/07/2023-07-17-DRL-6-Actor-Critic/">https://hrjtju.github.io/2023/07/17/2023/07/2023-07-17-DRL-6-Actor-Critic/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a></div><div class="post_share"><div class="social-share" data-image="/img/2023/headers/drl.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/07/17/2023/09/2023-08-10-DRL-8/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【UCBerkley DRL】 7 Value Functions</div></div></a></div><div class="next-post pull-right"><a href="/2023/07/17/2023/09/2023-08-10-DRL-9/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【UCBerkley DRL】 7 Value Functions</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/08/10/2022/2022-08-10-SimpleRL-Simple-Reinforcement-Learning-with-Tensorflow-Part-1.5-Contextual-Bandits/" title="【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits"><img class="cover" src="/img/2022-08-10/image-20220810092416819.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-10</div><div class="title">【转载】Simple Reinforcement Learning with Tensorflow Part 1.5 Contextual Bandits</div></div></a></div><div><a href="/2022/08/13/2022/2022-08-13-1-The-k-armed-bandit-problem/" title="1 The k-armed bandit problem, k臂赌博机"><img class="cover" src="/img/2016-11-19/abstract-5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-13</div><div class="title">1 The k-armed bandit problem, k臂赌博机</div></div></a></div><div><a href="/2023/07/17/2023/09/2023-08-10-DRL-8/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-17</div><div class="title">【UCBerkley DRL】 7 Value Functions</div></div></a></div><div><a href="/2023/07/17/2023/09/2023-08-10-DRL-9/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-17</div><div class="title">【UCBerkley DRL】 7 Value Functions</div></div></a></div><div><a href="/2023/07/17/2023/08/2023-08-10-DRL-7-Value-Functions/" title="【UCBerkley DRL】 7 Value Functions"><img class="cover" src="/img/2023/headers/drl.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-17</div><div class="title">【UCBerkley DRL】 7 Value Functions</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lecture-6-Actor-Critic"><span class="toc-text">Lecture 6 Actor-Critic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Recap-Policy-Gradients"><span class="toc-text">1 Recap: Policy Gradients</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Policy-gradients"><span class="toc-text">1.1 Policy gradients</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Baselines"><span class="toc-text">1.2 Baselines</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-State-amp-state-action-value-functions"><span class="toc-text">1.3 State &amp; state-action value functions</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FIX"><span class="toc-text">FIX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Fitting-advantage-with-value-functions"><span class="toc-text">1.4 Fitting advantage with value functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-Policy-Evaluation"><span class="toc-text">1.5 Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-MC-evaluation-with-funcion-approximation"><span class="toc-text">1.6 MC evaluation with funcion approximation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-Further-improvements"><span class="toc-text">1.7 Further improvements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8-Examples-of-policy-examples"><span class="toc-text">1.8 Examples of policy examples</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Actor-Critic"><span class="toc-text">2 Actor-Critic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Actor-critic-algorithm"><span class="toc-text">2.1 Actor-critic algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Discount-factors"><span class="toc-text">2.2 Discount factors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Online-actor-critic-algorithms-with-discount"><span class="toc-text">2.3 Online actor-critic algorithms with discount</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Actor-Critic-Design-Decisions"><span class="toc-text">3 Actor-Critic Design Decisions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Architecture"><span class="toc-text">3.1 Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Online-actor-critic-in-practice"><span class="toc-text">3.2 Online actor-critic in practice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Fixing-the-value-function"><span class="toc-text">3.3 Fixing the value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Fixing-the-policy-update"><span class="toc-text">3.4 Fixing the policy update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Further-improvements"><span class="toc-text">3.5 Further improvements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Implementation-details"><span class="toc-text">3.6 Implementation details</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Critics-as-Baselines"><span class="toc-text">4 Critics as Baselines</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Critics-as-state-dependent-baselines"><span class="toc-text">4.1 Critics as state-dependent baselines</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Action-dependent-baselines"><span class="toc-text">4.2 Action-dependent baselines</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Eligibility-traces-amp-n-step-returns"><span class="toc-text">4.3 Eligibility traces &amp; n-step returns</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Generalized-advantage-estimation"><span class="toc-text">4.4 Generalized advantage estimation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Reviews-Examples-and-Additional-Readings"><span class="toc-text">5 Reviews, Examples and Additional Readings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Review"><span class="toc-text">5.1 Review</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Actor-critic-examples"><span class="toc-text">5.2 Actor-critic examples</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Suggested-readings"><span class="toc-text">5.3 Suggested readings</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Reflections-and-Questions"><span class="toc-text">6 Reflections and Questions</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

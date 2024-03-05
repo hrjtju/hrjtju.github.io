@@ -1,0 +1,362 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【Modern Robotics】1 位形空间 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="《现代机器人学》学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Modern Robotics】1 位形空间">
+<meta property="og:url" content="https://hrjtju.github.io/2023/10/20/2023/10/2023-10-20-Robotics-1/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="《现代机器人学》学习笔记">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/robotics.png">
+<meta property="article:published_time" content="2023-10-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-20T16:07:01.673Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Robotics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/robotics.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/10/20/2023/10/2023-10-20-Robotics-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Modern Robotics】1 位形空间',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-21 00:07:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/robotics.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Modern Robotics】1 位形空间</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-19T16:00:00.000Z" title="Created 2023-10-20 00:00:00">2023-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-10-20T16:07:01.673Z" title="Updated 2023-10-21 00:07:01">2023-10-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/todo/">todo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>5min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Modern Robotics】1 位形空间"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>定义（位形空间）</strong></p>
+<p>机器人的<em>位形</em>是指机器人上的每个点组成的集合。表示机器人位形所需的最少广义坐标数是其<em>自由度</em>。包含所有机器人位形的<script type="math/tex">n</script>维空间成为机器人的<em>位形空间</em>。机器人的位形往往由位形空间种的一个点表示。</p>
+<h2 id="1-刚体的自由度"><a href="#1-刚体的自由度" class="headerlink" title="1 刚体的自由度"></a>1 刚体的自由度</h2><p><strong>刚体</strong><br><em>刚体</em>是一种有限尺寸，忽略形变的物体。在三维空间中，经过刚体变换后刚体上任意两点之间的距离在变换前后保持不变，刚体上的任意角在变换前后大小不变。</p>
+<p><strong>自由度</strong></p>
+<script type="math/tex; mode=display">
+\begin{align}
+系统自由度 &= (点的自由度之和) - (独立约束数)\\
+&= (变量数) - (独立约束方程数)\\
+&= (构件的自由度之和) - (独立约束数)
+\end{align}</script><h2 id="2-机器人的自由度"><a href="#2-机器人的自由度" class="headerlink" title="2 机器人的自由度"></a>2 机器人的自由度</h2><h3 id="2-1-机器人的关节"><a href="#2-1-机器人的关节" class="headerlink" title="2.1 机器人的关节"></a>2.1 机器人的关节</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>关节名</th>
+<th>记号</th>
+<th>自由度</th>
+<th>图示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>转动副</td>
+<td>R (Revolute Joint)</td>
+<td><script type="math/tex">1</script></td>
+<td></td>
+</tr>
+<tr>
+<td>移动副</td>
+<td>P (Prismatic Joint)</td>
+<td><script type="math/tex">1</script></td>
+<td></td>
+</tr>
+<tr>
+<td>螺旋副</td>
+<td>H (Helical Joint)</td>
+<td><script type="math/tex">1</script></td>
+<td></td>
+</tr>
+<tr>
+<td>圆柱副</td>
+<td>C (Cylindrical Joint)</td>
+<td><script type="math/tex">2</script></td>
+<td></td>
+</tr>
+<tr>
+<td>虎克铰 (万向节)</td>
+<td>H (Universal Joint)</td>
+<td><script type="math/tex">2</script></td>
+<td></td>
+</tr>
+<tr>
+<td>球铰</td>
+<td>S (Spherical Joint)</td>
+<td><script type="math/tex">3</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一个关节既可以看做<em>一个刚体为另一刚体提供了自由度</em>，也可看做<em>为两个刚体的运动提供约束</em>。</p>
+<h3 id="2-2-Grubler-公式"><a href="#2-2-Grubler-公式" class="headerlink" title="2.2 Grübler 公式"></a>2.2 Grübler 公式</h3><p><strong>命题 (Grübler’s Formula)</strong><br>对于一个具有<script type="math/tex">n</script>个构件（含有基座）的机构，令<script type="math/tex">J</script>为关节数，<script type="math/tex">m</script>为刚体的自由度数，<script type="math/tex">f_{i}</script>为关节<script type="math/tex">i</script>对应的自由度数，<script type="math/tex">c_{i}</script>为其对应的约束数。显然，对于任意的<script type="math/tex">i</script>，有<script type="math/tex">f_{i} + c_{i} \equiv m</script>。于是刚体的自由度可根据下式计算：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathrm{dof} &= m(N-1) - \sum\limits_{i} c_{i} \\
+&= m(N-1) - \sum\limits_{i} (m-f_{i}) \\
+&= m(N-J-1) + \sum\limits_{i} f_{i} 
+\end{align}</script><p><strong>开链机构 (Open-chain Mechanism)</strong><br>不存在任何闭环的机构</p>
+<p><strong>闭链机构 (Closed-chain Mechanism)</strong><br>存在闭环的机构</p>
+<p><strong>冗余约束和奇异</strong><br>在闭链机构中，有些铰链的约束不具有独立性。此时 Grübler 公式只能给出一个自由度下界。</p>
+<h2 id="3-位形空间的拓扑"><a href="#3-位形空间的拓扑" class="headerlink" title="3 位形空间的拓扑"></a>3 位形空间的拓扑</h2><p><strong>拓扑等价</strong><br>若两个表面可以<em>连续地</em>从一个变化到另一个，则称这两个表面<em>拓扑等价 (Topologically Equivalent)</em>。</p>
+<blockquote>
+<p>在此给出严谨定义。<br><strong>定义 (同胚映射, Homeomorphism)</strong><br>两个拓扑空间<script type="math/tex">(X, \mathcal{T}_{X})</script>，<script type="math/tex">(Y, \mathcal{T}_{Y})</script>之间存在一个映射被称为是<em>同胚映射</em> <script type="math/tex">f:(X, \mathcal{T}_{X}) \rightarrow (Y, \mathcal{T}_{Y})</script>，当且仅当</p>
+<ol>
+<li><script type="math/tex">f</script>是双射</li>
+<li><script type="math/tex">\mathrm{Im}\,f</script>中开集的原像是开集 (<script type="math/tex">f</script>是连续的)</li>
+<li><script type="math/tex">f</script>将开集映射到开集 (<script type="math/tex">f^{-1}</script>也是连续的)</li>
+</ol>
+<p><strong>定义 (同胚, Homeomorphic)</strong><br>两个拓扑空间<script type="math/tex">(X, \mathcal{T}_{X})</script>，<script type="math/tex">(Y, \mathcal{T}_{Y})</script>被称为是<em>同胚</em>的，或<em>拓扑同构 (Topological Isomorphic)</em>，记为<script type="math/tex">X \cong Y</script>；当且仅当存在一个同胚映射<script type="math/tex">f</script>。</p>
+<p>不难验证，同胚是一个等价关系。</p>
+</blockquote>
+<p><strong>典型机构的位形空间拓扑</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>位形空间</th>
+<th>与位形空间同胚的曲面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平面刚体</td>
+<td><script type="math/tex">\mathbb{R}^{2} \times \mathbb{S}^{1}</script></td>
+<td></td>
+</tr>
+<tr>
+<td>移动副</td>
+<td><script type="math/tex">\mathbb{T}^{1}</script></td>
+<td>直线(线段)</td>
+</tr>
+<tr>
+<td>2R机器人(两个转动副)</td>
+<td><script type="math/tex">\mathbb{S}^{1} \times \mathbb{S}^{1} = \mathbb{T}^{2}</script></td>
+<td>甜甜圈面</td>
+</tr>
+<tr>
+<td>PR 机器人（一个移动副，一个转动副）</td>
+<td><script type="math/tex">\mathbb{R}^{1} \times \mathbb{S}^{1}</script></td>
+<td>圆柱面</td>
+</tr>
+<tr>
+<td>虎克铰</td>
+<td><script type="math/tex">\mathbb{S}^{2}</script></td>
+<td>球面</td>
+</tr>
+<tr>
+<td>注意到<script type="math/tex">\mathbb{S}^{1} \times \mathbb{S}^{1} \ne \mathbb{S}^{2}</script>，事实上 <script type="math/tex">\underbrace{\mathbb{S}^{1} \times \mathbb{S}^{1} \times \cdots \mathbb{S}^{1}}_{n个} = \mathbb{T}^{n}</script>。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-2-位形空间的表达"><a href="#3-2-位形空间的表达" class="headerlink" title="3.2 位形空间的表达"></a>3.2 位形空间的表达</h3><p><strong>显式参数化 (Explicit Parametrization)</strong></p>
+<ul>
+<li>用<script type="math/tex">n</script>个参数表示<script type="math/tex">n</script>维空间</li>
+</ul>
+<p><strong>隐式表示 (Implicit Representation)</strong></p>
+<ul>
+<li>将位形空间看做嵌入在高维空间中的低维曲面</li>
+</ul>
+<h2 id="4-位形与速度约束"><a href="#4-位形与速度约束" class="headerlink" title="4 位形与速度约束"></a>4 位形与速度约束</h2><p><strong>完整约束 (可积约束)</strong><br>对于含有单环或多环的机器人，其位形空间可这样表示</p>
+<script type="math/tex; mode=display">
+\boldsymbol g(\boldsymbol \theta) = \left[ \begin{matrix}
+g_{1}(\theta_{1}, \dots, \theta_{n})\\
+\vdots\\
+g_{m}(\theta_{1}, \dots, \theta_{n})
+\end{matrix} \right]  = \boldsymbol 0_{m \times 1}</script><p>其中<script type="math/tex">g_i</script>互相独立，<script type="math/tex">\boldsymbol \theta \in \mathbb{R}^{n}</script>。这被称为<em>完整约束</em>。</p>
+<p><strong>Pfaffman 约束</strong><br>考虑将上式关于时间取微分，得到</p>
+<script type="math/tex; mode=display">
+\nabla \boldsymbol g(\boldsymbol \theta) = A(\boldsymbol \theta)\boldsymbol \theta = \boldsymbol 0_{m \times 1}</script><p>可以认为<script type="math/tex">A(\theta)</script>是<script type="math/tex">\boldsymbol g(\boldsymbol \theta)</script>的积分，于是完整约束又称为可积约束。</p>
+<p><strong>非完整约束</strong><br>另一类 Pfaffman 约束不具备上述的良好性质，考虑半径为<script type="math/tex">r</script>，在平面上做无滑动滚动的直立硬币。可用四个参数描述其位形：位置坐标<script type="math/tex">(x, y)</script>，行进角<script type="math/tex">\phi</script>和转动角<script type="math/tex">\theta</script>。于是其行进方向为</p>
+<script type="math/tex; mode=display">
+\left[\begin{matrix}
+ \dot{x} \\ \dot{y} 
+\end{matrix}\right] 
+= r \dot{\theta} \left[ \begin{matrix}
+\cos \phi\\ \sin \phi
+\end{matrix} \right]</script><p>于是 Pfaffman 约束可以写为</p>
+<script type="math/tex; mode=display">
+\left[ \begin{matrix}
+1 & 0 & 0 & -r \dot{\theta} \cos \phi\\
+0 & 1 & 0 & -r \dot{\theta} \sin \phi
+\end{matrix} \right] 
+\left[ \begin{matrix}
+\dot{x}\\ \dot{y}\\\dot{\theta} \\ \dot{\phi}
+\end{matrix} \right] = \boldsymbol 0_{2 \times 1}</script><p>显然不存在这样的<script type="math/tex">\boldsymbol g</script>满足条件。不可积的 Pfaffman 约束也称为非完整约束。<strong>这类约束虽然可以减少系统速度的维数，但无法减少位形空间的维数</strong>，在本例中，硬币依然可以到达四维位形空间的任意一点。</p>
+<h2 id="5-任务空间和工作空间"><a href="#5-任务空间和工作空间" class="headerlink" title="5 任务空间和工作空间"></a>5 任务空间和工作空间</h2><p><strong>任务空间 (Task Space)</strong><br>机器人任务能够自然表达的空间。如黑板</p>
+<p><strong>工作空间 (Workspace)</strong><br>机器人末端执行器能到达的所有位形。具有不同位形空间的机器人可能具有相同的工作空间；相同位形空间的机器人也可能有不同的工作空间。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>Kevin M. Lynch, Frank C. Park. Modern Robotics: Mechanics, Planning and Control</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/388092299">https://zhuanlan.zhihu.com/p/388092299</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/10/20/2023/10/2023-10-20-Robotics-1/">https://hrjtju.github.io/2023/10/20/2023/10/2023-10-20-Robotics-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Robotics/">Robotics</a></div><div class="post_share"><div class="social-share" data-image="/img/header/robotics.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/10/25/2023/10/2023-10-25-SW-AI4Math/" title="【集智|AI4Math读书会】Talk 3 利用强化学习改进Buchberger算法"><img class="cover" src="/img/header/CAG.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【集智|AI4Math读书会】Talk 3 利用强化学习改进Buchberger算法</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/10/2023/10/2023-10-11-CompAlg-1.md/" title="【计算机代数入门】1 大整数的表示和基本运算"><img class="cover" src="/img/header/CompAlg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【计算机代数入门】1 大整数的表示和基本运算</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%9A%E4%BD%93%E7%9A%84%E8%87%AA%E7%94%B1%E5%BA%A6"><span class="toc-text">1 刚体的自由度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%87%AA%E7%94%B1%E5%BA%A6"><span class="toc-text">2 机器人的自由度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E5%85%B3%E8%8A%82"><span class="toc-text">2.1 机器人的关节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Grubler-%E5%85%AC%E5%BC%8F"><span class="toc-text">2.2 Grübler 公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%8D%E5%BD%A2%E7%A9%BA%E9%97%B4%E7%9A%84%E6%8B%93%E6%89%91"><span class="toc-text">3 位形空间的拓扑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BD%8D%E5%BD%A2%E7%A9%BA%E9%97%B4%E7%9A%84%E8%A1%A8%E8%BE%BE"><span class="toc-text">3.2 位形空间的表达</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BD%8D%E5%BD%A2%E4%B8%8E%E9%80%9F%E5%BA%A6%E7%BA%A6%E6%9D%9F"><span class="toc-text">4 位形与速度约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BB%BB%E5%8A%A1%E7%A9%BA%E9%97%B4%E5%92%8C%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-text">5 任务空间和工作空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

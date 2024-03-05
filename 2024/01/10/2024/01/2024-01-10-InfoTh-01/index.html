@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【Information Theory】1 Entropy | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="参考上海交通大学程帆老师的信息论课程记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Information Theory】1 Entropy">
+<meta property="og:url" content="https://hrjtju.github.io/2024/01/10/2024/01/2024-01-10-InfoTh-01/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="参考上海交通大学程帆老师的信息论课程记录">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/InfoTh.png">
+<meta property="article:published_time" content="2024-01-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-10T05:24:42.966Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Information Thepry">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/InfoTh.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2024/01/10/2024/01/2024-01-10-InfoTh-01/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Information Theory】1 Entropy',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-10 13:24:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/InfoTh.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Information Theory】1 Entropy</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-09T16:00:00.000Z" title="Created 2024-01-10 00:00:00">2024-01-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-10T05:24:42.966Z" title="Updated 2024-01-10 13:24:42">2024-01-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>7min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Information Theory】1 Entropy"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-Entropy"><a href="#1-Entropy" class="headerlink" title="1 Entropy"></a>1 Entropy</h2><h3 id="1-1-Brief-history"><a href="#1-1-Brief-history" class="headerlink" title="1.1 Brief history"></a>1.1 Brief history</h3><ul>
+<li>有些系统的演化方向是惟一的</li>
+<li>Boltzmann熵公式</li>
+<li>从宏观视角描述围观</li>
+<li>Shannon：使用“熵“这一概念的优势</li>
+<li>信息的不确定性难以从直观上进行解释</li>
+<li>冯诺依曼熵</li>
+<li>量子信息</li>
+</ul>
+<h2 id="1-2-Definition"><a href="#1-2-Definition" class="headerlink" title="1.2 Definition"></a>1.2 Definition</h2><ul>
+<li>Let $X$ be a discrete random variable with alphabet $\mathcal{X}$ and <em>probability mass function</em> $p(x) = \Pr(X = x), x \in \mathcal{X}$</li>
+<li>For <em>convenience</em>, denote p.m.f. by $p(x)$ rather than $P_{X}(x)$, thus $p(x)$ and $p(y)$ are two different p.m.f.s</li>
+</ul>
+<blockquote>
+<p><strong>Definition</strong> (Entropy)</p>
+<p>The entropy of $X$ is defined by</p>
+<script type="math/tex; mode=display">
+H(X) := -\sum\limits_{x \in \mathcal{X}} p(x) \log p(x),</script><p>which is a measure of the <em>uncertainty</em> of a random variable.</p>
+</blockquote>
+<ul>
+<li>$0\log 0 \rightarrow 0$</li>
+<li>$H(x)$ only depends on $p(x)$. We also write $H(p)$ for $H(X)$</li>
+<li>$H(X) \geqslant 0$</li>
+<li>When $X$ is uniform over $\mathcal{X}$, then $H(X) = \log |\mathcal{X}|$</li>
+<li>$H<em>{b}(X) = \log</em>{b} aH_{a}(X)$<ul>
+<li>in which $a$ and $b$ denotes the base of the logarithm in the definition</li>
+<li>If $b = e$, the entropy is measured by <em>nats</em></li>
+<li>Otherwise, it is measured by <em>bits</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-Examples"><a href="#1-3-Examples" class="headerlink" title="1.3 Examples"></a>1.3 Examples</h3><ul>
+<li><p>Binary entropy function $H(p)$: $$H(p) = \begin{cases} 1, &amp; \text{with probability }p\ 0, &amp;\text{otherwise} \end{cases} $$$H(p)$ is <em>concave</em> and <em>symmetric</em> with $p$</p>
+</li>
+<li><p>We denote expectation by $\mathbb{E}$. If $X \sim p(x)$, the expected value of the random variable $g(X)$ is written as</p>
+<script type="math/tex; mode=display">
+\begin{align} \mathbb{E}_{p}[g(X)] &= \sum\limits_{x \in \mathcal{X}} g(x)p(x)\\ H(X) &= \mathbb{E}_{p}\left[ \log \frac{1}{p(X)} \right]  \end{align}</script></li>
+</ul>
+<h3 id="1-4-Properties"><a href="#1-4-Properties" class="headerlink" title="1.4 Properties"></a>1.4 Properties</h3><blockquote>
+<p><strong>Claim</strong> (<em>Uniform distribution maximises discrete entropy</em>)</p>
+<p>For a discrete random variable $X$ defined on $\mathcal{X}$, <script type="math/tex">0 \leqslant H(X) \leqslant \log |\mathcal{X}|.</script></p>
+<hr>
+<p>Proof.</p>
+<p>(1)</p>
+<p>when $0 \leqslant x \leqslant 1$, $-x\log x \geqslant 0$, $x\log x = 0$ iff $x = 0$ or $x = 1.$</p>
+<p>By definition, we need to prove <script type="math/tex">\sum\limits_{x \in \mathcal{X}} p(x)\log p(x) \leqslant \log |\mathcal{X}|.</script></p>
+<p>Notice that $-x\log x$ is concave on $[0, 1]$, we have </p>
+<script type="math/tex; mode=display">
+\begin{align}-\frac{1}{|\mathcal{X}|}\sum\limits_{x \in \mathcal{X}} p(x) \log p(x) &= \sum\limits_{x \in \mathcal{X}} \frac{1}{|\mathcal{X}|} \cdot \left( -p(x) \log p(x) \right)\\ &\leqslant - \frac{\sum_{x} p(x) }{|\mathcal{X}|} \log \left( \frac{\sum_{x} p(x) }{|\mathcal{X}|}  \right) = \frac{1}{|\mathcal{X}|} \log |\mathcal{X}| \end{align}</script></blockquote>
+<h3 id="1-5-General-Road-map"><a href="#1-5-General-Road-map" class="headerlink" title="1.5 General Road-map"></a>1.5 General Road-map</h3><ul>
+<li>Entropy determined by probability distributions only, and the alphabet is not involved</li>
+<li>For a set of random variables $X<em>{1}, X</em>{2}, \dots, X<em>{n}$ with joint probability distribution $p(x</em>{1}, x<em>{2}, \dots, x</em>{n}$<ul>
+<li>Joint distribution: $p(x<em>{i}, x</em>{j})$</li>
+<li>Conditional distribution: $p(x_{i} | \dots)$</li>
+</ul>
+</li>
+<li>Basic law of probability theory<ul>
+<li>Chain rule: $p(x<em>{1}, x</em>{2}, \dots, x<em>{n}) = p(x</em>{n})p(x<em>{n-1}|x</em>{n})p(x<em>{n-2}|x</em>{n-1}, x_{n}) \cdots~$</li>
+<li>Bayesian rule</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-6-Joint-Entropy"><a href="#1-6-Joint-Entropy" class="headerlink" title="1.6 Joint Entropy"></a>1.6 Joint Entropy</h3><ul>
+<li>Two random variables $X$ and $Y$ can be considered to be <em>a single vector-valued random variable</em></li>
+<li>Entropy is defined on probability</li>
+</ul>
+<blockquote>
+<p><strong>Definition</strong> (Joint probability)</p>
+<p>The joint probability $H(X, Y)$ of a pair of discrete random variables $(X, Y)$ with joint distribution $p(x, y)$ is defined as </p>
+<script type="math/tex; mode=display">
+H(X, Y) := -\sum\limits_{x \in \mathcal{X}} \sum\limits_{y \in \mathcal{Y}} p(x, y) \log p(x, y)</script></blockquote>
+<ul>
+<li>$H(X, X) = H(X)$</li>
+<li>$H(X, Y) = H(Y, X)$</li>
+</ul>
+<p>For a set of random variables $X<em>{1}, X</em>{2}, \dots, X<em>{n}$ with joint distribution $p(x</em>{1}, x<em>{2}, \dots, x</em>{n})$, its joint entropy is defined as</p>
+<script type="math/tex; mode=display">H(X_{1}, X_{2}, \dots, X_{n}) := -\sum\limits_{x_{1}, \dots, x_{n}} p(x_{1}, x_{2}, \dots, x_{n}) \log p(x_{1}, x_{2}, \dots, x_{n})</script><h3 id="1-7-Conditional-Entropy"><a href="#1-7-Conditional-Entropy" class="headerlink" title="1.7 Conditional Entropy"></a>1.7 Conditional Entropy</h3><ul>
+<li>Fixing $X = x$, $p(Y, X = x)$ is a probability distribution</li>
+<li>Thus entropy for $p(Y|X=x)$ is given by the definition above: <script type="math/tex">H(Y|X=x) = \sum\limits_{y} -p(y|X=x)\log p(y|X=x) = -\mathbb{E}_{y}\left[ -\log p(y|X=x) \right]</script></li>
+<li>When we don’t know the exact value of $x$, we need to perform a weighted sum of $H(Y|X=x)$ to get a metric for <em>conditional</em> entropy.</li>
+</ul>
+<blockquote>
+<p><strong>Definition.</strong> (Conditional Entropy)<br>If $(X, Y) ~ p(x, y)$, the <em>conditional entropy</em> $H(Y|X)$ is defined as <script type="math/tex">\begin{align}H(Y|X) &= \sum\limits_{x \in \mathcal{X}} p(x) H(Y|X=x) \\&= -\sum\limits_{x \in \mathcal{X}} \sum\limits_{y \in \mathcal{Y}} p(x)p(y|x)\log p(y|x)\\ &= -\mathbb{E}_{(x, y)}\left[ \log p(Y|X) \right] \end{align}</script></p>
+</blockquote>
+<ul>
+<li>When $X$ is known, the remaining uncertainty of $Y$ is $H(Y|X) \leqslant H(Y)$</li>
+<li>Two ways of calculating conditional entropy:<ul>
+<li>By calculating expectation</li>
+<li>Calculate $H(Y|X=x)$ first and then perform weighted sum</li>
+</ul>
+</li>
+<li>$H(X|Y) {\color{red}\ne}H(Y|X)$</li>
+</ul>
+<blockquote>
+<p><strong>Theorem.</strong> (<em>Chain rule</em>) </p>
+<script type="math/tex; mode=display">
+H(X|Y) + H(Y) = H(Y|X) + H(X) = H(X, Y)</script><hr>
+<p>Proof.<br>$\displaystyle H(X|Y) + H(Y) = -\sum\limits<em>{y \in \mathcal{Y}} \left[ p(y)\log p(y) + \sum\limits</em>{x \in \mathcal{X}} p(x)p(y|x) \log p(y|x) \right] = -\sum\limits<em>{y \in \mathcal{Y}} \sum\limits</em>{x \in \mathcal{X}}\left[ p(x, y)\log p(y) +  p(x,y) \log p(y|x) \right] = -\mathbb{E}_{(x, y)} \left[ \log p(x, y) \right]$</p>
+</blockquote>
+<ul>
+<li>If $X$ and $Y$ is independent, then $H(X, Y) = H(X) + H(Y)$, (Uncertainty is added)</li>
+<li>If $X$ is a function of $Y$, then $H(X, Y) = H(Y)$ (Does not change the uncertainty of $Y$)</li>
+</ul>
+<blockquote>
+<p><strong>Corollary.</strong> (<em>Bayesian Formula</em>)</p>
+<script type="math/tex; mode=display">H(X, Y | Z) = H(X|Z) + H(Y|X, Z)</script><hr>
+<p>Proof.</p>
+<script type="math/tex; mode=display">\begin{align} H(X, Y | Z) &= - \sum\limits_{x} \sum\limits_{y} \sum\limits_{z} p(x, y, z) \log p(x, y|z) \\ &= - \sum\limits_{x} \sum\limits_{y} \sum\limits_{z} p(x, y, z) \log \left[ \frac{p(x, y, z)}{p(x, z)} \cdot \frac{p(x, z)}{p(z)} \right] \\ &= - \sum\limits_{x} \sum\limits_{y} \sum\limits_{z} p(x, y, z) \left( \log p(y|x, z) + \log p(x|z) \right) \\ &= - \sum\limits_{x} \sum\limits_{y} \sum\limits_{z} p(x, y, z) \log p(y|x, z) + \sum\limits_{x} \sum\limits_{z} p(x, y, z) \log p(x|z) \\ &= H(X|Z) + H(Y|X, Z) \end{align}</script><p>or alternatively, <script type="math/tex">H(X, Y|Z) = H(X, Y, Z) - H(Z) = H(X, Y, Z) - H(X, Z) + H(X, Z) - H(Z) = H(Y|X, Z) + H(X|Z)</script><br>$\square$</p>
+</blockquote>
+<h3 id="1-8-Understanding-Chain-Rule-Venn-Diagram"><a href="#1-8-Understanding-Chain-Rule-Venn-Diagram" class="headerlink" title="1.8 Understanding Chain Rule: Venn Diagram"></a>1.8 Understanding Chain Rule: Venn Diagram</h3><p><img src="/img/2024/image-20240110130853383.png" alt="image-20240110130853383"></p>
+<h3 id="1-9-Zero-Entropy"><a href="#1-9-Zero-Entropy" class="headerlink" title="1.9 Zero Entropy"></a>1.9 Zero Entropy</h3><p>If $Y(Y|X) = 0$, then $Y$ is a function of $X$.</p>
+<ol>
+<li>When $H(X) = 0$, find the probability of $H(X)$</li>
+<li>Generalise the condition to $H(Y|X=x) = 0$</li>
+<li>Generalise to $H(Y|X) = 0$</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2024/01/10/2024/01/2024-01-10-InfoTh-01/">https://hrjtju.github.io/2024/01/10/2024/01/2024-01-10-InfoTh-01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Information-Thepry/">Information Thepry</a></div><div class="post_share"><div class="social-share" data-image="/img/header/InfoTh.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/16/2024/01/2024-01-16-LLM-01/" title="【大模型基础教程】1 大模型基础"><img class="cover" src="/img/header/LLM.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【大模型基础教程】1 大模型基础</div></div></a></div><div class="next-post pull-right"><a href="/2023/11/27/2023/11/2023-11-27-HPCIntro-2/" title="【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理"><img class="cover" src="/img/header/hpc.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【高性能计算入门|加速计算基础】2 基本的 CUDA 内存管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img class="cover" src="/img/header/InfoTh.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-16</div><div class="title">【Information Theory】2 Relative, Conditional Entropy and Related Properties</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Entropy"><span class="toc-text">1 Entropy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Brief-history"><span class="toc-text">1.1 Brief history</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Definition"><span class="toc-text">1.2 Definition</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Examples"><span class="toc-text">1.3 Examples</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Properties"><span class="toc-text">1.4 Properties</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-General-Road-map"><span class="toc-text">1.5 General Road-map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-Joint-Entropy"><span class="toc-text">1.6 Joint Entropy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-Conditional-Entropy"><span class="toc-text">1.7 Conditional Entropy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8-Understanding-Chain-Rule-Venn-Diagram"><span class="toc-text">1.8 Understanding Chain Rule: Venn Diagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-9-Zero-Entropy"><span class="toc-text">1.9 Zero Entropy</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

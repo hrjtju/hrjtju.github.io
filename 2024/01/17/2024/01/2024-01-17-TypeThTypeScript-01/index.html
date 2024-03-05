@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【类型论前导与TypeScript】1 类型系统和TypeScript基本语法 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="同时参考 Datawhale TypeScript教程和《编程与类型系统》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">
+<meta property="og:url" content="https://hrjtju.github.io/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="同时参考 Datawhale TypeScript教程和《编程与类型系统》">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/TypeThIntro.png">
+<meta property="article:published_time" content="2024-01-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-17T04:35:29.158Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="TypeTheory">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/TypeThIntro.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【类型论前导与TypeScript】1 类型系统和TypeScript基本语法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-17 12:35:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/TypeThIntro.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-17T04:35:29.158Z" title="Updated 2024-01-17 12:35:29">2024-01-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-TypeScript基本语法"><a href="#1-TypeScript基本语法" class="headerlink" title="1 TypeScript基本语法"></a>1 TypeScript基本语法</h1><p>可以在这个网站上运行TypeScript代码：<a target="_blank" rel="noopener" href="https://www.runoob.com/try/runcode.php?filename=ts-hw&amp;type=typescript">https://www.runoob.com/try/runcode.php?filename=ts-hw&amp;type=typescript</a></p>
+<h2 id="1-1-基础数据类型"><a href="#1-1-基础数据类型" class="headerlink" title="1.1 基础数据类型"></a>1.1 基础数据类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>number</code></td>
+<td>双精度<code>64</code>位浮点数，可用来表示整数或浮点数。<em>TypeScript中没有<code>int</code>和<code>float</code></em></td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>一个字符序列，使用单引号<code>&#39;</code>或双引号<code>&quot;</code>表示字符串类型，反引号(`)表示<em>多行文本</em>和<em>内嵌表达式</em></td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td>二院逻辑变量，可以取<code>true</code>或<code>false</code></td>
+</tr>
+<tr>
+<td><code>enum</code></td>
+<td>枚举类型，用于定义数值集合</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td>表示方法的返回类型为空</td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td>表示对象值缺失</td>
+</tr>
+<tr>
+<td><code>undefined</code></td>
+<td>初始化变量为一个未定义的值</td>
+</tr>
+<tr>
+<td><code>any</code></td>
+<td>任意类型</td>
+</tr>
+<tr>
+<td><code>never</code></td>
+<td>其他类型（包括<code>null</code>和<code>undefined</code>）的子类型，表示从不出现的值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="1-2-变量声明"><a href="#1-2-变量声明" class="headerlink" title="1.2 变量声明"></a>1.2 变量声明</h2><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> variable_name : type_name = value;</span><br><span class="line"><span class="keyword">var</span> a : <span class="built_in">number</span>;           <span class="comment">// undefined value</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">5</span>;             <span class="comment">// can be any type</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果只有变量类型，没有初始值，则变量的值是<code>undefined</code></li>
+<li>如果只有初始值而没有指定变量类型，其类型可以任意</li>
+<li>如果初始值和变量类型都未指定，则变量值是<code>undefined</code>，且它可以为任意类型</li>
+</ul>
+<h2 id="1-3-变量的作用域"><a href="#1-3-变量的作用域" class="headerlink" title="1.3 变量的作用域"></a>1.3 变量的作用域</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>作用域类型</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全局作用域</strong></td>
+<td>定义在程序结构外部的变量， 可以在程序的任意位置使用</td>
+</tr>
+<tr>
+<td><strong>类作用域</strong></td>
+<td>也称为<em>字段</em>，声明在一个<em>类</em>内，但不在类方法中。这种变量可以通过类的对象进行访问。<br>类变量可以是<em>静态</em>的，静态类变量可以通过类名直接访问</td>
+</tr>
+<tr>
+<td><strong>局部作用域</strong></td>
+<td>局部声明的变量，只能在声明它的代码块中使用</td>
+</tr>
+<tr>
+<td>下面给出一个例子：</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> global_num = <span class="number">12</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Numbers</span> &#123;</span><br><span class="line">    num_val = <span class="number">13</span>;</span><br><span class="line">    <span class="keyword">static</span> static_val = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">store_num</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> local_num = <span class="number">14</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Global Variable:\t&quot;</span> + global_num);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Static Variable:\t&quot;</span> + <span class="title class_">Numbers</span>.<span class="property">static_val</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="title class_">Numbers</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Instance Variable:\t&quot;</span> + obj.<span class="property">num_val</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Global Variable:	    12</span></span><br><span class="line"><span class="comment">// Static Variable:	    10</span></span><br><span class="line"><span class="comment">// Instance Variable:	13</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-4-运算符"><a href="#1-4-运算符" class="headerlink" title="1.4 运算符"></a>1.4 运算符</h2><h3 id="1-4-1-类型运算符typeof"><a href="#1-4-1-类型运算符typeof" class="headerlink" title="1.4.1 类型运算符typeof"></a>1.4.1 类型运算符<code>typeof</code></h3><p><code>typeof</code>是<em>一元运算符</em>，揭示变量的类型：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a : <span class="built_in">number</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b : <span class="built_in">number</span>;           <span class="comment">// undefined value</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="number">5</span>;                <span class="comment">// can be any type</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> a);    <span class="comment">// number</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> b);    <span class="comment">// undefined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> c);    <span class="comment">// number</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-4-2-算术运算符"><a href="#1-4-2-算术运算符" class="headerlink" title="1.4.2 算术运算符"></a>1.4.2 算术运算符</h3><p>和大多数其他语言一样，TypeScript拥有一般数学意义上的<em>二元算术运算符</em>，包括加法（<code>+</code>），减法（<code>-</code>），乘法（<code>*</code>），除法（<code>/</code>），求余（<code>%</code>）。除此之外，也支持类似C语言中的自增运算（<code>++</code>）和自减运算（<code>--</code>）</p>
+<h3 id="1-4-3-逻辑运算符和关系运算符"><a href="#1-4-3-逻辑运算符和关系运算符" class="headerlink" title="1.4.3 逻辑运算符和关系运算符"></a>1.4.3 逻辑运算符和关系运算符</h3><p>关系运算符都是二元运算符，其返回结果为<code>boolean</code>类型。和一般的编程语言和数学相同，也支持大部分的关系运算符，如大于等于（<code>&gt;=</code>）、小于等于（<code>&lt;=</code>）、大于（<code>&gt;</code>）、小于（<code>&lt;</code>）、等于（<code>=</code>）、不等于（<code>!=</code>）。逻辑运算符包括与（<code>&amp;&amp;</code>）、或（<code>||</code>）和非（<code>!</code>），其中<code>&amp;&amp;</code>和<code>||</code>是<em>惰性求值</em>的，例如在<code>a &amp;&amp; b</code>这个表达式中，如果<code>a</code>为<code>false</code>，则不再求解<code>b</code>，直接得出表达式的结果。</p>
+<h3 id="1-4-4-赋值运算符"><a href="#1-4-4-赋值运算符" class="headerlink" title="1.4.4 赋值运算符"></a>1.4.4 赋值运算符</h3><p>赋值运算符分为纯粹的赋值运算符（<code>=</code>）和运算后赋值运算符（<code>x=</code>），这里的<code>x</code>指代加减乘除中的一种，指的是先做<code>x</code>运算，再赋值。</p>
+<h3 id="1-4-5-三元运算符"><a href="#1-4-5-三元运算符" class="headerlink" title="1.4.5 三元运算符?"></a>1.4.5 三元运算符<code>?</code></h3><p>三元运算符用于简单的条件分支，其功能等价于简单的<code>if</code>-<code>else</code>语句，和在C中的用法以及Python中的<code>... if ... else ...</code>语句的用法类似：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = b &gt; <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span>; </span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="attr">result</span>:<span class="built_in">boolean</span> = num &gt; <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">0</span> <span class="keyword">if</span> num &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-4-6-字符串连接运算符"><a href="#1-4-6-字符串连接运算符" class="headerlink" title="1.4.6 字符串连接运算符+"></a>1.4.6 字符串连接运算符<code>+</code></h3><p>运算符<code>+</code>可以将两个字符串连接：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="attr">msg</span>:<span class="built_in">string</span> = <span class="string">&quot;Hello&quot;</span> + <span class="string">&quot;World!&quot;</span>; <span class="comment">// &quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-类型系统简介"><a href="#2-类型系统简介" class="headerlink" title="2 类型系统简介"></a>2 类型系统简介</h1><h2 id="2-1-为什么存在类型"><a href="#2-1-为什么存在类型" class="headerlink" title="2.1 为什么存在类型"></a>2.1 为什么存在类型</h2><blockquote>
+<p>火星气候探测者号在火星大气层解体，原因是两个不同机构设计的检测动量的组件使用了不同的单位。</p>
+</blockquote>
+<p>随着软件规模的扩增，我们越来越需要保证其正常运行。我们通过监控和测试，可以说明在给定特定输入时软件的特定时刻行为是符合规定的，但<em>类型系统为我们提供了更加一般性的证明：无论给定怎样的输入，代码都依照规定运行</em>。</p>
+<p>在底层硬件和机器指令级别，数据和指令别无二致。如果系统将数据当成代码或将代码当成数据时就容易发生错误。除了区分代码和数据，我们还需要知道如何解释一条数据。一串32位序列可以理解为一个浮点数，也可以理解为一个带符号或不带符号的整数。于是我们引出<em>类型</em>的定义：</p>
+<p><strong>类型</strong><br>类型是对数据的一种分类，定义了可以对这些<em>数据可执行的操作</em>、<em>数据的意义</em>以及<em>允许数据接受的值的集合</em>。编译器（Compiler）和运行时（Runtime）会检查类型，以确保数据的完整性，实施访问限制，并按照开发人员的意图解释数据。</p>
+<p><strong>类型系统</strong><br>类型系统是一组规则，为编程语言的元素分配和实施类型。<em>这些元素可以是变量、函数或其他高级结构</em>。类型系统通过两种方式分配类型：<em>程序员在代码中显式指定</em>、<em>根据上下文推断类型</em>。<em>类型系统允许在类型之间做某些转换，而禁止其他类型的转换</em></p>
+<p><strong>类型检查</strong><br>类型检查确保程序员遵守类型系统的规则。编译器在转换代码时进行类型检查，而运行时在执行代码时进行类型检查。编译器中负责实施类型规则的组件称为<em>类型检查器</em>。</p>
+<blockquote>
+<p><strong>证明即程序：Curry-Howard 对应</strong></p>
+<p>可以将类型视作一个逻辑命题，将从一个类型到另一个类型的函数视作逻辑蕴涵，类型的一个值相当于命题为真的一个证据。例如可以构造一个将<code>boolean</code>值映射到<code>string</code>的函数，它将<code>true</code>映到<code>&quot;true&quot;</code>，<code>false</code>映到<code>&quot;False&quot;</code>。这个函数可以被解释为“<code>boolean</code>蕴含<code>string</code>”：给定命题<code>boolean</code>的证据，通过函数可以得到命题<code>string</code>的证据。这个对应表明遵守类型系统规则的程序相当于一个逻辑证明，类型系统是一种<em>语言</em>，我们用它来写出<em>证明</em>。</p>
+</blockquote>
+<h2 id="2-2-类型系统的优点"><a href="#2-2-类型系统的优点" class="headerlink" title="2.2 类型系统的优点"></a>2.2 类型系统的优点</h2><h3 id="2-2-1-正确性"><a href="#2-2-1-正确性" class="headerlink" title="2.2.1 正确性"></a>2.2.1 正确性</h3><h3 id="2-2-2-不可变性"><a href="#2-2-2-不可变性" class="headerlink" title="2.2.2 不可变性"></a>2.2.2 不可变性</h3><h3 id="2-2-3-封装"><a href="#2-2-3-封装" class="headerlink" title="2.2.3 封装"></a>2.2.3 封装</h3><h3 id="2-2-4-可组合性"><a href="#2-2-4-可组合性" class="headerlink" title="2.2.4 可组合性"></a>2.2.4 可组合性</h3><h3 id="2-2-5-可读性"><a href="#2-2-5-可读性" class="headerlink" title="2.2.5 可读性"></a>2.2.5 可读性</h3><h2 id="2-3-类型系统的类型"><a href="#2-3-类型系统的类型" class="headerlink" title="2.3 类型系统的类型"></a>2.3 类型系统的类型</h2><h3 id="2-3-1-静态类型和动态类型"><a href="#2-3-1-静态类型和动态类型" class="headerlink" title="2.3.1 静态类型和动态类型"></a>2.3.1 静态类型和动态类型</h3><h3 id="2-3-2-弱类型和强类型"><a href="#2-3-2-弱类型和强类型" class="headerlink" title="2.3.2 弱类型和强类型"></a>2.3.2 弱类型和强类型</h3><blockquote>
+<h3 id="类型四象限"><a href="#类型四象限" class="headerlink" title="类型四象限"></a>类型四象限</h3></blockquote>
+<h3 id="2-3-3-类型推断"><a href="#2-3-3-类型推断" class="headerlink" title="2.3.3 类型推断"></a>2.3.3 类型推断</h3><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>Datawhale：wow-ts教程：<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/wow-ts/blob/main/tutorial/%E7%AC%AC1%E7%AB%A0-ts%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/Typescript%E6%95%99%E7%A8%8B1.1-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.md">https://github.com/datawhalechina/wow-ts/blob/main/tutorial/%E7%AC%AC1%E7%AB%A0-ts%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/Typescript%E6%95%99%E7%A8%8B1.1-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95.md</a></li>
+</ul>
+</li>
+<li>菜鸟教程<ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/typescript/ts-type.html">https://www.runoob.com/typescript/ts-type.html</a></li>
+</ul>
+</li>
+<li>Vlad Riscutia，编程与类型系统（Programming with Types：Examples in TypeScript），机械工业出版社</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/">https://hrjtju.github.io/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TypeTheory/">TypeTheory</a><a class="post-meta__tags" href="/tags/TypeScript/">TypeScript</a></div><div class="post_share"><div class="social-share" data-image="/img/header/TypeThIntro.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img class="cover" src="/img/header/LLM.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【大模型基础教程】2 大模型能力</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img class="cover" src="/img/header/InfoTh.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【Information Theory】2 Relative, Conditional Entropy and Related Properties</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img class="cover" src="/img/header/TypeThIntro.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-01</div><div class="title">【类型论前导与TypeScript】2 TypeScript的控制语句</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-TypeScript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-text">1 TypeScript基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">1.1 基础数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">1.2 变量声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">1.3 变量的作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.4 运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-1-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6typeof"><span class="toc-text">1.4.1 类型运算符typeof</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-2-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.4.2 算术运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-3-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.4.3 逻辑运算符和关系运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-4-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.4.4 赋值运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-5-%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.4.5 三元运算符?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-6-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.4.6 字符串连接运算符+</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B"><span class="toc-text">2 类型系统简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%98%E5%9C%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.1 为什么存在类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">2.2 类型系统的优点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="toc-text">2.2.1 正确性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="toc-text">2.2.2 不可变性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E5%B0%81%E8%A3%85"><span class="toc-text">2.2.3 封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-%E5%8F%AF%E7%BB%84%E5%90%88%E6%80%A7"><span class="toc-text">2.2.4 可组合性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-5-%E5%8F%AF%E8%AF%BB%E6%80%A7"><span class="toc-text">2.2.5 可读性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.3 类型系统的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.3.1 静态类型和动态类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E5%BC%B1%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%BA%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.3.2 弱类型和强类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%9B%9B%E8%B1%A1%E9%99%90"><span class="toc-text">类型四象限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="toc-text">2.3.3 类型推断</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

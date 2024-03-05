@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【DatawhaleAIMA】2 智能体概述 | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Datawhale开源学习社区《人工智能：现代方法》学习笔记与思考">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【DatawhaleAIMA】2 智能体概述">
+<meta property="og:url" content="https://hrjtju.github.io/2023/01/22/2023/01/2023-01-22-DatawhaleAIMA-2/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Datawhale开源学习社区《人工智能：现代方法》学习笔记与思考">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/2016-11-19/bg.png">
+<meta property="article:published_time" content="2023-01-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T17:02:13.426Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="AIMA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/2016-11-19/bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/2023/01/22/2023/01/2023-01-22-DatawhaleAIMA-2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【DatawhaleAIMA】2 智能体概述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 01:02:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2016-11-19/bg.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【DatawhaleAIMA】2 智能体概述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-21T16:00:00.000Z" title="Created 2023-01-22 00:00:00">2023-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-09T17:02:13.426Z" title="Updated 2023-08-10 01:02:13">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【DatawhaleAIMA】2 智能体概述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-智能体和环境"><a href="#1-智能体和环境" class="headerlink" title="1 智能体和环境"></a>1 智能体和环境</h2><ul>
+<li><strong>智能体（agent）</strong>通过<strong>传感器（sensor）</strong>感知<strong>环境（environment）</strong>，并通过<strong>执行器（actuator）</strong>作用于环境</li>
+<li>智能体感知环境的一切完整历史称为<strong>感知序列（percept sequence）</strong><ul>
+<li>一般而言，智能体的动作基于 <em>先验知识</em> 和 <em>感知序列</em>，很自然地，不大可能是基于没有感知到的东西</li>
+<li>当智能体只基于当前感知到的环境状态（state）进行动作时，我们可以将环境状态和动作的对应关系列成一个表，这就是强化学习（Reinforcement learning）中的表格型方法（tabular method）。但需要注意的是，当状态空间（也就是智能体感知到的状态量的取值集合）是连续实数时，表格型方法不再奏效，因为<strong>我们无法将任何一个区间的实数排成一列</strong></li>
+<li>我们<em>可以</em>遍历所有的感知序列并记录智能体的动作以构建这样的对应关系。这种说法类似于有些算法中求数学期望的方法。但遗憾的是，我们往往不能穷尽所有的情况：<ul>
+<li>即使是无限n元数列的集合都是不可数的，而感知序列可看做是至多可数个状态空间的直积中的元素，因此更是无法穷尽的</li>
+<li>即使对于有限种感知序列的情况，大量空间将被用来存储这个表格</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>考虑一个<strong>真空吸尘器世界</strong>——吸尘器位于方格组成的世界中，且一次只能移动到近旁的某一个方格中。方格可能是干净或有灰尘。吸尘器只能将该格内的灰尘清理干净。</p>
+</blockquote>
+<ul>
+<li>我们可以搭建简单的逻辑：<ul>
+<li>如果该方格内有灰尘，则将其清理干净</li>
+<li>如果该方格内没有灰尘，则<em>随机</em>移动到四个相邻方格中的一个</li>
+<li>如果此次移动中吸尘器将超过世界的边界，则吸尘器本次无法移动</li>
+</ul>
+</li>
+<li>我们可以在上面逻辑的基础之上添加更多的规则，使得吸尘器可以适应某一种形态的吸尘器世界。但当吸尘器处于另一个吸尘器世界中时，我们加入的这些逻辑可能并不会让它在新的吸尘器世界中取得好的效果</li>
+<li>此时我们遇到一个问题，如何使得吸尘器<em>符合我们的预期</em> ？相关内容将在后面继续分析</li>
+</ul>
+<h2 id="2-良好行为：理性的概念"><a href="#2-良好行为：理性的概念" class="headerlink" title="2 良好行为：理性的概念"></a>2 良好行为：理性的概念</h2><p><strong>性能度量</strong></p>
+<ul>
+<li>判定智能体的动作序列是否良好的标准</li>
+<li>较好的定义性能度量的方法是根据一个人在环境中真正想要实现的目标来进行度量<ul>
+<li>但是这句话说起来容易做起来难，我认为和第一章中提到的价值对齐问题相似<ul>
+<li>智能体狼抓羊的问题，因为训练者错误的定义了性能度量（也即RL中的credit assignment）导致智能体所认为的最大化期望收益的方法就是开局撞墙自杀</li>
+</ul>
+</li>
+<li>对于不同性质的环境也需要不同的性能度量方法：我们需要吸尘器更加稳定的工作，还是想让吸尘器可以短时间清理掉大量灰尘而对其在工作后的长时间休眠时间不在乎，取决于我们自己的实际需求</li>
+</ul>
+</li>
+</ul>
+<p><strong>理性</strong></p>
+<ul>
+<li><strong>理性智能体</strong>：对于每个可能的感知序列，给定感知序列提供的证据和智能体所拥有的任何先验知识，理性智能体应该选择一个期望 <em>最大化</em> 其性能度量的动作</li>
+</ul>
+<p><strong>全知、学习和自主</strong></p>
+<ul>
+<li>在现实中，<strong>全知（omniscience）</strong>是不可能的</li>
+<li>理性智能体在工作中不仅需要手机信息，还要尽可能多地从感知信息中学习</li>
+<li>理性智能体应该是自主的，它应该不完全依赖于设计者提供的先验知识，还要试图在学习过程中弥补部分或不正确的先验知识</li>
+</ul>
+<h2 id="3-环境"><a href="#3-环境" class="headerlink" title="3 环境"></a>3 环境</h2><p><strong>环境</strong>其实是问题的描述，<strong>智能体</strong>是问题的解决方案。</p>
+<h3 id="3-1-指定任务环境"><a href="#3-1-指定任务环境" class="headerlink" title="3.1 指定任务环境"></a>3.1 指定任务环境</h3><ul>
+<li><strong>PEAS描述</strong>：对智能体所处的环境的描述，指定 <em>性能度量</em>、<em>环境</em>、<em>执行器</em> 和 <em>传感器</em></li>
+</ul>
+<p><strong>指定性能度量</strong></p>
+<ul>
+<li>正如前文提到的那样，不同条件下的性能度量不尽相同</li>
+<li>有些性能度量的指标是相悖的，我们只能从中寻求平衡点</li>
+</ul>
+<p><strong>指定环境</strong></p>
+<ul>
+<li>环境不同，所对应的智能体的动作规则（即问题的解决方案）就不同</li>
+</ul>
+<p><strong>执行器</strong></p>
+<ul>
+<li>智能体执行动作，与环境进行交互的部件</li>
+</ul>
+<p><strong>传感器</strong></p>
+<ul>
+<li>智能体获取环境信息的部件</li>
+<li>传感器往往不会得到环境的全部信息</li>
+</ul>
+<h3 id="3-2-任务环境的属性"><a href="#3-2-任务环境的属性" class="headerlink" title="3.2 任务环境的属性"></a>3.2 任务环境的属性</h3><p><strong>可观测性</strong></p>
+<ul>
+<li>完全可观测，容易处理</li>
+<li>部分可观测，环境可能由于传感器本身的噪声变得不完全可观测（如Kalman滤波中考虑的测量噪声）</li>
+<li>不可观测，智能体目标可能依然可以实现</li>
+</ul>
+<p><strong>智能体数量</strong></p>
+<ul>
+<li>单智能体</li>
+<li>多智能体，一个智能体的所作所为会对其他智能体的决策造成影响</li>
+</ul>
+<p><em>多智能体环境的种类</em></p>
+<ul>
+<li>完全合作（Fully Cooperative）</li>
+<li>完全竞争（Fully Competitive）</li>
+<li>既有合作也有竞争（Mixed Cooperative and Competitive）</li>
+<li>利己主义（Self-interested）</li>
+</ul>
+<p><strong>确定性</strong></p>
+<ul>
+<li>确定性：环境的下一个状态完全由智能体的动作决定</li>
+<li><p>非确定性：环境的下一个状态是一个概率分布：$ P(s^\prime|A=a, S=s)$$</p>
+</li>
+<li><p>随机：对于一些没有被量化的过程</p>
+</li>
+</ul>
+<p><strong>前后的相关性</strong></p>
+<ul>
+<li>回合式（episodic）：回合之间的动作互不影响。例如围棋游戏游戏的局间互不影响</li>
+<li>序贯式（sequential）：智能体当前的决策会影响将来的所有状态</li>
+</ul>
+<p><strong>动态性</strong></p>
+<ul>
+<li>静态：智能体思考时环境不发生变换</li>
+<li>动态：智能体思考时环境发生变化</li>
+<li>半动态：每次总是等待智能体做出决定的动态环境</li>
+</ul>
+<p><strong>连续性</strong></p>
+<ul>
+<li>离散：环境的状态、智能体的动作、处理事件的方式是离散的</li>
+<li>连续：环境的状态、智能体的动作、处理事件的方式是连续的</li>
+</ul>
+<p><strong>是否已知</strong></p>
+<ul>
+<li>已知：智能体知晓行动的结果</li>
+<li>未知：智能体需要了解环境的工作方式</li>
+</ul>
+<h2 id="4-智能体的结构"><a href="#4-智能体的结构" class="headerlink" title="4 智能体的结构"></a>4 智能体的结构</h2><p>智能体 = 智能体架构 + 智能体程序</p>
+<h3 id="4-1-智能体程序"><a href="#4-1-智能体程序" class="headerlink" title="4.1 智能体程序"></a>4.1 智能体程序</h3><p>一个简单的智能体程序将当前感知作为输入，并将动作返回给执行器：</p>
+<ul>
+<li>将当前感知结果添加到感知序列</li>
+<li>根据感知序列在表中查找对应的动作</li>
+</ul>
+<h3 id="4-2-简单反射型智能体"><a href="#4-2-简单反射型智能体" class="headerlink" title="4.2 简单反射型智能体"></a>4.2 简单反射型智能体</h3><ul>
+<li>简单反射型智能体是最简单的智能体</li>
+<li>简单反射型智能体的程序为一系列的if-else语句，被称为<strong>条件-动作规则（condition-action rule）</strong></li>
+<li>这样的智能体只有在当前感知的基础上才能做出正确的决策，即只能在环境完全可观测的状态下正常运行</li>
+<li>智能体可以将其动作改为动作的概率分布，以取得更好的效果</li>
+</ul>
+<h3 id="4-3-基于模型的反射性智能体"><a href="#4-3-基于模型的反射性智能体" class="headerlink" title="4.3 基于模型的反射性智能体"></a>4.3 基于模型的反射性智能体</h3><ul>
+<li>智能体维护某种依赖于感知历史的内部状态</li>
+<li>智能体拥有环境的转移模型和传感器模型</li>
+</ul>
+<h3 id="4-4-基于目标的智能体"><a href="#4-4-基于目标的智能体" class="headerlink" title="4.4 基于目标的智能体"></a>4.4 基于目标的智能体</h3><ul>
+<li>智能体需要某种描述理想情况下的<strong>目标</strong>信息</li>
+<li>通常情况下，智能体为了达到目标需要构造一个动作序列。构造方法包括<strong>搜索</strong>和<strong>规划</strong></li>
+</ul>
+<h3 id="4-5-基于效用的智能体"><a href="#4-5-基于效用的智能体" class="headerlink" title="4.5 基于效用的智能体"></a>4.5 基于效用的智能体</h3><ul>
+<li>我们使用<strong>效用（utility）</strong>将性能度量内部化，如果效用的定义与外部性能度量一致，那么最大化期望效用的智能体是理性的</li>
+<li>并非所有的智能体都是基于模型的。<strong>无模型的（model-free）</strong>智能体无需知道环境如何变化也可以较好的完成任务</li>
+</ul>
+<h3 id="4-6-学习型智能体"><a href="#4-6-学习型智能体" class="headerlink" title="4.6 学习型智能体"></a>4.6 学习型智能体</h3><ul>
+<li>学习型智能体包含的<strong>评估者（critic）</strong>将评估智能体中的学习元素，使之可以在运行过程中更好的控制性能元素的动作选择</li>
+<li>智能体中的<strong>问题生成器（problem generator）</strong>负责建议动作，这是他可以建议最好的动作或者建议一些短期内看似不太理想的动作<ul>
+<li>这就是RL中著名的<strong>探索利用两难问题（exploration-exploitation dilemma）</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="4-7-智能体组件的工作方式"><a href="#4-7-智能体组件的工作方式" class="headerlink" title="4.7 智能体组件的工作方式"></a>4.7 智能体组件的工作方式</h3><ul>
+<li><strong>原子表示</strong>：世界的每一个状态不可分割，用原子型变量表示</li>
+<li><strong>因子化表示</strong>：每个状态可以拆分为不同分量</li>
+<li><strong>结构化表示</strong>：可以描述环境中不同元素及其间的关系</li>
+</ul>
+<ul>
+<li><strong>局部表示</strong>：概念和存储该概念的元素为一一对应的</li>
+<li><strong>分布式表示</strong>：概念和存储该概念的元素是一对多关系的</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io">Ruijie He</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://hrjtju.github.io/2023/01/22/2023/01/2023-01-22-DatawhaleAIMA-2/">https://hrjtju.github.io/2023/01/22/2023/01/2023-01-22-DatawhaleAIMA-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AIMA/">AIMA</a></div><div class="post_share"><div class="social-share" data-image="/img/2016-11-19/bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/02/13/2023/02/2023-02-13-DatawhaleCS224w-1/" title="【Datawhale】【CS224W】图机器学习 1 图的基本表示"><img class="cover" src="/img/header/fuyu.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">【Datawhale】【CS224W】图机器学习 1 图的基本表示</div></div></a></div><div class="next-post pull-right"><a href="/2023/01/18/2023/01/2023-01-18-DatawhaleAIMA-1/" title="【DatawhaleAIMA】人工智能概述"><img class="cover" src="/img/2016-11-19/bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">【DatawhaleAIMA】人工智能概述</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/01/18/2023/01/2023-01-18-DatawhaleAIMA-1/" title="【DatawhaleAIMA】人工智能概述"><img class="cover" src="/img/2016-11-19/bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-18</div><div class="title">【DatawhaleAIMA】人工智能概述</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">69</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hrjtju"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">7月17日给博客换了一个主题，现在仍在装修中</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%99%BA%E8%83%BD%E4%BD%93%E5%92%8C%E7%8E%AF%E5%A2%83"><span class="toc-text">1 智能体和环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%89%AF%E5%A5%BD%E8%A1%8C%E4%B8%BA%EF%BC%9A%E7%90%86%E6%80%A7%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">2 良好行为：理性的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%8E%AF%E5%A2%83"><span class="toc-text">3 环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%8C%87%E5%AE%9A%E4%BB%BB%E5%8A%A1%E7%8E%AF%E5%A2%83"><span class="toc-text">3.1 指定任务环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BB%BB%E5%8A%A1%E7%8E%AF%E5%A2%83%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">3.2 任务环境的属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">4 智能体的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%99%BA%E8%83%BD%E4%BD%93%E7%A8%8B%E5%BA%8F"><span class="toc-text">4.1 智能体程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E7%AE%80%E5%8D%95%E5%8F%8D%E5%B0%84%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93"><span class="toc-text">4.2 简单反射型智能体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%8F%8D%E5%B0%84%E6%80%A7%E6%99%BA%E8%83%BD%E4%BD%93"><span class="toc-text">4.3 基于模型的反射性智能体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E5%9F%BA%E4%BA%8E%E7%9B%AE%E6%A0%87%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93"><span class="toc-text">4.4 基于目标的智能体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E5%9F%BA%E4%BA%8E%E6%95%88%E7%94%A8%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93"><span class="toc-text">4.5 基于效用的智能体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E5%AD%A6%E4%B9%A0%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93"><span class="toc-text">4.6 学习型智能体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-%E6%99%BA%E8%83%BD%E4%BD%93%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F"><span class="toc-text">4.7 智能体组件的工作方式</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论"><img src="/img/header/CasualInference.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基于图模型的因果推断】1 绪论"/></a><div class="content"><a class="title" href="/2024/03/05/2024/03/2024-03-05-Casual_Inference-01/" title="【基于图模型的因果推断】1 绪论">【基于图模型的因果推断】1 绪论</a><time datetime="2024-03-04T16:00:00.000Z" title="Created 2024-03-05 00:00:00">2024-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】2 TypeScript的控制语句"/></a><div class="content"><a class="title" href="/2024/03/01/2024/03/2024-03-01-TypeThTypeScript-02/" title="【类型论前导与TypeScript】2 TypeScript的控制语句">【类型论前导与TypeScript】2 TypeScript的控制语句</a><time datetime="2024-02-29T16:00:00.000Z" title="Created 2024-03-01 00:00:00">2024-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力"><img src="/img/header/LLM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【大模型基础教程】2 大模型能力"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-LLM-02/" title="【大模型基础教程】2 大模型能力">【大模型基础教程】2 大模型能力</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"><img src="/img/header/TypeThIntro.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法"/></a><div class="content"><a class="title" href="/2024/01/17/2024/01/2024-01-17-TypeThTypeScript-01/" title="【类型论前导与TypeScript】1 类型系统和TypeScript基本语法">【类型论前导与TypeScript】1 类型系统和TypeScript基本语法</a><time datetime="2024-01-16T16:00:00.000Z" title="Created 2024-01-17 00:00:00">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties"><img src="/img/header/InfoTh.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Information Theory】2 Relative, Conditional Entropy and Related Properties"/></a><div class="content"><a class="title" href="/2024/01/16/2024/01/2024-01-16-InfoTh-02/" title="【Information Theory】2 Relative, Conditional Entropy and Related Properties">【Information Theory】2 Relative, Conditional Entropy and Related Properties</a><time datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ruijie He</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="200" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
