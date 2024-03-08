@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hrjtju.github.io/img/header/CasualInference.png">
 <meta property="article:published_time" content="2024-03-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-08T16:19:26.834Z">
+<meta property="article:modified_time" content="2024-03-08T16:23:39.963Z">
 <meta property="article:author" content="Ruijie He">
 <meta property="article:tag" content="Casual_Inference">
 <meta property="article:tag" content="Probablistic_Graph_Models">
@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-03-09 00:19:26'
+  postUpdate: '2024-03-09 00:23:39'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -163,7 +163,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/CasualInference.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【基于图模型的因果推断】4 图模型的分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-08T16:00:00.000Z" title="Created 2024-03-09 00:00:00">2024-03-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-08T16:19:26.834Z" title="Updated 2024-03-09 00:19:26">2024-03-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">5.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>20min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【基于图模型的因果推断】4 图模型的分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-基本图模型结构的分析"><a href="#1-基本图模型结构的分析" class="headerlink" title="1 基本图模型结构的分析"></a>1 基本图模型结构的分析</h1><h2 id="1-1-入室盗窃还是热带风暴"><a href="#1-1-入室盗窃还是热带风暴" class="headerlink" title="1.1 入室盗窃还是热带风暴"></a>1.1 入室盗窃还是热带风暴</h2><p>Holmes先生在办公室接到邻居打来的电话并告诉他：他家的防盗警报响了。由于担心家中被盗，Holmes先生立刻开车回家。在回家的路上，Holmes先生在广播中听说他家一带正在发生热带风暴。考虑到可能是风暴误触发了防盗警报，他又驾车返回公司。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/CasualInference.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【基于图模型的因果推断】4 图模型的分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-08T16:00:00.000Z" title="Created 2024-03-09 00:00:00">2024-03-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-08T16:23:39.963Z" title="Updated 2024-03-09 00:23:39">2024-03-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">5.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>20min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【基于图模型的因果推断】4 图模型的分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-基本图模型结构的分析"><a href="#1-基本图模型结构的分析" class="headerlink" title="1 基本图模型结构的分析"></a>1 基本图模型结构的分析</h1><h2 id="1-1-入室盗窃还是热带风暴"><a href="#1-1-入室盗窃还是热带风暴" class="headerlink" title="1.1 入室盗窃还是热带风暴"></a>1.1 入室盗窃还是热带风暴</h2><p>Holmes先生在办公室接到邻居打来的电话并告诉他：他家的防盗警报响了。由于担心家中被盗，Holmes先生立刻开车回家。在回家的路上，Holmes先生在广播中听说他家一带正在发生热带风暴。考虑到可能是风暴误触发了防盗警报，他又驾车返回公司。</p>
 <p>那么核心问题是，到底是什么（以多大的概率）触发了防盗警报？根据提供的信息，我们可以画出这个问题对应的因果图。其中<script type="math/tex">B</script>表示Holmes先生家中是否被盗，<script type="math/tex">E</script>表示是否发生热带风暴，<script type="math/tex">A</script>表示警报是否响起，<script type="math/tex">R</script>表示电台是否告知发生热带风暴。这几个变量都是二值变量：<script type="math/tex">1</script>代表发生，<script type="math/tex">0</script>代表不发生</p>
 <p><img src="/img/2024/Pasted%20image%2020240308094634-1709913361528-1.png" alt="Pasted image 20240308094634" style="zoom:33%;" /></p>
 <center>图1：疑似盗窃事件中的因果图</center>
@@ -255,7 +255,7 @@ P(b, e|a) &= \frac{P(b, a, e)}{P(a)}
 <table>
 <thead>
 <tr>
-<th style="text-align:center">$X$$</th>
+<th style="text-align:center">$X$</th>
 <th style="text-align:center">$Y$</th>
 <th style="text-align:center">$E$</th>
 <th style="text-align:center">$P(X, Y, E)$</th>
@@ -443,25 +443,26 @@ P(b, e|a) &= \frac{P(b, a, e)}{P(a)}
 <center>图14：Lauritzen定理的应用示例模型</center>
 
 <ol>
-<li><script type="math/tex; mode=display">A$$和$$B$$是否在给定$$D$$和$$F$$的条件下相互独立？</script>P(A|B, D, F) \mathop{=}\limits^{?} P(A|D, F)<br>$$</li>
+<li>请问<script type="math/tex">A</script>和<script type="math/tex">B</script>是否在给定<script type="math/tex">D</script>和<script type="math/tex">F</script>的条件下相互独立？</li>
 </ol>
-<p><img src="/img/2024/Pasted%20image%2020240308223052.png" alt="900" style="zoom:50%;" /></p>
+<script type="math/tex; mode=display">
+P(A|B, D, F) \mathop{=}\limits^{?} P(A|D, F)</script><p><img src="/img/2024/Pasted%20image%2020240308223052.png" alt="900" style="zoom:50%;" /></p>
 <center>图15：Lauritzen定理的应用-问题1，从左到右分别为（祖先图、连线图、道德图、结果图）</center>
 
 <p>由图可知，<script type="math/tex">A</script>和<script type="math/tex">B</script>在给定条件下相互不独立。</p>
 <ol>
-<li><script type="math/tex">D</script>和<script type="math/tex">E</script>是否边缘独立？</li>
-<li><img src="/img/2024/Pasted%20image%2020240308223905.png" alt="900" style="zoom:50%;" /><center>图16：Lauritzen定理的应用-问题2</center>
-
-</li>
+<li>请问<script type="math/tex">D</script>和<script type="math/tex">E</script>是否边缘独立？</li>
 </ol>
+<p><img src="/img/2024/Pasted%20image%2020240308223905.png" alt="900" style="zoom:50%;" /></p>
+<center>图16：Lauritzen定理的应用-问题2</center>
+
 <p>由图可知，<script type="math/tex">D</script>和<script type="math/tex">E</script>边缘不独立。</p>
 <ol>
 <li><script type="math/tex">P(D|C, E, G) \mathop{=}\limits^{?} P(D|C)</script>,<br>本问题相当于：在给定<script type="math/tex">C</script>时，<script type="math/tex">D</script>是否既和<script type="math/tex">E</script>独立，也和<script type="math/tex">G</script>独立？</li>
-<li><img src="/img/2024/Pasted%20image%2020240308224145.png" alt="900" style="zoom:50%;" /><center>图17：Lauritzen定理的应用-问题3</center>
-
-</li>
 </ol>
+<p><img src="/img/2024/Pasted%20image%2020240308224145.png" alt="900" style="zoom:50%;" /></p>
+<center>图17：Lauritzen定理的应用-问题3</center>
+
 <p>由图可知，<script type="math/tex">D</script>与<script type="math/tex">G</script>相连，于是两个要求中有一个无法满足。因此<script type="math/tex">P(D|C, E, G) \ne P(D, C)</script>。</p>
 <h2 id="2-3-d-划分变量集合搜索"><a href="#2-3-d-划分变量集合搜索" class="headerlink" title="2.3 d-划分变量集合搜索"></a>2.3 d-划分变量集合搜索</h2><p>在上一节中，我们主要解决的问题是形如“给定xxx条件，问xxx和xxx是否相互独立”这样的问题。本节我们探讨形如下面的问题：给定有向无环图<script type="math/tex">G=(V, E)</script>，已知其中的两个不交集合<script type="math/tex">\mathcal{A}</script>和<script type="math/tex">\mathcal{B}</script>，找一个节点集合<script type="math/tex">\mathcal{D}</script>，使得<script type="math/tex">\mathcal{B}</script>和<script type="math/tex">\mathcal{D}</script>被<script type="math/tex">\mathcal{A}</script>所d-划分，即<script type="math/tex">\mathcal{B} \perp\!\!\!\perp \mathcal{D} | \mathcal{A}</script></p>
 <p>首先引入有效链的概念：</p>
