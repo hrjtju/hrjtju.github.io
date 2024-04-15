@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hrjtju.github.io/img/header/LLM.png">
 <meta property="article:published_time" content="2024-01-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-15T07:37:02.806Z">
+<meta property="article:modified_time" content="2024-04-15T07:57:40.920Z">
 <meta property="article:author" content="Ruijie He">
 <meta property="article:tag" content="LLM">
 <meta property="article:tag" content="NLP">
@@ -70,7 +70,7 @@ gtag('config', 'G-M1C6DBL0RL');
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-04-15 15:37:02'
+  postUpdate: '2024-04-15 15:57:40'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -174,16 +174,16 @@ gtag('config', 'G-M1C6DBL0RL');
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/LLM.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【大模型基础教程】1 大模型基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-04-15T07:37:02.806Z" title="Updated 2024-04-15 15:37:02">2024-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【大模型基础教程】1 大模型基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-什么是语言模型"><a href="#1-什么是语言模型" class="headerlink" title="1 什么是语言模型"></a>1 什么是语言模型</h2><ul>
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/LLM.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【大模型基础教程】1 大模型基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-15T16:00:00.000Z" title="Created 2024-01-16 00:00:00">2024-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-04-15T07:57:40.920Z" title="Updated 2024-04-15 15:57:40">2024-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【大模型基础教程】1 大模型基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-什么是语言模型"><a href="#1-什么是语言模型" class="headerlink" title="1 什么是语言模型"></a>1 什么是语言模型</h2><ul>
 <li>语言模型（LM）的经典定义是一种对词符序列(token)的概率分布。假设我们有一个词符集的词汇表<script type="math/tex">V</script>。语言模型<script type="math/tex">p</script>为每个词元序列分配一个概率<script type="math/tex">p(x_{1}, x_{2}, \dots, x_{n})</script></li>
 </ul>
 <blockquote>
 <p>此处 <script type="math/tex">x_{1}, \dots, x_{n}</script>的序列其中蕴含了先后关系，这可以使用一个非交换的字符串连接运算来表示，进一步地，字母表 <script type="math/tex">\Sigma</script> 构成的语言 <script type="math/tex">\mathcal{L}</script> 及关于其上的字符串连接运算 <script type="math/tex">\wedge</script> 形成一个<em>幺半群</em>：</p>
 <ol>
-<li>存在一个元素，称之为空字符串$\varepsilon$，对于任意字符串$s \in \mathcal{L}$，满足$\varepsilon \wedge a = a \wedge \varepsilon = \alpha$</li>
-<li>连接运算$\wedge$具有结合律</li>
+<li>存在一个元素，称之为空字符串<script type="math/tex">\varepsilon</script>，对于任意字符串<script type="math/tex">s \in \mathcal{L}</script>，满足<script type="math/tex">\varepsilon \wedge a = a \wedge \varepsilon = \alpha</script></li>
+<li>连接运算<script type="math/tex">\wedge</script>具有结合律</li>
 </ol>
-<p>因此我认为严谨起见，$p(x<em>{1}, \dots, x</em>{n})$可以写为$p(x<em>{1}\wedge \cdots\wedge x</em>{n})$，而显然该项与各词元的一个重排不同</p>
+<p>因此我认为严谨起见，<script type="math/tex">p(x_{1}, \dots, x_{n})</script>可以写为<script type="math/tex">p(x_{1}\wedge \cdots\wedge x_{n})</script>，而显然该项与各词元的一个重排不同</p>
 </blockquote>
 <ul>
 <li>LM 需要给可能的序列分配一个合理的“概率”，这需要模型对语言有所“理解”，即对其特征进行建模。我们希望模型给“合乎常理”的句子分配“高概率”，而对于“不合逻辑”的句子则分配“低概率”</li>
@@ -201,30 +201,30 @@ p(x_{1:L}) = p(x_{1})\prod\limits_{i=2}^{L}p(x_{i}|x_{1:i})</script><p>在 ALM �
 <script type="math/tex; mode=display">
 x_{i} \sim \frac{1}{c} p(x_{i}|x_{1:i-1})^{1/T},\,\,i=1,2,\dots L</script><p>其中</p>
 <ul>
-<li>$T$是非负数，称为<em>温度参数</em>，温度参数越高，分布曲线越平缓，采样的随机性越大。（类比模拟退火算法中的温度，温度越高，粒子活动性越强）<ul>
-<li>$T=0$时，条件分布退化为冲激函数，模型只采样概率最大的那一个词元，其可以理解为$T\rightarrow 0$的过程，而该操作等价于考虑分布密度函数的无穷范数</li>
-<li>$T=1$时，温度参数对分布没有影响</li>
-<li>$T = \infty$时，分布变为均匀分布</li>
+<li><script type="math/tex">T</script>是非负数，称为<em>温度参数</em>，温度参数越高，分布曲线越平缓，采样的随机性越大。（类比模拟退火算法中的温度，温度越高，粒子活动性越强）<ul>
+<li><script type="math/tex">T=0</script>时，条件分布退化为冲激函数，模型只采样概率最大的那一个词元，其可以理解为<script type="math/tex">T\rightarrow 0</script>的过程，而该操作等价于考虑分布密度函数的无穷范数</li>
+<li><script type="math/tex">T=1</script>时，温度参数对分布没有影响</li>
+<li><script type="math/tex">T = \infty</script>时，分布变为均匀分布</li>
 </ul>
 </li>
-<li>$c$是归一化因子</li>
+<li><script type="math/tex">c</script>是归一化因子</li>
 </ul>
-<h3 id="3-条件生成"><a href="#3-条件生成" class="headerlink" title="3 条件生成"></a>3 条件生成</h3><p>不同于自回归生成，条件生成制定一个前缀序列$x<em>{1:i}$，模型输出其余的部分$x</em>{i+1:L}$。在 NLP 中，前缀序列被称为<em>提示（prompt）</em></p>
-<h2 id="X-大语言模型相关的历史回顾"><a href="#X-大语言模型相关的历史回顾" class="headerlink" title="X 大语言模型相关的历史回顾"></a>X 大语言模型相关的历史回顾</h2><h3 id="X-1-熵"><a href="#X-1-熵" class="headerlink" title="X.1 熵"></a>X.1 熵</h3><p>对于单词表$\mathcal{X}$，可以在其上构造分布$p(x)$，则分布$p(x)$的<em>熵</em>定义为</p>
+<h3 id="3-条件生成"><a href="#3-条件生成" class="headerlink" title="3 条件生成"></a>3 条件生成</h3><p>不同于自回归生成，条件生成制定一个前缀序列<script type="math/tex">x_{1:i}</script>，模型输出其余的部分<script type="math/tex">x_{i+1:L}</script>。在 NLP 中，前缀序列被称为<em>提示（prompt）</em></p>
+<h2 id="X-大语言模型相关的历史回顾"><a href="#X-大语言模型相关的历史回顾" class="headerlink" title="X 大语言模型相关的历史回顾"></a>X 大语言模型相关的历史回顾</h2><h3 id="X-1-熵"><a href="#X-1-熵" class="headerlink" title="X.1 熵"></a>X.1 熵</h3><p>对于单词表<script type="math/tex">\mathcal{X}</script>，可以在其上构造分布<script type="math/tex">p(x)</script>，则分布<script type="math/tex">p(x)</script>的<em>熵</em>定义为</p>
 <script type="math/tex; mode=display">
-H(p):= \sum\limits_{x \in \mathcal{X}} -p(x)\log p(x)</script><p>当对数的底为$2$时，可以将熵理解为二进制编码的长度。</p>
+H(p):= \sum\limits_{x \in \mathcal{X}} -p(x)\log p(x)</script><p>当对数的底为<script type="math/tex">2</script>时，可以将熵理解为二进制编码的长度。</p>
 <blockquote>
 <p>对于熵的意义，可以这样考虑：对于一个事物，我们需要问一个或几个问题来确定它。我们假设每个问题的回答只能是是或否，这样就形成了一个判定的二叉树。熵衡量从二叉树根部走到叶节点（也就是从开始提问之前到完全提问完毕）的平均路径（path）长度。对于一个编码问题的<em>编码</em>就是<em>提问的方法</em>。</p>
 </blockquote>
-<h3 id="X-2-交叉熵"><a href="#X-2-交叉熵" class="headerlink" title="X.2 交叉熵"></a>X.2 交叉熵</h3><p>给定两个字母表上的分布$p$和$q$，交叉熵$H(p,q)$定义为</p>
+<h3 id="X-2-交叉熵"><a href="#X-2-交叉熵" class="headerlink" title="X.2 交叉熵"></a>X.2 交叉熵</h3><p>给定两个字母表上的分布<script type="math/tex">p</script>和<script type="math/tex">q</script>，交叉熵<script type="math/tex">H(p,q)</script>定义为</p>
 <script type="math/tex; mode=display">
-H(p,q) = -\sum\limits_{x \in \mathcal{X}} p(x) \log q(x)</script><p>注意$H(p,q) \ne H(q,p)$。交叉熵刻画给定编码方案，描述给定编码体系$q$下，建模分布$p$所需的位数。</p>
+H(p,q) = -\sum\limits_{x \in \mathcal{X}} p(x) \log q(x)</script><p>注意<script type="math/tex">H(p,q) \ne H(q,p)</script>。交叉熵刻画给定编码方案，描述给定编码体系<script type="math/tex">q</script>下，建模分布<script type="math/tex">p</script>所需的位数。</p>
 <blockquote>
-<h3 id="关于交叉熵的理解"><a href="#关于交叉熵的理解" class="headerlink" title="关于交叉熵的理解"></a>关于交叉熵的理解</h3><p>交叉熵也可以看作是对于一个事物的不断提问。以底数为$2$的交叉熵定义为例，$\log q(x)$可看作是提问的次数（假设每一个问题被回答‘是’或‘否’的概率相同），而$p(x)$则是对应答案的真实概率。对所有$x$求期望就得到了交叉熵的定义。从交叉熵的观点看信息熵，可见$H(p) = H(p,p)$，可见信息熵是一个通过$n$叉树对目标概率分布的完全建模——这是看起来一个极其理想的情况，而其最优性则由负对数函数的凸性保证：</p>
+<h3 id="关于交叉熵的理解"><a href="#关于交叉熵的理解" class="headerlink" title="关于交叉熵的理解"></a>关于交叉熵的理解</h3><p>交叉熵也可以看作是对于一个事物的不断提问。以底数为<script type="math/tex">2</script>的交叉熵定义为例，<script type="math/tex">\log q(x)</script>可看作是提问的次数（假设每一个问题被回答‘是’或‘否’的概率相同），而<script type="math/tex">p(x)</script>则是对应答案的真实概率。对所有<script type="math/tex">x</script>求期望就得到了交叉熵的定义。从交叉熵的观点看信息熵，可见<script type="math/tex">H(p) = H(p,p)</script>，可见信息熵是一个通过<script type="math/tex">n</script>叉树对目标概率分布的完全建模——这是看起来一个极其理想的情况，而其最优性则由负对数函数的凸性保证：</p>
 <script type="math/tex; mode=display">
- \begin{align} H(p,q) &= -\sum\limits_{x \in \mathcal{X}} p(x) \log q(x) \\&= -\sum\limits_{x \in \mathcal{X}} p(x)\log p(x) - \underbrace{\left( \sum\limits_{x \in \mathcal{X}} p(x) \log \frac{q(x)}{p(x)}   \right)}_{-D_{\mathrm{KL}}[p\|q]}\\ &\geqslant -\sum\limits_{x \in \mathcal{X}}p(x) \log p(x) -  \log \left[ \sum\limits_{x \in \mathcal{X}} \frac{p(x)q(x)}{p(x)} \right] \\ &= H(p) - \log \left[ \sum\limits_{x \in \mathcal{X}- A}q(x) \right] \\ &\geqslant H(p) \end{align}</script><p>需要注意的是，这里的最后一步依然是小于号，这是因为如果$p(x)$在某些点等于零，则这些点对应的$q(x)$将会丢失，于是有$\displaystyle \sum\limits_{x \in \mathcal{X}-A} q(x) \leqslant 1$.</p>
+ \begin{align} H(p,q) &= -\sum\limits_{x \in \mathcal{X}} p(x) \log q(x) \\&= -\sum\limits_{x \in \mathcal{X}} p(x)\log p(x) - \underbrace{\left( \sum\limits_{x \in \mathcal{X}} p(x) \log \frac{q(x)}{p(x)}   \right)}_{-D_{\mathrm{KL}}[p\|q]}\\ &\geqslant -\sum\limits_{x \in \mathcal{X}}p(x) \log p(x) -  \log \left[ \sum\limits_{x \in \mathcal{X}} \frac{p(x)q(x)}{p(x)} \right] \\ &= H(p) - \log \left[ \sum\limits_{x \in \mathcal{X}- A}q(x) \right] \\ &\geqslant H(p) \end{align}</script><p>需要注意的是，这里的最后一步依然是小于号，这是因为如果<script type="math/tex">p(x)</script>在某些点等于零，则这些点对应的<script type="math/tex">q(x)</script>将会丢失，于是有<script type="math/tex">\displaystyle \sum\limits_{x \in \mathcal{X}-A} q(x) \leqslant 1</script>.</p>
 </blockquote>
-<h3 id="X-3-N-gram-模型"><a href="#X-3-N-gram-模型" class="headerlink" title="X.3 N-gram 模型"></a>X.3 N-gram 模型</h3><p>N-gram 模型可看做对存储有限性的妥协：相较于考虑整个先前序列<script type="math/tex">x_{1:i}</script>，N-gram 模型仅考虑前面的<script type="math/tex">N</script>个词元，即<script type="math/tex">x_{i-N: i}</script>。如果 $N$ 太小，则无法捕捉较长上下文的信息，若 $N$ 太长，则在大语料库中，每个合理的长序列由于相乘项数过多导致出现概率逼近<script type="math/tex">0</script>.</p>
+<h3 id="X-3-N-gram-模型"><a href="#X-3-N-gram-模型" class="headerlink" title="X.3 N-gram 模型"></a>X.3 N-gram 模型</h3><p>N-gram 模型可看做对存储有限性的妥协：相较于考虑整个先前序列<script type="math/tex">x_{1:i}</script>，N-gram 模型仅考虑前面的<script type="math/tex">N</script>个词元，即<script type="math/tex">x_{i-N: i}</script>。如果 <script type="math/tex">N</script> 太小，则无法捕捉较长上下文的信息，若 <script type="math/tex">N</script> 太长，则在大语料库中，每个合理的长序列由于相乘项数过多导致出现概率逼近<script type="math/tex">0</script>.</p>
 <h3 id="X-4-神经语言模型"><a href="#X-4-神经语言模型" class="headerlink" title="X.4 神经语言模型"></a>X.4 神经语言模型</h3><ul>
 <li>2003 年，Bengio 等人首次使用神经网络给出 N-gram 模型的条件概率。</li>
 </ul>
