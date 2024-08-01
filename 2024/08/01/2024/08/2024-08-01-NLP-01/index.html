@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hrjtju.github.io/img/header/NLP.png">
 <meta property="article:published_time" content="2024-07-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-08-01T10:58:43.700Z">
+<meta property="article:modified_time" content="2024-08-01T11:02:27.917Z">
 <meta property="article:author" content="Ruijie He">
 <meta property="article:tag" content="LLM">
 <meta property="article:tag" content="NLP">
@@ -71,7 +71,7 @@ gtag('config', 'G-M1C6DBL0RL');
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-08-01 18:58:43'
+  postUpdate: '2024-08-01 19:02:27'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -175,7 +175,7 @@ gtag('config', 'G-M1C6DBL0RL');
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/NLP.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Natural Language Processing】1 Word2vec (1)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-07-31T16:00:00.000Z" title="Created 2024-08-01 00:00:00">2024-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-08-01T10:58:43.700Z" title="Updated 2024-08-01 18:58:43">2024-08-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>12min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Natural Language Processing】1 Word2vec (1)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/NLP.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><img class="site-icon" src="/img/logo.jpg"/><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Natural Language Processing】1 Word2vec (1)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-07-31T16:00:00.000Z" title="Created 2024-08-01 00:00:00">2024-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-08-01T11:02:27.917Z" title="Updated 2024-08-01 19:02:27">2024-08-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>12min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【Natural Language Processing】1 Word2vec (1)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
 <p>Source: CS224n, Natural Language Processing with Deep Learning</p>
 </blockquote>
 <h1 id="1-Introduction-to-NLP"><a href="#1-Introduction-to-NLP" class="headerlink" title="1 Introduction to NLP"></a>1 Introduction to NLP</h1><ul>
@@ -217,13 +217,13 @@ v_{\text{coffee}} = e_{j} = \left[\, \begin{matrix}
 v_{\text{tea}} = \left[ \, \begin{matrix}
 0 \\ 0 \\ 1 \\ \vdots \\ 1
 \end{matrix} \, \right] 
-\begin{align}
+\begin{align*}
 & \rightarrow \text{plural noun}\\
 & \rightarrow \text{3rd singular verb}\\
 & \rightarrow \text{hyponym-of-beverage}\\
 & \hspace{5em}\vdots\\
 & \rightarrow \text{synonym-of-chai}
-\end{align}</script><p><strong>Failures of this method</strong></p>
+\end{align*}</script><p><strong>Failures of this method</strong></p>
 <ol>
 <li>Human annotated resources are always lacking in vocabulary compares to methods that can draw a vocabulary from a naturally occuring text source</li>
 <li>A tradeoff between dimensionality and utility of the embedding—it takes a very high dimensional vector to represent all of these categories, which is costly and always incomplete.</li>
@@ -252,7 +252,7 @@ v_{1}\\v_{2}\\ \vdots \\ v_{|\mathcal{V}|}
 <p><strong>Failures of this method</strong></p>
 <ul>
 <li>Higher-dimensional vectors tend to be unwieldy</li>
-<li>Raw counts of co-occurrences over-emphasize the importance of common words such as <em>the</em>. [taking log frequency tend to be useful.]</li>
+<li>Raw counts of co-occurrences over-emphasize the importance of common words such as <em>the</em>. <strong>Taking log frequency tend to be useful.</strong></li>
 <li>Refer to <a target="_blank" rel="noopener" href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;ved=2ahUKEwjMrYb_udOHAxUHkO4BHSxaJYkQFnoECBUQAQ&amp;url=https%3A%2F%2Fnlp.stanford.edu%2Fpubs%2Fglove.pdf&amp;usg=AOvVaw3XPTcwWcbYOXnahjvpeDTu&amp;opi=89978449">GloVe (Pennington et al. 2014)</a></li>
 </ul>
 <h2 id="3-2-Word2vec"><a href="#3-2-Word2vec" class="headerlink" title="3.2 Word2vec"></a>3.2 Word2vec</h2><p><em>Skipgram word2vec</em> model learns a short vector of words by peeking into a small contexts of words. </p>
