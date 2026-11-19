@@ -40,3 +40,18 @@
   #article-container { font-size: 16px; line-height: 1.8; }
   #article-container figure.highlight pre { font-size: 12.5px; }
 }
+
+/* MathJax keeps a screen-reader copy (mjx-assistive-mml) next to every SVG;
+   without MathJax's own stylesheet it can paint over the visible formula.
+   Higher specificity than the inline per-formula style, so it wins. */
+html body mjx-assistive-mml {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  clip-path: inset(50%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
