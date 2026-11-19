@@ -1,5 +1,6 @@
 /* "换一批": re-pick a few posts from every series and rebuild the flowing columns.
- * Cards come from the server-rendered pool, so no HTML template is duplicated here. */
+ * Rebuild is done with real DOM nodes (not innerHTML strings), the old loop is
+ * stopped first, layout is forced, and only then the flow restarts. */
 (function () {
   'use strict';
   var btn = document.getElementById('refresh-feed');
@@ -8,6 +9,7 @@
   if (!btn || !flow || !pool) return;
 
   var PER_SERIES = 3;
+  var busy = false;
 
   function shuffle(a) {
     for (var i = a.length - 1; i > 0; i--) {
@@ -34,29 +36,49 @@
     return chosen;
   }
 
+  function cloneCard(node, dup) {
+    var cl = node.cloneNode(true);
+    if (dup) {
+      cl.classList.add('is-dup');
+      cl.setAttribute('aria-hidden', 'true');
+      cl.setAttribute('tabindex', '-1');
+    }
+    return cl;
+  }
+
+  function buildColumn(nodes) {
+    var col = document.createElement('div');
+    col.className = 'flow-col';
+    var track = document.createElement('div');
+    track.className = 'flow-track';
+    nodes.forEach(function (n) { track.appendChild(cloneCard(n, false)); });
+    nodes.forEach(function (n) { track.appendChild(cloneCard(n, true)); });
+    col.appendChild(track);
+    return col;
+  }
+
   function render() {
-    var chosen = pick();
-    if (!chosen.length) return;
-    var cols = [[], [], []];
-    var heights = [0, 0, 0];
-    chosen.forEach(function (c) {
-      var k = 0;
-      for (var i = 1; i < 3; i++) if (heights[i] < heights[k]) k = i;
-      cols[k].push(c);
-      heights[k] += (c.querySelector('img.cover') ? 220 : 0) + 150;
-    });
-    flow.innerHTML = cols.map(function (col) {
-      var main = col.map(function (c) { return c.outerHTML; }).join('');
-      var dup = col.map(function (c) {
-        var cl = c.cloneNode(true);
-        cl.classList.add('is-dup');
-        cl.setAttribute('aria-hidden', 'true');
-        cl.setAttribute('tabindex', '-1');
-        return cl.outerHTML;
-      }).join('');
-      return '<div class="flow-col"><div class="flow-track">' + main + dup + '</div></div>';
-    }).join('');
-    if (window.__flow && window.__flow.reinit) window.__flow.reinit();
+    if (busy) return;
+    busy = true;
+    try {
+      if (window.__flow && window.__flow.reinit) window.__flow.reinit(); // stop the old loop
+      var chosen = pick();
+      if (!chosen.length) return;
+      var cols = [[], [], []];
+      var heights = [0, 0, 0];
+      chosen.forEach(function (c) {
+        var k = 0;
+        for (var i = 1; i < 3; i++) if (heights[i] < heights[k]) k = i;
+        cols[k].push(c);
+        heights[k] += (c.querySelector('img.cover') ? 220 : 0) + 150;
+      });
+      flow.textContent = '';
+      cols.forEach(function (nodes) { flow.appendChild(buildColumn(nodes)); });
+      void flow.offsetHeight; // force layout before the loop reads track heights
+      if (window.__flow && window.__flow.reinit) window.__flow.reinit();
+    } finally {
+      busy = false;
+    }
   }
 
   btn.addEventListener('click', render);

@@ -160,18 +160,22 @@ body {
   white-space: nowrap;
 }
 .refresh-btn {
-  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 50%;
   background: var(--paper);
   color: var(--accent);
-  font: 600 13px/1 var(--sans);
   cursor: pointer;
-  transition: border-color .16s ease, background .16s ease;
+  transition: border-color .16s ease, background .16s ease, transform .3s ease;
 }
-.refresh-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.refresh-btn:hover { border-color: var(--accent); background: var(--accent-soft); transform: rotate(90deg); }
 .refresh-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.refresh-btn:active { transform: translateY(1px); }
+.refresh-btn:active { transform: rotate(180deg) scale(.94); }
 .feed-head .more:hover { text-decoration: underline; }
 .feed-head .more:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 

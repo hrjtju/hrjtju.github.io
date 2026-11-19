@@ -105,6 +105,7 @@
     },
     tracks: function () { return tracks.length; },
     reinit: function () {
+      stop();
       tracks = [].slice.call(flow.querySelectorAll('.flow-track'));
       offset = 0;
       velocity = 0;
