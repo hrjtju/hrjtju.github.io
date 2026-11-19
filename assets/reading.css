@@ -60,7 +60,7 @@ html body mjx-assistive-mml {
    Make inline formulas inline-block and center them on the text midline. */
 #article-container mjx-container:not([display]) {
   display: inline-block !important;
-  vertical-align: middle !important;
+  vertical-align: baseline;
   overflow: visible !important;
   padding: 0 !important;
   margin: 0 .06em;
