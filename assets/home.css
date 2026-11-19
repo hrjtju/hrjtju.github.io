@@ -103,6 +103,13 @@ body {
 
 .profile .bio { margin: 18px 0 0; font-size: 15px; line-height: 1.75; color: #3d4249; }
 .profile .bio strong { color: var(--ink); font-weight: 600; }
+.profile .bio-src {
+  display: block;
+  margin-top: 6px;
+  font: 500 12.5px/1.5 var(--mono);
+  color: var(--muted);
+  letter-spacing: .02em;
+}
 
 .profile .links { margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .profile .links a {
