@@ -103,6 +103,14 @@
       if (velocity < -MAX) velocity = -MAX;
       start();
     },
-    tracks: function () { return tracks.length; }
+    tracks: function () { return tracks.length; },
+    reinit: function () {
+      tracks = [].slice.call(flow.querySelectorAll('.flow-track'));
+      offset = 0;
+      velocity = 0;
+      last = 0;
+      apply();
+      start();
+    }
   };
 })();

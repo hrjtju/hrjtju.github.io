@@ -159,6 +159,19 @@ body {
   font: 500 14px/1 var(--mono);
   white-space: nowrap;
 }
+.refresh-btn {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--accent);
+  font: 600 13px/1 var(--sans);
+  cursor: pointer;
+  transition: border-color .16s ease, background .16s ease;
+}
+.refresh-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.refresh-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.refresh-btn:active { transform: translateY(1px); }
 .feed-head .more:hover { text-decoration: underline; }
 .feed-head .more:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
