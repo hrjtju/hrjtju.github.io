@@ -55,3 +55,17 @@ html body mjx-assistive-mml {
   pointer-events: none !important;
   user-select: none !important;
 }
+
+/* Butterfly's default `inline-grid` baseline pushes inline math above the text.
+   Make inline formulas inline-block and center them on the text midline. */
+#article-container mjx-container:not([display]) {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin: 0 .06em;
+}
+#article-container mjx-container:not([display]) > svg {
+  display: inline-block;
+  vertical-align: middle;
+}
