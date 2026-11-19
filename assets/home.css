@@ -8,8 +8,8 @@
   --accent-soft: #dcebe4;
   --shadow: 0 1px 2px rgba(28, 31, 35, .05), 0 8px 24px rgba(28, 31, 35, .06);
   --radius: 14px;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --sans: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: "Cascadia Mono", "Consolas", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -21,6 +21,8 @@ html, body {
   color: var(--ink);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -85,9 +87,9 @@ body {
 .profile h1 { margin: 20px 0 4px; font-size: 26px; letter-spacing: -.01em; }
 
 .profile .handle {
-  font: 500 12px/1.4 var(--mono);
+  font: 500 13px/1.4 var(--mono);
   color: var(--muted);
-  letter-spacing: .06em;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
 .profile .handle::after {
@@ -110,7 +112,7 @@ body {
   border-radius: 999px;
   background: var(--paper);
   color: var(--ink);
-  font: 500 12px/1 var(--mono);
+  font: 500 13px/1 var(--mono);
   text-decoration: none;
 }
 .profile .links a:hover { border-color: var(--accent); color: var(--accent); }
@@ -120,7 +122,7 @@ body {
   margin-top: 26px;
   padding-top: 18px;
   border-top: 1px dashed var(--line);
-  font: 500 12px/1.9 var(--mono);
+  font: 500 13px/1.9 var(--mono);
   color: var(--muted);
 }
 .profile .stat b { color: var(--ink); font-weight: 600; }
@@ -135,8 +137,8 @@ body {
 }
 .feed-head h2 {
   margin: 0;
-  font: 600 13px/1 var(--mono);
-  letter-spacing: .14em;
+  font: 600 14px/1 var(--mono);
+  letter-spacing: .1em;
   text-transform: uppercase;
 }
 .feed-head h2::before {
@@ -149,7 +151,7 @@ body {
 .feed-head .more {
   color: var(--accent);
   text-decoration: none;
-  font: 500 13px/1 var(--mono);
+  font: 500 14px/1 var(--mono);
   white-space: nowrap;
 }
 .feed-head .more:hover { text-decoration: underline; }
@@ -222,10 +224,11 @@ body {
   object-fit: cover;
   background: #eceae3;
   border-bottom: 1px solid var(--line);
-  transition: transform .5s cubic-bezier(.2, .7, .2, 1), filter .2s ease;
+  opacity: .82;
+  transition: transform .5s cubic-bezier(.2, .7, .2, 1), opacity .2s ease;
   transform-origin: center;
 }
-.note-card:hover .cover { transform: scale(1.035); }
+.note-card:hover .cover { transform: scale(1.035); opacity: .96; }
 
 .note-card .body { padding: 16px 17px 18px; }
 .note-card.is-text .body { padding-top: 19px; padding-bottom: 20px; }
@@ -242,19 +245,19 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  font: 500 11.5px/1 var(--mono);
+  font: 500 12.5px/1.2 var(--mono);
   color: var(--muted);
-  letter-spacing: .02em;
+  letter-spacing: .01em;
 }
 .note-card .meta time { color: var(--muted); }
-.note-card .tag { padding: 3px 7px; border-radius: 999px; background: var(--accent-soft); color: #26594b; font-size: 11px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.note-card .tag { padding: 3px 7px; border-radius: 999px; background: var(--accent-soft); color: #26594b; font-size: 12px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .note-card h3 { margin: 10px 0 0; font-size: 16.5px; line-height: 1.45; letter-spacing: -.005em; }
 .note-card .excerpt {
   margin: 8px 0 0;
   color: var(--muted);
-  font-size: 13.5px;
-  line-height: 1.66;
+  font-size: 14.5px;
+  line-height: 1.7;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -274,7 +277,7 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.note-card .read { margin: 12px 0 0; font: 500 11.5px/1 var(--mono); color: var(--accent); letter-spacing: .03em; }
+.note-card .read { margin: 12px 0 0; font: 500 12.5px/1 var(--mono); color: var(--accent); letter-spacing: .02em; }
 
 .empty-note {
   padding: 40px 24px;
@@ -287,7 +290,7 @@ body {
 
 /* ---------- notes page ---------- */
 .page-head { margin-bottom: 30px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-.page-head .back { font: 500 12px/1 var(--mono); color: var(--muted); text-decoration: none; }
+.page-head .back { font: 500 13px/1 var(--mono); color: var(--muted); text-decoration: none; }
 .page-head .back:hover { color: var(--accent); }
 .page-head h1 { margin: 14px 0 6px; font-size: 30px; letter-spacing: -.01em; }
 .page-head p { margin: 0; color: var(--muted); font-size: 14px; }
@@ -299,7 +302,7 @@ body {
   padding-top: 20px;
   border-top: 1px dashed var(--line);
   color: var(--muted);
-  font: 500 11.5px/1.8 var(--mono);
+  font: 500 12.5px/1.8 var(--mono);
 }
 .footer a { color: var(--muted); }
 .footer a:hover { color: var(--accent); }
