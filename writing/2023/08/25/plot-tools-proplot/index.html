@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>绘图工具与实例：proplot | Random-Walker in the Knowledge Category</title><meta name="author" content="Ruijie He"><meta name="copyright" content="Ruijie He"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Datawhale 科研绘图学习笔记：proplot。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绘图工具与实例：proplot">
+<meta property="og:url" content="https://hrjtju.github.io/writing/2023/08/25/plot-tools-proplot/index.html">
+<meta property="og:site_name" content="Random-Walker in the Knowledge Category">
+<meta property="og:description" content="Datawhale 科研绘图学习笔记：proplot。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hrjtju.github.io/img/header/sciplot.png">
+<meta property="article:published_time" content="2023-08-25T02:02:00.000Z">
+<meta property="article:modified_time" content="2026-11-19T13:29:21.899Z">
+<meta property="article:author" content="Ruijie He">
+<meta property="article:tag" content="Plotting">
+<meta property="article:tag" content="proplot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hrjtju.github.io/img/header/sciplot.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hrjtju.github.io/writing/2023/08/25/plot-tools-proplot/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '绘图工具与实例：proplot',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-11-19 21:29:21'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/assets/reading.css"><link rel="stylesheet" href="/assets/katex.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/arisu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/notes/"><span> Notes</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/header/sciplot.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Random-Walker in the Knowledge Category"><span class="site-name">Random-Walker in the Knowledge Category</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/notes/"><span> Notes</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">绘图工具与实例：proplot</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-08-25T02:02:00.000Z" title="Created 2023-08-25 10:02:00">2023-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-11-19T13:29:21.899Z" title="Updated 2026-11-19 21:29:21">2026-11-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/posts/">posts</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="绘图工具与实例：proplot"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="3-Proplot">3 <code>Proplot</code></h3>
+<h4 id="3-1-多子图绘制处理">3.1 多子图绘制处理</h4>
+<h5 id="3-1-1-共享轴标签">3.1.1 共享轴标签</h5>
+<p><code>proplot</code>中的<code>figure()</code>函数中的<code>sharex</code>，<code>sharey</code>和<code>share</code>参数可以控制不同的标签样式</p>
+<table>
+<thead>
+<tr>
+<th>可选值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code> 或 <code>False</code></td>
+<td>没有轴标签共享</td>
+</tr>
+<tr>
+<td><code>labels</code> 或 <code>labs</code></td>
+<td>仅在子图最下一行或最左一列绘制轴标签</td>
+</tr>
+<tr>
+<td><code>limits</code> 或 <code>lims</code></td>
+<td>强制轴范围、比例和刻度位置相同，刻度标签依然在每个子图上都绘制</td>
+</tr>
+<tr>
+<td><code>3</code> 或 <code>True</code></td>
+<td>共享轴、刻度标签仅出现在最下一行和/或最左一列</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> proplot <span class="keyword">as</span> pplimport matplotlib.pyplot <span class="keyword">as</span> pltimport numpy <span class="keyword">as</span> npfrom tqdm <span class="keyword">import</span> tqdmcmaps = [<span class="string">&#x27;Blues&#x27;</span>, <span class="string">&#x27;BuPu&#x27;</span>, <span class="string">&#x27;binary&#x27;</span>,         <span class="string">&#x27;OrRd&#x27;</span>,  <span class="string">&#x27;RdYlGn&#x27;</span>, <span class="string">&#x27;seismic&#x27;</span>,         <span class="string">&#x27;summer&#x27;</span>, <span class="string">&#x27;turbo&#x27;</span>, <span class="string">&#x27;twilight&#x27;</span>]plt.figure(figsize=(<span class="number">20</span>, <span class="number">16</span>), dpi=<span class="number">300</span>)ppl.figure(share=<span class="number">3</span>)<span class="keyword">for</span> idx, cmap <span class="keyword">in</span> tqdm(<span class="built_in">enumerate</span>(cmaps)):    xs = np.random.randn(<span class="number">100</span>) * np.random.randint(<span class="number">2</span>, <span class="number">100</span>)    ys = np.random.randn(<span class="number">100</span>) * np.random.randint(<span class="number">2</span>, <span class="number">100</span>)    size_marker = np.random.rand(<span class="number">100</span>) &gt; <span class="number">0.5</span>    s = <span class="number">40</span> - <span class="number">20</span> * size_marker        deg = <span class="number">1</span> / (xs ** <span class="number">2</span> + ys ** <span class="number">2</span> + <span class="number">1</span>)    ax = plt.subplot(<span class="number">3</span>, <span class="number">3</span>, idx+<span class="number">1</span>)        ax = plt.scatter(xs, ys, c=deg, s=s ,cmap=cmap, linewidth=size_marker, edgecolor=<span class="string">&quot;None&quot;</span>, zorder=-<span class="number">10</span>);    <span class="comment"># plt.colorbar(ax)    ax = plt.scatter(xs[size_marker], ys[size_marker],                      c=&quot;None&quot;, s=20, linewidth=1, edgecolor=&quot;gray&quot;, zorder=-15, label=&quot;Type A&quot;);    ax = plt.scatter(xs[~size_marker], ys[~size_marker],                      c=&quot;None&quot;, s=40, linewidth=1, edgecolor=&quot;gray&quot;, zorder=-15, label=&quot;Type B&quot;);        plt.legend(loc=&quot;upper right&quot;)    plt.grid(alpha=0.6, zorder=-20)    plt.title(cmap)plt.tight_layout()</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829194948627.png" alt="image-20230829194948627"></p>
+<h5 id="3-1-2-”跨度“轴标签">3.1.2 ”跨度“轴标签</h5>
+<p>绘制多子图是常常需要在多个子图的两轴重复绘制相同的标签，但要在 <code>matplotlib</code> 中强制绘制居中的共有标签比较困难。<code>proplot</code>中<code>figure()</code>函数提供<code>spanx</code>，<code>spany</code>，<code>span</code>用于控制是否在<code>x</code>轴、<code>y</code>轴或两轴使用”跨度“轴标签。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> proplot <span class="keyword">as</span> pplimport matplotlib.pyplot <span class="keyword">as</span> pltimport numpy <span class="keyword">as</span> npfrom tqdm <span class="keyword">import</span> tqdmcmaps = [<span class="string">&#x27;Blues&#x27;</span>, <span class="string">&#x27;BuPu&#x27;</span>, <span class="string">&#x27;binary&#x27;</span>,         <span class="string">&#x27;OrRd&#x27;</span>,  <span class="string">&#x27;RdYlGn&#x27;</span>, <span class="string">&#x27;seismic&#x27;</span>,         <span class="string">&#x27;summer&#x27;</span>, <span class="string">&#x27;turbo&#x27;</span>, <span class="string">&#x27;twilight&#x27;</span>]plt.figure(figsize=(<span class="number">20</span>, <span class="number">16</span>), dpi=<span class="number">300</span>)ppl.figure(share=<span class="number">3</span>, span=<span class="literal">True</span>)<span class="keyword">for</span> idx, cmap <span class="keyword">in</span> tqdm(<span class="built_in">enumerate</span>(cmaps)):    xs = np.random.randn(<span class="number">100</span>) * np.random.randint(<span class="number">2</span>, <span class="number">100</span>)    ys = np.random.randn(<span class="number">100</span>) * np.random.randint(<span class="number">2</span>, <span class="number">100</span>)    size_marker = np.random.rand(<span class="number">100</span>) &gt; <span class="number">0.5</span>    s = <span class="number">40</span> - <span class="number">20</span> * size_marker        deg = <span class="number">1</span> / (xs ** <span class="number">2</span> + ys ** <span class="number">2</span> + <span class="number">1</span>)    ax = plt.subplot(<span class="number">3</span>, <span class="number">3</span>, idx+<span class="number">1</span>)        ax = plt.scatter(xs, ys, c=deg, s=s ,cmap=cmap, linewidth=size_marker, edgecolor=<span class="string">&quot;None&quot;</span>, zorder=-<span class="number">10</span>);    <span class="comment"># plt.colorbar(ax)    ax = plt.scatter(xs[size_marker], ys[size_marker],                      c=&quot;None&quot;, s=20, linewidth=1, edgecolor=&quot;gray&quot;, zorder=-15, label=&quot;Type A&quot;);    ax = plt.scatter(xs[~size_marker], ys[~size_marker],                      c=&quot;None&quot;, s=40, linewidth=1, edgecolor=&quot;gray&quot;, zorder=-15, label=&quot;Type B&quot;);        plt.legend(loc=&quot;upper right&quot;)    plt.xlabel(r&quot;Random Variable $X$&quot;)    plt.ylabel(r&quot;Random Variable $Y$&quot;)    plt.grid(alpha=0.6, zorder=-20)    plt.title(cmap)plt.tight_layout()</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829195431817.png" alt="image-20230829195431817"></p>
+<h5 id="3-1-3-多子图序号的绘制">3.1.3 多子图序号的绘制</h5>
+<p><code>proplot</code>提供灵活的格式化刚噶，可以控制多子图的序号位置。</p>
+<table>
+<thead>
+<tr>
+<th>控制字符串</th>
+<th>简写</th>
+<th>子图序号在子图中的位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;center&quot;</code></td>
+<td><code>'c'</code></td>
+<td>上轴上方中间</td>
+</tr>
+<tr>
+<td><code>&quot;left&quot;</code></td>
+<td><code>'l'</code></td>
+<td>上轴上方左侧</td>
+</tr>
+<tr>
+<td><code>&quot;right&quot;</code></td>
+<td><code>'r'</code></td>
+<td>上轴上方右侧</td>
+</tr>
+<tr>
+<td><code>&quot;lower center&quot;</code></td>
+<td><code>&quot;lc&quot;</code></td>
+<td>下轴上方中间</td>
+</tr>
+<tr>
+<td><code>&quot;upper center&quot;</code></td>
+<td><code>&quot;uc&quot;</code></td>
+<td>上轴下方中间</td>
+</tr>
+<tr>
+<td><code>&quot;upper right&quot;</code></td>
+<td><code>&quot;ur&quot;</code></td>
+<td>上轴下方右侧</td>
+</tr>
+<tr>
+<td><code>&quot;upper left&quot;</code></td>
+<td><code>&quot;ul&quot;</code></td>
+<td>上轴下方左侧</td>
+</tr>
+<tr>
+<td><code>&quot;lower left&quot;</code></td>
+<td><code>&quot;ll&quot;</code></td>
+<td>下轴上方左侧</td>
+</tr>
+<tr>
+<td><code>&quot;lower right&quot;</code></td>
+<td><code>&quot;lr&quot;</code></td>
+<td>下轴上方左侧</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> proplot <span class="keyword">as</span> pplimport matplotlib.pyplot <span class="keyword">as</span> pltimport numpy <span class="keyword">as</span> npfig = ppl.figure(abc=<span class="literal">True</span>)axs = fig.subplots(ncols=<span class="number">3</span>, nrows=<span class="number">3</span>)<span class="built_in">print</span>(axs)axs.<span class="built_in">format</span>(    abc=<span class="string">&#x27;A.&#x27;</span>, abcloc=<span class="string">&#x27;ul&#x27;</span>,    xlabel=<span class="string">&#x27;x axis&#x27;</span>, ylabel=<span class="string">&#x27;y axis&#x27;</span>,    suptitle=<span class="string">&#x27;A-b-c label offsetting, borders, and boxes&#x27;</span>,)ls = [<span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&quot;lc&quot;</span>, <span class="string">&quot;uc&quot;</span>, <span class="string">&quot;ur&quot;</span>, <span class="string">&quot;ul&quot;</span>, <span class="string">&quot;ll&quot;</span>, <span class="string">&quot;lr&quot;</span>]<span class="keyword">for</span> i, ls <span class="keyword">in</span> <span class="built_in">enumerate</span>(ls):    axs[i].<span class="built_in">format</span>(abcloc=ls, titleloc=ls, title=<span class="string">&quot;&quot;</span>, abcbbox=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829203315346.png" alt="image-20230829203315346"></p>
+<h4 id="3-2-更简单的颜色条和图例">3.2 更简单的颜色条和图例</h4>
+<p><code>proplot</code>拥有简单绘制<code>colorbar</code>和<code>legend</code>的框架<code>proplot.figure.Figure.colorbar</code>和<code>proplot.figure.Figure.legend</code>，可以将框架位置传入下层的<code>axes.Axes.colorbar</code>或者<code>axes.Axes.legend</code>，完成绘制工作。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> proplot <span class="keyword">as</span> ppltimport numpy <span class="keyword">as</span> npfig = pplt.figure(share=<span class="literal">False</span>, refwidth=<span class="number">2.3</span>)<span class="comment"># 不同位置的 Colorbarax = fig.subplot(121)state = np.random.RandomState(51423)m = ax.heatmap(state.rand(10, 10), colorbar=&#x27;t&#x27;, cmap=&#x27;dusk&#x27;)ax.colorbar(m, loc=&#x27;r&#x27;)# 添加右侧，默认出现在上面ax.colorbar(m, loc=&#x27;ll&#x27;, label=&#x27;colorbar label&#x27;)# 添加左下角ax.format(title=&#x27;Axes colorbars&#x27;, suptitle=&#x27;Axes colorbars and legends demo&#x27;)# 不同位置的 Legendax = fig.subplot(122)ax.format(title=&#x27;Axes legends&#x27;, titlepad=&#x27;0em&#x27;)hs = ax.plot(    (state.rand(10, 5) - 0.5).cumsum(axis=0), linewidth=3,    cycle=&#x27;ggplot&#x27;, legend=&#x27;t&#x27;,    labels=list(&#x27;abcde&#x27;), legend_kw=&#123;&#x27;ncols&#x27;: 5, &#x27;frame&#x27;: False&#125;)ax.legend(hs, loc=&#x27;r&#x27;, ncols=1, frame=False)ax.legend(hs, loc=&#x27;ll&#x27;, label=&#x27;legend label&#x27;)fig.format(abc=True, xlabel=&#x27;xlabel&#x27;, ylabel=&#x27;ylabel&#x27;)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829203859803.png" alt="image-20230829203859803"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> proplot <span class="keyword">as</span> ppltimport numpy <span class="keyword">as</span> npN = 10state = np.random.RandomState(<span class="number">51423</span>)fig, axs = pplt.subplots(    nrows=<span class="number">2</span>, share=<span class="literal">False</span>,    refwidth=<span class="string">&#x27;55mm&#x27;</span>, panelpad=<span class="string">&#x27;1em&#x27;</span>,    suptitle=<span class="string">&#x27;Stacked colorbars demo&#x27;</span>)<span class="comment"># 堆叠的 Colorbarargs1 = (0, 0.5, 1, 1, &#x27;grays&#x27;, 0.5)# 对应网格的上半部分args2 = (0, 0, 0.5, 0.5, &#x27;reds&#x27;, 1)# 对应网格的左下角args3 = (0.5, 0, 1, 0.5, &#x27;blues&#x27;, 2)# 对应网格的右下角for j, ax in enumerate(axs):    ax.format(xlabel=&#x27;data&#x27;, xlocator=np.linspace(0, 0.8, 5), title=f&#x27;Subplot #&#123;j+1&#125;&#x27;)    for i, (x0, y0, x1, y1, cmap, scale) in enumerate((args1, args2, args3)):        if j == 1 and i == 0:            continue        data = state.rand(N, N) * scale        x, y = np.linspace(x0, x1, N + 1), np.linspace(y0, y1, N + 1)        m = ax.pcolormesh(x, y, data, cmap=cmap, levels=np.linspace(0, scale, 11))        ax.colorbar(m, loc=&#x27;l&#x27;, label=f&#x27;dataset #&#123;i+1&#125;&#x27;)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829204139962.png" alt="image-20230829204139962"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> proplot <span class="keyword">as</span> ppltimport numpy <span class="keyword">as</span> npstate = np.random.RandomState(<span class="number">51423</span>)fig, axs = pplt.subplots(ncols=<span class="number">3</span>, nrows=<span class="number">3</span>, refwidth=<span class="number">1.4</span>)<span class="keyword">for</span> ax <span class="keyword">in</span> axs:    m = ax.pcolormesh(state.rand(<span class="number">20</span>, <span class="number">20</span>),                       cmap=<span class="string">&#x27;grays&#x27;</span>,                      levels=np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">11</span>), <span class="comment"># 设置 colorbar 的层级                      extend=&#x27;both&#x27;# 设置 colorbar 为上下均为三角形                      # extend 参数还可以设置为 &quot;min&quot;, &quot;max&quot; 和 &quot;neither&quot;（默认）    )fig.format(suptitle=&#x27;Figure colorbars and legends demo&#x27;,           abc=&#x27;a.&#x27;,            abcloc=&#x27;l&#x27;,            xlabel=&#x27;xlabel&#x27;,            ylabel=&#x27;ylabel&#x27;)# 定位在第一列，最下方fig.colorbar(m,              label=&#x27;column 1&#x27;,              ticks=0.5,              loc=&#x27;b&#x27;,              col=1             )# 横跨第二列和第三列，最下方fig.colorbar(m,              label=&#x27;columns 2 and 3&#x27;,              ticks=0.2,              loc=&#x27;b&#x27;,              cols=(2, 3))# 堆叠在上面两个 colorbar 的下方，并设置子刻度fig.colorbar(m,              label=&#x27;stacked colorbar&#x27;,              ticks=0.1,              loc=&#x27;b&#x27;,              minorticks=0.05             )# 定位在右侧fig.colorbar(m,              label=&#x27;colorbar with length &lt;1&#x27;,              ticks=0.1,              loc=&#x27;r&#x27;,              length=0.7             )</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829205026274.png" alt="image-20230829205026274"></p>
+<h4 id="3-3-更加美观的颜色和字体">3.3 更加美观的颜色和字体</h4>
+<h5 id="3-3-1-颜色映射">3.3.1 颜色映射</h5>
+<h6 id="3-3-1-1-内置颜色映射">3.3.1.1 内置颜色映射</h6>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig, axs = pplt.show_cmaps(rasterize=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829205751390.png" alt="image-20230829205751390"></p>
+<h6 id="3-3-1-2-感知均匀色彩空间">3.3.1.2 <a href="https://proplot.readthedocs.io/en/stable/colormaps.html">感知均匀色彩空间</a></h6>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Colorspace demoimport proplot as ppltfig, axs = pplt.show_colorspaces(refwidth=1.6, luminance=50)fig, axs = pplt.show_colorspaces(refwidth=1.6, saturation=60)fig, axs = pplt.show_colorspaces(refwidth=1.6, hue=0)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829210058159.png" alt="image-20230829210058159"></p>
+<p><img src="/img/image-20230829210106006.png" alt="image-20230829210106006"></p>
+<p><img src="/img/image-20230829210119858.png" alt="image-20230829210119858"></p>
+<h6 id="3-3-1-3-colormap的融合">3.3.1.3 <code>colormap</code>的融合</h6>
+<p>考虑如下的海蓝宝（Aquamarine）和摩根石（Morganite）颜色的混合（<a href="https://b23.tv/GyFsxmK">来源</a>）：</p>
+<p><img src="/img/image-20230829212039327.png" alt="image-20230829212039327"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> snscmap1 = sns.color_palette(<span class="string">&quot;blend:#58A0A4,#9AD4D6&quot;</span>, as_cmap=<span class="literal">True</span>)cmap2 = sns.color_palette(<span class="string">&quot;blend:#9AD4D6,#DDC3C7&quot;</span>, as_cmap=<span class="literal">True</span>)cmap3 = sns.color_palette(<span class="string">&quot;blend:#DDC3C7,#D1A9A9&quot;</span>, as_cmap=<span class="literal">True</span>)cmap4 = pplt.Colormap(    cmap1, cmap2, cmap3,    name=<span class="string">&#x27;AquamarineMorganite&#x27;</span>,     ratios = (<span class="number">4</span>, <span class="number">2</span>, <span class="number">4</span>),    save=<span class="literal">True</span>)fig, ax = pplt.show_cmaps(cmap1, cmap2, cmap3, <span class="string">&quot;AquamarineMorganite&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829213129530.png" alt="image-20230829213129530"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">state = np.random.RandomState(<span class="number">114514</span>)data = state.rand(<span class="number">30</span>, <span class="number">30</span>).cumsum(axis=<span class="number">1</span>)fig, ax = pplt.subplots(nrows=<span class="number">1</span>,                         ncols=<span class="number">1</span>,                         dpi=<span class="number">300</span>,                         figsize=(<span class="number">8</span>, <span class="number">8</span>)                        )m = ax.contourf(data, cmap=<span class="string">&quot;AquamarineMorganite&quot;</span>, levels=<span class="number">100</span>)ax.grid(<span class="literal">False</span>)ax.colorbar(m, loc=<span class="string">&#x27;top&#x27;</span>, ticks=<span class="number">2.5</span>)ax.colorbar(m, ticks=<span class="number">2.5</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829213144426.png" alt="image-20230829213144426"></p>
+<h5 id="3-3-2-字体">3.3.2 字体</h5>
+<p><strong>内置字体列表</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pplt.show_fonts()</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829213756922.png" alt="image-20230829213756922"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> permutationsfrom matplotlib <span class="keyword">import</span> axesfrom torch <span class="keyword">import</span> permutedef font_text(ax, x, y, text, family, **kwargs):    ax.textfonts = [<span class="string">&quot;Serif&quot;</span>,          <span class="string">&quot;Sans&quot;</span>,          <span class="string">&quot;Monospace&quot;</span>,          <span class="string">&quot;Cursive&quot;</span>]fig, axs = pplt.subplots(nrows=<span class="number">2</span>, ncols=<span class="number">2</span>,                          share=<span class="literal">False</span>,                         rc_kw=&#123;<span class="string">&quot;font.family&quot;</span>:fonts&#125;,                         dpi=<span class="number">300</span>,                         figsize=(<span class="number">8</span>, <span class="number">8</span>))<span class="keyword">for</span> idx, font <span class="keyword">in</span> <span class="built_in">enumerate</span>(fonts):    arr = np.random.randn(<span class="number">8</span>, <span class="number">8</span>)        m = axs[idx].imshow(arr, cmap=<span class="string">&quot;AquamarineMorganite&quot;</span>)    axs[idx].grid(<span class="literal">False</span>)    axs[idx].<span class="built_in">format</span>(title=<span class="string">f&quot;<span class="subst">&#123;font&#125;</span>&quot;</span>,                     title_kw=&#123;<span class="string">&quot;family&quot;</span>:font&#125;)    axs[idx].set_xticklabels(axs[idx].get_xticks(),                             font=<span class="built_in">dict</span>(family=font))    axs[idx].set_yticklabels(axs[idx].get_yticks(),                             font=<span class="built_in">dict</span>(family=font))        <span class="keyword">for</span> i, j <span class="keyword">in</span> <span class="built_in">list</span>(permutations(<span class="built_in">range</span>(<span class="number">8</span>), <span class="number">2</span>)) + [(i, i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>)]:        axs[idx].text(i, j, <span class="string">f&quot;<span class="subst">&#123;arr[i, j]:<span class="number">.1</span>f&#125;</span>&quot;</span>,                       horizontalalignment=<span class="string">&quot;center&quot;</span>,                      verticalalignment=<span class="string">&quot;center&quot;</span>,                      family=font)fig.colorbar(m)</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230829223621612.png" alt="image-20230829223621612"></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Plotting/">Plotting</a><a class="post-meta__tags" href="/tags/proplot/">proplot</a></div><div class="post_share"><div class="social-share" data-image="/img/header/sciplot.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/writing/2023/08/25/plot-tools-scienceplots/" title="绘图工具与实例：scienceplots"><img class="cover" src="/img/header/sciplot.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">绘图工具与实例：scienceplots</div></div></a></div><div class="next-post pull-right"><a href="/writing/2023/08/25/plot-tools-seaborn/" title="绘图工具与实例：seaborn"><img class="cover" src="/img/header/sciplot.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">绘图工具与实例：seaborn</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/writing/2023/08/25/plot-tools-scienceplots/" title="绘图工具与实例：scienceplots"><img class="cover" src="/img/header/sciplot.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-25</div><div class="title">绘图工具与实例：scienceplots</div></div></a></div><div><a href="/writing/2023/08/25/plot-tools-matplotlib/" title="绘图工具与实例：matplotlib"><img class="cover" src="/img/header/sciplot.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-25</div><div class="title">绘图工具与实例：matplotlib</div></div></a></div><div><a href="/writing/2023/08/25/plot-tools-seaborn/" title="绘图工具与实例：seaborn"><img class="cover" src="/img/header/sciplot.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-25</div><div class="title">绘图工具与实例：seaborn</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/arisu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ruijie He</div><div class="author-info__description">Undergraduate in Tongji University</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/hrjtju" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Proplot"><span class="toc-number">1.</span> <span class="toc-text">3 Proplot</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E5%A4%9A%E5%AD%90%E5%9B%BE%E7%BB%98%E5%88%B6%E5%A4%84%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">3.1 多子图绘制处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-1-%E5%85%B1%E4%BA%AB%E8%BD%B4%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.1.</span> <span class="toc-text">3.1.1 共享轴标签</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-%E2%80%9D%E8%B7%A8%E5%BA%A6%E2%80%9C%E8%BD%B4%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.2.</span> <span class="toc-text">3.1.2 ”跨度“轴标签</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-3-%E5%A4%9A%E5%AD%90%E5%9B%BE%E5%BA%8F%E5%8F%B7%E7%9A%84%E7%BB%98%E5%88%B6"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.1.3 多子图序号的绘制</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E6%9B%B4%E7%AE%80%E5%8D%95%E7%9A%84%E9%A2%9C%E8%89%B2%E6%9D%A1%E5%92%8C%E5%9B%BE%E4%BE%8B"><span class="toc-number">1.2.</span> <span class="toc-text">3.2 更简单的颜色条和图例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%9B%B4%E5%8A%A0%E7%BE%8E%E8%A7%82%E7%9A%84%E9%A2%9C%E8%89%B2%E5%92%8C%E5%AD%97%E4%BD%93"><span class="toc-number">1.3.</span> <span class="toc-text">3.3 更加美观的颜色和字体</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-1-%E9%A2%9C%E8%89%B2%E6%98%A0%E5%B0%84"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.3.1 颜色映射</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#3-3-1-1-%E5%86%85%E7%BD%AE%E9%A2%9C%E8%89%B2%E6%98%A0%E5%B0%84"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">3.3.1.1 内置颜色映射</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-3-1-2-%E6%84%9F%E7%9F%A5%E5%9D%87%E5%8C%80%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">3.3.1.2 感知均匀色彩空间</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-3-1-3-colormap%E7%9A%84%E8%9E%8D%E5%90%88"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">3.3.1.3 colormap的融合</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-2-%E5%AD%97%E4%BD%93"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.3.2 字体</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/writing/2026/11/19/sde-6-2-feynman-kac/" title="【随机微分方程】6.2 在偏微分方程和 Feynman–Kac 公式中的应用">【随机微分方程】6.2 在偏微分方程和 Feynman–Kac 公式中的应用</a><time datetime="2026-11-19T13:30:00.000Z" title="Created 2026-11-19 21:30:00">2026-11-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/writing/2026/02/13/sde-6-1/" title="【随机微分方程】6.1 停 时">【随机微分方程】6.1 停 时</a><time datetime="2026-02-13T04:00:00.000Z" title="Created 2026-02-13 12:00:00">2026-02-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/writing/2026/02/13/sde-5-3/" title="【随机微分方程】5.3 解的性质">【随机微分方程】5.3 解的性质</a><time datetime="2026-02-13T04:00:00.000Z" title="Created 2026-02-13 12:00:00">2026-02-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/writing/2026/01/08/sde-5-2/" title="【随机微分方程】5.2 随机微分方程解的存在性和唯一性定理">【随机微分方程】5.2 随机微分方程解的存在性和唯一性定理</a><time datetime="2026-01-08T04:00:00.000Z" title="Created 2026-01-08 12:00:00">2026-01-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/writing/2025/11/15/sde-5-1/" title="【随机微分方程】5.1 SDE 的定义和示例">【随机微分方程】5.1 SDE 的定义和示例</a><time datetime="2025-11-15T04:00:00.000Z" title="Created 2025-11-15 12:00:00">2025-11-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Ruijie He</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
