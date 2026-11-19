@@ -1,6 +1,4 @@
-/* "换一批": re-pick a few posts from every series and rebuild the flowing columns.
- * Rebuild is done with real DOM nodes (not innerHTML strings), the old loop is
- * stopped first, layout is forced, and only then the flow restarts. */
+/* "换一批": keep the owner's featured picks, fill the rest randomly, rebuild columns. */
 (function () {
   'use strict';
   var btn = document.getElementById('refresh-feed');
@@ -8,7 +6,7 @@
   var pool = document.getElementById('feed-pool');
   if (!btn || !flow || !pool) return;
 
-  var PER_SERIES = 3;
+  var TARGET = 24;
   var busy = false;
 
   function shuffle(a) {
@@ -21,18 +19,15 @@
 
   function pick() {
     var cards = [].slice.call(pool.querySelectorAll('a.note-card'));
-    var groups = {};
+    var featured = [];
+    var others = [];
     cards.forEach(function (c) {
-      var s = c.getAttribute('data-series') || '其他';
-      (groups[s] = groups[s] || []).push(c);
+      if (c.getAttribute('data-featured') === '1') featured.push(c);
+      else others.push(c);
     });
-    var chosen = [];
-    Object.keys(groups).forEach(function (s) {
-      chosen = chosen.concat(shuffle(groups[s].slice()).slice(0, PER_SERIES));
-    });
-    chosen.sort(function (a, b) {
-      return String(b.getAttribute('data-date') || '').localeCompare(String(a.getAttribute('data-date') || ''));
-    });
+    var chosen = featured.slice();
+    shuffle(others);
+    for (var i = 0; i < others.length && chosen.length < TARGET; i++) chosen.push(others[i]);
     return chosen;
   }
 
@@ -61,7 +56,7 @@
     if (busy) return;
     busy = true;
     try {
-      if (window.__flow && window.__flow.reinit) window.__flow.reinit(); // stop the old loop
+      if (window.__flow && window.__flow.reinit) window.__flow.reinit();
       var chosen = pick();
       if (!chosen.length) return;
       var cols = [[], [], []];
@@ -74,7 +69,7 @@
       });
       flow.textContent = '';
       cols.forEach(function (nodes) { flow.appendChild(buildColumn(nodes)); });
-      void flow.offsetHeight; // force layout before the loop reads track heights
+      void flow.offsetHeight;
       if (window.__flow && window.__flow.reinit) window.__flow.reinit();
     } finally {
       busy = false;

@@ -131,6 +131,37 @@ body {
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
+.heat-block { margin-top: 18px; }
+.heat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 7px;
+  font: 500 12px/1 var(--mono);
+  color: var(--muted);
+  letter-spacing: .02em;
+}
+.heat-note { opacity: .75; }
+.heat {
+  display: grid;
+  grid-template-rows: repeat(7, 6px);
+  grid-auto-flow: column;
+  grid-auto-columns: 6px;
+  gap: 2px;
+  width: max-content;
+}
+.heat .h {
+  width: 6px;
+  height: 6px;
+  border-radius: 1.5px;
+  background: #ebe8e0;
+}
+.heat .h.l1 { background: #d3e8dc; }
+.heat .h.l2 { background: #9bd2bf; }
+.heat .h.l3 { background: #55b295; }
+.heat .h.l4 { background: #1f7f68; }
+.heat .is-pad { visibility: hidden; }
+.heat-empty { font: 500 12px/1.6 var(--mono); color: var(--muted); }
 
 /* ---------- feed ---------- */
 .feed-head {
