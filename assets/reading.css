@@ -1,0 +1,42 @@
+/* Reading layout for Hexo-generated article pages (new posts).
+ * The old snapshot pages keep their own theme CSS untouched; this file only
+ * smooths the long-form reading experience for /writing/** pages. */
+#article-container {
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: #24292f;
+}
+#article-container h1 { font-size: 1.72em; margin: 1.1em 0 .6em; }
+#article-container h2 {
+  font-size: 1.34em;
+  margin: 1.8em 0 .7em;
+  padding-bottom: .28em;
+  border-bottom: 1px solid #eee7d8;
+}
+#article-container h3 { font-size: 1.12em; margin: 1.4em 0 .5em; }
+#article-container p { margin: .85em 0; }
+#article-container img,
+#article-container svg { max-width: 100%; height: auto; }
+#article-container figure.highlight {
+  border-radius: 10px;
+  margin: 1.2em 0;
+  overflow: auto;
+}
+#article-container figure.highlight pre {
+  margin: 0;
+  padding: 14px 16px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+#article-container mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 6px 0;
+}
+#article-container table { width: 100%; border-collapse: collapse; margin: 1.1em 0; }
+#article-container th, #article-container td { border: 1px solid #e6e0d2; padding: 8px 10px; }
+#post-info .post-title { letter-spacing: -.01em; }
+@media (max-width: 768px) {
+  #article-container { font-size: 16px; line-height: 1.8; }
+  #article-container figure.highlight pre { font-size: 12.5px; }
+}
